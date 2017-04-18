@@ -1,0 +1,98 @@
+// Vars //
+@import 'vars'
+// Base //
+@import 'base'
+
+.wrapper
+  overflow: hidden
+  min-height: 100%
+  max-width: 1480px
+  margin: 0 auto
+  padding-top: 4%
+
+header
+  margin: 0 auto
+  width: 30%
+  text-align: center
+
+  h1, p
+    padding: 1%
+    color: $dark-blue
+
+  h1
+    font-size: 4.375rem
+
+  h1::after
+    content: ''
+    display: block
+    margin: 1% auto
+    margin-top: 2%
+    background-color: $dark-blue
+    width: 44.44%
+    padding: 0.8%
+
+  p
+    font-size: 2.5rem
+    font-family: $secondary-font
+
+  .logo
+    width: 150px
+    margin: 0 auto
+
+main
+  margin-top: 6%
+  font-size: 1.5rem
+
+footer
+  margin: 3% 0
+  margin-bottom: 1.5%
+
+  p
+    font-size: 2rem
+    color: $blue
+
+  .contact
+    margin: 2% 0
+    display: flex
+
+    img
+      width: 60px
+
+  .social, .other
+    width: 50%
+    display: flex
+
+  .social a
+    margin-right: 2%
+    transition: all .3s linear
+
+  .other
+    justify-content: flex-end
+
+    a
+      color: $blue
+      font-size: 1.5rem
+      display: flex
+      align-items: center
+      justify-content: space-between
+      width: 45%
+      font-weight: bold
+      font-family: $secondary-font
+
+      &:hover
+        color: $dark-blue
+
+  .legal
+    display: flex
+    justify-content: center
+
+    p, p small, p small a
+      font-size: 1rem
+      color: $blue
+
+      &:hover
+        color: $dark-blue
+
+
+// Media Queries //
+@import 'media-queries'

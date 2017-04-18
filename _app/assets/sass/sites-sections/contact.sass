@@ -1,0 +1,63 @@
+// Vars //
+@import '../vars'
+// Standard Styles //
+@import '../style'
+// Back-Button //
+@import '../modules/back-button'
+
+main
+  margin-top: 3%
+
+form
+  margin-top: 2%
+  display: flex
+  flex-direction: column
+  padding: 1% 2%
+  width: 100%
+
+  .field_wrap
+    margin-bottom: 2%
+    display: flex
+    width: 100%
+
+  .field_wrap.two-col
+    justify-content: space-between
+
+    input, textarea
+      width: 49%
+
+  input, textarea
+    display: block
+    width: 100%
+    background-color: white
+    outline: none
+    border: 1px solid transparent
+    box-shadow: 5px 5px 7.5px rgba(0,0,0,0.3)
+    padding: 1.25%
+    transition: all .3s ease-in
+
+    &:focus
+      box-shadow: 10px 10px 15px rgba(0,0,0,0.1)
+      transform: scale(1.0005)
+
+  input[type="submit"]
+    cursor: pointer
+    background-color: $blue
+    padding: 1.8%
+    margin: 2% auto
+    width: 22%
+    text-align: center
+    color: white
+    border-radius: 15px
+    box-shadow: 0 15px 10px -10px rgba(0,0,0,0.4)
+    text-transform: uppercase
+    font-size: 1.3rem
+    letter-spacing: 0.105em
+
+    &:hover
+      box-shadow: 0 35px 20px -20px rgba(0,0,0,0.2)
+      transform: scale(1.1) translateY(-10px)
+
+
+// Media Queries //
+@import 'media-queries_contact'

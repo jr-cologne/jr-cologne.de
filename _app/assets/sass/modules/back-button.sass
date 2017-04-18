@@ -1,0 +1,17 @@
+.back-button
+  color: $blue
+  transition-duration: .1s
+
+  &:hover
+    color: $dark-blue
+
+.back-button, .back-button::before
+  display: inline-block
+
+.back-button::before
+  content: ''
+  background-image: url('../img/min/icons/back-button.svg')
+  width: 30px
+  height: 30px
+  background-size: cover
+  vertical-align: middle
