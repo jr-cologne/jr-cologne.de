@@ -58,7 +58,7 @@ gulp.task('browserSync', function () {
       baseDir: '_site',
       port: 3000
     },
-    browser: "chrome",
+    browser: 'chrome',
     open: false
   })
 });
@@ -92,6 +92,11 @@ gulp.task('images', function () {
     .pipe(gulp.dest('_site/assets/img/min/'))
 })
 
+gulp.task('php', function () {
+  return gulp.src('_app/assets/php/*.php')
+    .pipe(gulp.dest('_site/assets/php'))
+})
+
 gulp.task('jekyll', function() {
   var shellCommand = 'jekyll build';
   if (config.drafts) { shellCommand += ' --drafts'; };
@@ -102,7 +107,7 @@ gulp.task('jekyll', function() {
 });
 
 gulp.task('build', function(cb) {
-  runSequence('jekyll', 'images', 'sass', 'useref', cb);
+  runSequence('jekyll', 'php', 'images', 'sass', 'useref', cb);
 });
 
 gulp.task('sass-watch', ['sass'], function(cb) {
