@@ -17,6 +17,7 @@ exclude:
   - gulpfile.js
   - node_modules
   - _app
+  - README.md
 keep_files:
   - assets
   - kontakt.php
