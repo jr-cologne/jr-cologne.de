@@ -4,7 +4,7 @@ title: jr-cologne.de
 email: kontakt@jr-cologne.de
 description: Meine persönliche Website
 baseurl: ""
-url: "https://jr-cologne.de/"
+url: "https://jr-cologne.de"
 twitter_username: jrcologne
 github_username: jr-cologne
 codepen_username: jr-cologne
@@ -18,6 +18,11 @@ exclude:
   - node_modules
   - _app
   - README.md
+  - design
 keep_files:
   - assets
   - kontakt.php
+  - sitemap.xml
+
+gems:
+  - jekyll-sitemap
