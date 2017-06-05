@@ -1,3 +1,13 @@
-{% include head.html robots='<meta name="robots" content="noindex, follow">' stylesheet='legal' %}
+<!DOCTYPE html>
+<html land="de">
+  <head>
+    {% include head.html stylesheet='legal' robots='<meta name="robots" content="noindex, follow">' %}
+  </head>
+  <body>
+    {% include google-tag-manager/google-tag-container-noscript.html %}
+
     {{ content }}
-{% include foot.html %}
+
+    {% include foot.html %}
+  </body>
+</html>

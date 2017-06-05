@@ -1,17 +1,59 @@
+footer
+  margin: 3% 0
+  margin-bottom: 1.5%
+
+  p
+    font-size: 2rem
+    color: $blue
+
+  .contact
+    margin: 2% 0
+    display: flex
+
+    img
+      width: 60px
+
+  .social, .other
+    width: 50%
+    display: flex
+
+  .social a
+    margin-right: 2%
+    transition: all .3s linear
+
+  .other
+    justify-content: flex-end
+
+    a
+      color: $blue
+      font-size: 1.5rem
+      display: flex
+      align-items: center
+      justify-content: space-between
+      width: 45%
+      font-weight: bold
+      font-family: $secondary-font
+
+      &:hover
+        color: $dark-blue
+
+  .legal
+    display: flex
+    justify-content: center
+
+    p, p small, p small a
+      font-size: 1rem
+      color: $blue
+
+      &:hover
+        color: $dark-blue
+
+///// Media Queries /////
 @media only screen and (max-width: 1600px)
-  .wrapper
-    width: 80%
-
-  header
-    width: 40%
-
   footer .other a
     width: 55%
 
 @media only screen and (max-width: 1475px)
-  header
-    width: 45%
-
   footer .other a
     width: 60%
 
@@ -20,16 +62,10 @@
     width: 65%
 
 @media only screen and (max-width: 1250px)
-  header
-    width: 50%
-
   footer .other a
     width: 70%
 
 @media only screen and (max-width: 1170px)
-  header
-    width: 55%
-
   footer .other a
     width: 75%
 
@@ -38,33 +74,18 @@
     width: 80%
 
 @media only screen and (max-width: 1024px)
-  .wrapper
-    width: 90%
-
   footer .other a
     width: 85%
 
 @media only screen and (max-width: 915px)
-  header
-    width: 60%
-
   footer .other a
     width: 90%
 
 @media only screen and (max-width: 835px)
-  header
-    width: 70%
-
   footer .other a
     width: 95%
 
 @media only screen and (max-width: 775px)
-  .wrapper
-    width: 95%
-
-  header
-    width: 80%
-
   footer .other a
     width: 98%
 
@@ -84,9 +105,6 @@
     width: 95%
 
 @media only screen and (max-width: 610px)
-  header
-    width: 85%
-
   footer
     .social
       width: 35%
@@ -98,12 +116,6 @@
         width: 90%
 
 @media only screen and (max-width: 595px)
-  header
-    width: 90%
-
-  .logo
-    width: 120px
-
   footer
     .contact img
       width: 40px
@@ -122,12 +134,6 @@
     width: 95%
 
 @media only screen and (max-width: 535px)
-  header
-    width: 100%
-
-  .logo
-    width: 100px
-
   footer
     p
       text-align: center
@@ -142,9 +148,6 @@
       margin: 2.5% 0
 
 @media only screen and (max-width: 500px)
-  html, body
-    font-size: 80%
-
   footer
     .social, .other
       width: 80%
@@ -152,10 +155,6 @@
     .legal
       p, p small, p small a
         font-size: 1.2rem
-
-@media only screen and (max-width: 400px)
-  html, body
-    font-size: 75%
 
 @media only screen and (max-width: 350px)
   footer

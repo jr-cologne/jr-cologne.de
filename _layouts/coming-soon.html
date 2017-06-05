@@ -1,3 +1,13 @@
-{% include head.html stylesheet='style' %}
+<!DOCTYPE html>
+<html land="de">
+  <head>
+    {% include head.html stylesheet='coming-soon' %}
+  </head>
+  <body>
+    {% include google-tag-manager/google-tag-container-noscript.html %}
+
     {{ content }}
-{% include foot.html %}
+
+    {% include foot.html %}
+  </body>
+</html>

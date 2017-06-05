@@ -15,7 +15,7 @@ var rename        = require('gulp-rename');
 var autoprefixer  = require('gulp-autoprefixer');
 
 var sass_path = '_app/assets/sass';
-var css_path = '_site/assets/css';
+var css_path = '_site/_app/assets/css';
 
 var config = {
   drafts:     !!gutil.env.drafts
@@ -24,7 +24,7 @@ var config = {
 var jekyllDir = '';
 
 gulp.task('watch', function() {
-  gulp.watch([sass_path + '/*.sass', sass_path + '/sites-sections/*.sass', sass_path + '/modules/*.sass'], ['sass-watch']);
+  gulp.watch([sass_path + '/*.sass', sass_path + '/**/*.sass'], ['sass-watch']);
 
   gulp.watch(['_config.yml'], ['jekyll-watch']);
 
@@ -42,7 +42,7 @@ gulp.task('watch', function() {
 });
 
 gulp.task('sass', function() {
-  return gulp.src([sass_path + '/style.sass', sass_path + '/sites-sections/legal.sass', sass_path + '/sites-sections/contact.sass'])
+  return gulp.src([sass_path + '/style.sass', sass_path + '/pages/*.sass', sass_path + '/all.sass'])
     .pipe(sass())
     .pipe(autoprefixer({ browsers: ['last 3 versions', '> 0.5%'] }))
     .pipe(cssnano())
@@ -89,12 +89,12 @@ gulp.task('images', function () {
       }]})
     ])))
     .pipe(gulp.dest('_app/assets/img/min/'))
-    .pipe(gulp.dest('_site/assets/img/min/'))
+    .pipe(gulp.dest('_site/_app/assets/img/min/'))
 })
 
 gulp.task('php', function () {
-  return gulp.src('_app/assets/php/*.php')
-    .pipe(gulp.dest('_site/assets/php'))
+  return gulp.src('_app/php/*.php')
+    .pipe(gulp.dest('_site/_app/php'))
 })
 
 gulp.task('jekyll', function() {

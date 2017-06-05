@@ -1,20 +1,18 @@
-<!DOCTYPE html>
-<html land="de">
-  <head>
-    <meta charset="utf-8">
-    <title>{{ page.title }} - {{ site.title }}</title>
+<meta charset="utf-8">
+<title>{{ page.title }} - {{ site.title }}</title>
 
-    {% include google-tag-manager/google-tag-container.html %}
+{% include google-tag-manager/google-tag-container.html %}
 
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
-    {{ include.robots }}
-    <link rel="canonical" href="{{ site.url }}/{{ page.canonical }}">
-    <meta name="description" content="Du bist ebenfalls ein kleiner Webfanatiker und liebst es, Webseiten zu designen sowie zu entwickeln? Dann bist du bei mir genau richtig!">
-    <meta name="keywords" content="webentwicklung,javascript,cms,mysql,php,php7,sql,css,css3,jquery,html5,ide,content management system,programmieren,sass,js,ux design,ui,ux,ui design,php programmierung,webseiten erstellen,web,editor,internet,css tutorial,css3 tutorial,html tutorial,html5 tutorial,javascript tutorial,js tutorial,php tutorial,sql tutorial,tutorials">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <link type="text/css" href="assets/css/{{ include.stylesheet }}.css" rel="stylesheet">
-    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
-    <link rel="icon" href="/favicon.ico" type="image/x-icon">
-  </head>
-  <body {{ include.body }}>
-    {% include google-tag-manager/google-tag-container-noscript.html %}
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+
+{{ include.robots }}
+<link rel="canonical" href="{{ site.url }}/{{ page.canonical }}">
+<meta name="description" content="Du bist ebenfalls ein kleiner Webfanatiker und liebst es, Webseiten zu designen sowie zu entwickeln? Dann bist du bei mir genau richtig!">
+<meta name="keywords" content="webentwicklung,javascript,cms,mysql,php,php7,sql,css,css3,jquery,html5,ide,content management system,programmieren,sass,js,ux design,ui,ux,ui design,php programmierung,webseiten erstellen,web,editor,internet,css tutorial,css3 tutorial,html tutorial,html5 tutorial,javascript tutorial,js tutorial,php tutorial,sql tutorial,tutorials">
+
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+<link rel="icon" href="/favicon.ico" type="image/x-icon">
+
+<link type="text/css" href="_app/assets/css/{{ include.stylesheet }}.css" rel="stylesheet">
