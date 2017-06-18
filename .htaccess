@@ -86,3 +86,31 @@ Header append Vary User-Agent env=!dont-vary
 <IfModule mod_headers.c>
     Header set Connection keep-alive
 </IfModule>
+
+# prevent execution of the site in frames
+<IfModule mod_headers.c>
+    Header set X-Frame-Options "sameorigin"
+</IfModule>
+
+# activate xss protection
+<IfModule mod_headers.c>
+    Header set X-XSS-Protection "1; mode=block"
+</IfModule>
+
+# require valid content type
+<IfModule mod_headers.c>
+    Header set X-Content-Type-Options "nosniff"
+</IfModule>
+
+# require HTTPS
+<IfModule mod_headers.c>
+    Header set Strict-Transport-Security "max-age=31536000; includeSubDomains"
+</IfModule>
+
+# don't send referrer header when navigating from HTTPS to HTTP
+<IfModule mod_headers.c>
+    Header set Referrer-Policy "no-referrer-when-downgrade"
+</IfModule>
+
+# set charset
+AddDefaultCharset UTF-8
