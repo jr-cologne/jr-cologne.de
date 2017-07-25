@@ -62,6 +62,12 @@ An overview of what I have done each day is listed below under **Changelog**.
 - Basic setup of my working environment
 - I have removed the old stuff from the placeholder/coming-soon site and cleaned up everything so that I can start nearly from scratch with focus on the future
 
+**25/07:**
+- Added Markup for Index Page (definitely not completely finished, I will probably make changes to it while I work on the CSS)
+- Styled the Header (not yet fully responsive)
+- Restructured the Markup/Styles a bit
+- Made some changes in gulpfile.js to fix the Live Reload which was not working correctly
+
 ## A few more words for you...
 Are you interested in my upcoming website? You are welcome to contribute to this in any kind!
 Ask questions, give feedback, help me out to improve the code, add new features...
