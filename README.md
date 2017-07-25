@@ -53,17 +53,17 @@ This is the final design of my website. You can [click through the prototype](ht
 ## Development
 The development of my website started on the 24th July 2017. You can check out the current state on the [`dev`](https://github.com/jr-cologne/jr-cologne.de/tree/dev) branch.
 
-I try to work very hard on the website and make updates every day in order to release it till September.
+I try to work very hard on the website and make updates every day in order to release it until September.
 
 An overview of what I have done each day is listed below under **Changelog**.
 
 ## Changelog
 **24/07:**
 - Basic setup of my working environment
-- I have removed the old stuff from the placeholder/coming-soon site and cleaned up everything so that I can start nearly from scratch with focus to the future
+- I have removed the old stuff from the placeholder/coming-soon site and cleaned up everything so that I can start nearly from scratch with focus on the future
 
 ## A few more words for you...
-You are interested in my upcoming website? You are welcome to contribute to this in any kind!
+Are you interested in my upcoming website? You are welcome to contribute to this in any kind!
 Ask questions, give feedback, help me out to improve the code, add new features...
 
 Do anything you like. It would be super cool for me!
