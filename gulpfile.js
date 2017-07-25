@@ -42,7 +42,7 @@ gulp.task('watch', function() {
 });
 
 gulp.task('sass', function() {
-  return gulp.src([sass_path + '/style.sass', sass_path + '/pages/*.sass', sass_path + '/all.sass'])
+  return gulp.src([sass_path + '/pages/*.sass', sass_path + '/all.sass'])
     .pipe(sass())
     .pipe(autoprefixer({ browsers: ['last 3 versions', '> 0.5%'] }))
     .pipe(cssnano())
