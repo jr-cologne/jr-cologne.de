@@ -24,7 +24,7 @@ var config = {
 var jekyllDir = '';
 
 gulp.task('watch', function() {
-  gulp.watch([sass_path + '/*.sass', sass_path + '/**/*.sass'], ['sass-watch']);
+  gulp.watch([sass_path + '/*.sass', sass_path + '/partials/*.sass', sass_path + '/modules/*.sass', sass_path + '/media/*.sass', sass_path + '/helpers/*.sass', sass_path + '/base/*.sass'], ['sass-watch']);
 
   gulp.watch(['_config.yml'], ['jekyll-watch']);
 

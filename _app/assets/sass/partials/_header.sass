@@ -1,0 +1,38 @@
+header
+  background-color: white
+  padding: 0.8% 2%
+  display: flex
+  justify-content: space-between
+  align-items: center
+
+  .logo
+    display: block
+    background-image: url(../img/min/logo.svg)
+    width: 50px
+    height: 50px
+
+  nav
+    width: 32%
+    position: relative
+
+    ul
+      display: flex
+      flex: 1
+      justify-content: space-between
+
+    li
+      list-style: none
+      display: flex
+
+    a
+      display: block
+      text-align: center
+      color: $main-font-color
+      font-size: 1.4rem
+      flex: 1
+
+      &.current, &:hover
+        color: $dark-blue
+
+// Media Queries Header //
+@import '../media/_media_header'
