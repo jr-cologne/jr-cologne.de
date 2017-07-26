@@ -13,7 +13,6 @@ header
 
   nav
     width: 32%
-    position: relative
 
     ul
       display: flex
@@ -33,6 +32,31 @@ header
 
       &.current, &:hover
         color: $dark-blue
+
+  .navbar
+    display: none
+    position: relative
+
+    #hamburger-button
+      display: block
+      height: 40px
+      padding: 0
+      border: none
+
+    .hamburger-icon, .hamburger-icon_top, .hamburger-icon_bottom
+      position: absolute
+      top: 50%
+      transform: translateY(-50%)
+      width: 30px
+      height: 5px
+      background-color: $dark-blue
+      transition: all .25s ease-in-out
+
+    .hamburger-icon_top
+      transform: translateY(calc(-50% - 10px))
+
+    .hamburger-icon_bottom
+      transform: translateY(calc(-50% + 10px))
 
 // Media Queries Header //
 @import '../media/_media_header'

@@ -1,7 +1,6 @@
 var gulp          = require('gulp');
 var sass          = require('gulp-sass');
 var browserSync   = require('browser-sync').create();
-var useref        = require('gulp-useref');
 var uglify        = require('gulp-uglify');
 var gulpIf        = require('gulp-if');
 var cssnano       = require('gulp-cssnano');
@@ -28,7 +27,7 @@ gulp.task('watch', function() {
 
   gulp.watch(['_config.yml'], ['jekyll-watch']);
 
-  gulp.watch('_app/assets/js/*.js', ['useref-watch']);
+  gulp.watch('_app/assets/js/*.js', ['js']);
 
   gulp.watch('_posts/**/*.+(md|markdown|MD)', ['jekyll-watch']);
 
@@ -63,11 +62,10 @@ gulp.task('browserSync', function () {
   })
 });
 
-gulp.task('useref', function() {
-  return gulp.src(['_site/*.html', '_site/*.php'])
-    .pipe(useref())
-    .pipe(gulpIf('*.js', uglify()))
-    .pipe(gulp.dest('_site'))
+gulp.task('js', function () {
+  return gulp.src(['_app/assets/js/*.js'])
+    .pipe(uglify())
+    .pipe(gulp.dest('_site/_app/assets/js'))
 })
 
 gulp.task('images', function () {
@@ -107,7 +105,7 @@ gulp.task('jekyll', function() {
 });
 
 gulp.task('build', function(cb) {
-  runSequence('jekyll', 'php', 'images', 'sass', 'useref', cb);
+  runSequence('jekyll', 'php', 'images', 'sass', 'js', cb);
 });
 
 gulp.task('sass-watch', ['sass'], function(cb) {
@@ -117,12 +115,6 @@ gulp.task('sass-watch', ['sass'], function(cb) {
 });
 
 gulp.task('jekyll-watch', ['jekyll'], function(cb) {
-  browserSync.reload();
-  cb();
-});
-
-gulp.task('useref-watch', function(cb) {
-  runSequence('jekyll', 'useref');
   browserSync.reload();
   cb();
 });
