@@ -68,6 +68,11 @@ An overview of what I have done each day is listed below under **Changelog**.
 - Restructured the Markup/Styles a bit
 - Made some changes in gulpfile.js to fix the Live Reload which was not working correctly
 
+**26/07:**
+- Finished Header
+- Styled the Welcome Section (almost finished, If any, I will probably only make small changes to it)
+- Fixed some things about Gulp and removed minification by it because it destroyed my images for any reason
+
 ## A few more words for you...
 Are you interested in my upcoming website? You are welcome to contribute to this in any kind!
 Ask questions, give feedback, help me out to improve the code, add new features...
