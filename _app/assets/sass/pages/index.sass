@@ -1,2 +1,42 @@
-// Include General Styles
+// General Styles //
 @import '../_style'
+
+// Page Styles //
+.welcome-section
+  background:
+    image: url('../img/welcome-section-bg.jpg')
+    size: cover
+    position: 12% center
+    repeat: no-repeat
+  height: calc(100vh - 80px)
+
+  .welcome-section-overlay
+    display: block
+    height: inherit
+    background-color: rgba(0,0,0,0.5)
+    text-align: center
+    position: relative
+
+  .welcome-heading-container
+    position: relative
+    top: 40%
+    transform: translateY(-50%)
+
+  .welcome-text, h1
+    display: block
+    font-family: $secondary-font, serif
+    font-weight: normal
+    margin: 0
+    color: $white-gray
+    margin-bottom: 1%
+
+  .welcome-text
+    font-size: 3.5rem
+
+  h1
+    font-size: 4rem
+    margin-bottom: 6%
+
+
+// Media Queries Index Page //
+@import '../media/_media_index'

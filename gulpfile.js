@@ -23,7 +23,7 @@ var config = {
 var jekyllDir = '';
 
 gulp.task('watch', function() {
-  gulp.watch([sass_path + '/*.sass', sass_path + '/partials/*.sass', sass_path + '/modules/*.sass', sass_path + '/media/*.sass', sass_path + '/helpers/*.sass', sass_path + '/base/*.sass'], ['sass-watch']);
+  gulp.watch([sass_path + '/*.sass', sass_path + '/pages/*.sass', sass_path + '/partials/*.sass', sass_path + '/modules/*.sass', sass_path + '/media/*.sass', sass_path + '/helpers/*.sass', sass_path + '/base/*.sass'], ['sass-watch']);
 
   gulp.watch(['_config.yml'], ['jekyll-watch']);
 
@@ -69,25 +69,8 @@ gulp.task('js', function () {
 })
 
 gulp.task('images', function () {
-  return gulp.src(['_app/assets/img/original/**/*.+(png|jpg|gif|svg)'])
-    .pipe(cache(imagemin([
-      imagemin.gifsicle({
-        interlaced: true,
-        optimizationLevel: 3,
-      }),
-      imagemin.jpegtran({
-        progressive: true,
-        arithmetic: true,
-      }),
-      imagemin.optipng({
-        optimizationLevel: 5,
-      }),
-      imagemin.svgo({plugins: [{
-        removeViewBox: true
-      }]})
-    ])))
-    .pipe(gulp.dest('_app/assets/img/min/'))
-    .pipe(gulp.dest('_site/_app/assets/img/min/'))
+  return gulp.src(['_app/assets/img/min/**/*.+(png|jpg|gif|svg)'])
+    .pipe(gulp.dest('_site/_app/assets/img'))
 })
 
 gulp.task('php', function () {
