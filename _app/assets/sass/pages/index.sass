@@ -6,6 +6,9 @@
 main > section
   padding: 0 5% 6% 5%
 
+  &:nth-child(even)
+    background-color: white
+
 // Welcome Section //
 .welcome-section
   background:
@@ -45,8 +48,6 @@ main > section
 
 // About Section //
 .about-section
-  background-color: white
-
   .about-container
     display: flex
     justify-content: space-between
@@ -66,6 +67,61 @@ main > section
       font-weight: normal
       font-size: 1.4rem
       margin-bottom: 4%
+
+// Portfolio Section //
+.portfolio-section
+  .showcase
+    display: flex
+    flex-wrap: wrap
+    margin-bottom: 5%
+
+    .card
+      display: block
+      width: 33.333%
+      color: white
+      position: relative
+      overflow: hidden
+
+      &:hover
+        .card-overlay
+          background-color: rgba(0,0,0,0.5)
+
+        .card-heading, .card-text
+          opacity: 1
+          visibility: visible
+          top: 0
+
+      img
+        width: 100%
+
+    .card-overlay, .card-heading, .card-text
+      transition: all .4s ease-in-out
+
+    .card-overlay
+      background-color: rgba(0,0,0,0.3)
+      position: absolute
+      top: 0
+      right: 0
+      bottom: 0
+      left: 0
+      display: flex
+      flex-direction: column
+      justify-content: center
+      align-items: center
+
+    .card-heading, .card-text
+      opacity: 0
+      visibility: hidden
+      position: relative
+      top: -100%
+
+    .card-heading
+      font-size: 1.4rem
+      text-align: center
+      margin-bottom: 3%
+
+    .card-text
+      width: 70%
 
 // Media Queries Index Page //
 @import '../media/_media_index'

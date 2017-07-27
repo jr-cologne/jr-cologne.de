@@ -1,3 +1,7 @@
+@media only screen and (max-width: 1400px)
+  .portfolio-section .showcase .card
+    width: 50%
+
 @media only screen and (max-width: 1280px)
   .about-section
     .about-container
@@ -16,6 +20,21 @@
   .welcome-section
     height: calc(100vh - 120px)
 
+  .portfolio-section .showcase
+    flex-direction: column
+    margin-bottom: 6%
+
+    .card
+      width: 100%
+
+    .card-overlay
+      background-color: rgba(0,0,0,0.5)
+
+    .card-heading, .card-text
+      opacity: 1
+      visibility: visible
+      top: 0
+
 @media only screen and (max-width: 860px)
   .welcome-section
     height: calc(100vh - 126px)
@@ -23,6 +42,9 @@
 @media only screen and (max-width: 700px)
   main > section
     padding: 0 7% 8% 7%
+
+  .portfolio-section .showcase
+    margin-bottom: 7%
 
 @media only screen and (max-width: 600px)
   .welcome-section
@@ -33,6 +55,9 @@
 
     h1
       font-size: 3.5rem
+
+  .portfolio-section .showcase .card-text
+    width: 80%
 
 @media only screen and (max-width: 500px)
   main > section
@@ -53,6 +78,23 @@
       height: 150px
       float: none
       margin: 0 auto 5% auto
+
+  .portfolio-section
+    padding: 0 0 9% 0
+
+    .showcase
+      margin-bottom: 8%
+
+      .card-text
+        width: 90%
+
+@media only screen and (max-width: 450px)
+  .portfolio-section .showcase
+    .card-heading
+      font-size: 1.2rem
+
+    .card-text
+      width: 92%
 
 @media only screen and (max-width: 400px)
   .welcome-section
