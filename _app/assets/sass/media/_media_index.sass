@@ -1,10 +1,28 @@
+@media only screen and (max-width: 1280px)
+  .about-section
+    .about-container
+      flex-direction: column
+
+    .about-text, .skills
+      width: 100%
+
+    .about-text
+      margin-bottom: 5%
+
 @media only screen and (max-width: 1024px)
+  main > section
+    padding: 0 6% 7% 6%
+
   .welcome-section
     height: calc(100vh - 120px)
 
 @media only screen and (max-width: 860px)
   .welcome-section
     height: calc(100vh - 126px)
+
+@media only screen and (max-width: 700px)
+  main > section
+    padding: 0 7% 8% 7%
 
 @media only screen and (max-width: 600px)
   .welcome-section
@@ -17,12 +35,24 @@
       font-size: 3.5rem
 
 @media only screen and (max-width: 500px)
+  main > section
+    padding: 0 8% 9% 8%
+
   .welcome-section
     .welcome-text
       font-size: 2.5rem
 
     h1
       font-size: 3rem
+
+  .about-section .about-text
+    margin-bottom: 8%
+
+    img
+      width: auto
+      height: 150px
+      float: none
+      margin: 0 auto 5% auto
 
 @media only screen and (max-width: 400px)
   .welcome-section

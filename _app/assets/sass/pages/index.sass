@@ -2,6 +2,11 @@
 @import '../_style'
 
 // Page Styles //
+// General Styles for Index Page //
+main > section
+  padding: 0 5% 6% 5%
+
+// Welcome Section //
 .welcome-section
   background:
     image: url('../img/welcome-section-bg.jpg')
@@ -9,6 +14,7 @@
     position: 12% center
     repeat: no-repeat
   height: calc(100vh - 80px)
+  padding: 0
 
   .welcome-section-overlay
     display: block
@@ -24,7 +30,7 @@
 
   .welcome-text, h1
     display: block
-    font-family: $secondary-font, serif
+    font-family: $secondary-font
     font-weight: normal
     margin: 0
     color: $white-gray
@@ -37,6 +43,29 @@
     font-size: 4rem
     margin-bottom: 6%
 
+// About Section //
+.about-section
+  background-color: white
+
+  .about-container
+    display: flex
+    justify-content: space-between
+
+  .about-text, .skills
+    width: 47%
+
+  .about-text
+    img
+      width: 150px
+      float: left
+      margin: 0 3% 1.2% 0
+
+  .skills
+    h3
+      font-family: $main-font
+      font-weight: normal
+      font-size: 1.4rem
+      margin-bottom: 4%
 
 // Media Queries Index Page //
 @import '../media/_media_index'
