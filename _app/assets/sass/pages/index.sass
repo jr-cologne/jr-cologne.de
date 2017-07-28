@@ -115,6 +115,7 @@ main > section
 
     .card-heading
       font-size: 1.4rem
+      font-weight: normal
       text-align: center
       margin-bottom: 3%
 
@@ -128,6 +129,53 @@ main > section
   .article-previews
     display: flex
     justify-content: space-between
+
+// Resources Section //
+.resources-section
+  padding: 0 13% 6% 13%
+
+  .resources-container
+    display: flex
+    justify-content: space-between
+    flex-wrap: wrap
+    margin-bottom: 5%
+
+    .resource
+      display: block
+      width: 28%
+      color: white
+      position: relative
+      box-shadow: 0px 3px 6px rgba(0,0,0,0.3)
+      overflow: hidden
+
+      &:hover img
+        transform: scale(1.05)
+
+      img
+        width: 100%
+        transform: scale(1)
+        transition: all .3s ease-in-out
+
+    .resource-overlay
+      background-color: rgba(0,0,0,0.5)
+      position: absolute
+      top: 0
+      right: 0
+      bottom: 0
+      left: 0
+      display: flex
+      justify-content: center
+      align-items: center
+      padding: 2%
+
+    .resource-heading
+      font-size: 1.4rem
+      font-weight: normal
+      text-align: center
+
+  .resources-info
+    width: 70%
+    margin: auto
 
 // Media Queries Index Page //
 @import '../media/_media_index'

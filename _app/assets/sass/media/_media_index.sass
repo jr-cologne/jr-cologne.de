@@ -17,6 +17,18 @@
     .about-text
       margin-bottom: 5%
 
+  .resources-section
+    .resources-container .resource
+      width: 48%
+      margin-bottom: 5%
+
+      &:last-child
+        width: 100%
+        margin-bottom: 0
+
+    .resources-info
+      width: 80%
+
 @media only screen and (max-width: 1024px)
   main > section
     padding: 0 6% 7% 6%
@@ -38,8 +50,20 @@
       visibility: visible
       top: 0
 
-  .blog-section
+  .blog-section, .resources-section
     padding: 0 14% 7% 14%
+
+  .resources-section
+    .resources-container
+      margin-bottom: 6%
+      flex-direction: column
+
+      .resource
+        width: 100%
+        margin-bottom: 6%
+
+    .resources-info
+      width: 90%
 
 @media only screen and (max-width: 860px)
   .welcome-section
@@ -49,8 +73,11 @@
   main > section
     padding: 0 7% 8% 7%
 
-  .blog-section
+  .blog-section, .resources-section
     padding: 0 10% 8% 10%
+
+  .resources-section .resources-container
+    margin-bottom: 7%
 
 @media only screen and (max-width: 600px)
   .welcome-section
@@ -67,6 +94,9 @@
 
   .blog-section
     padding: 0 7% 8% 7%
+
+  .resources-section .resources-container .resource
+    margib-bottom: 7%
 
 @media only screen and (max-width: 500px)
   main > section
@@ -88,14 +118,15 @@
       float: none
       margin: 0 auto 5% auto
 
-  .portfolio-section
+  .portfolio-section, .blog-section, .resources-section
     padding: 0 0 9% 0
 
-    .showcase .card-text
-      width: 90%
+  .portfolio-section .showcase .card-text
+    width: 90%
 
-  .blog-section
-    padding: 0 0 9% 0
+  .resources-section
+    .resources-container, .resources-container .resource
+      margin-bottom: 8%
 
 @media only screen and (max-width: 450px)
   .portfolio-section .showcase
