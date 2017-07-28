@@ -2,8 +2,12 @@
   .cta
     width: 25%
 
-    &.cta--large
+    &.cta--large, &.cta--read-more
       width: 28%
+
+@media only screen and (max-width: 1600px)
+  .cta.cta--read-more
+    width: 18%
 
 @media only screen and (max-width: 1400px)
   .cta
@@ -22,9 +26,13 @@
 @media only screen and (max-width: 1024px)
   .cta
     width: 40%
+    margin: 6% auto auto auto
 
     &.cta--large
       width: 43%
+
+    &.cta--read-more
+      width: 22%
 
 @media only screen and (max-width: 950px)
   .cta.cta--large
@@ -34,13 +42,21 @@
   .cta
     width: 50%
 
+    &.cta--read-more
+      width: 25%
+
 @media only screen and (max-width: 790px)
-  .cta.cta--large
-    width: 58%
+  .cta
+    &.cta--large
+      width: 58%
+
+    &.cta--read-more
+      width: 30%
 
 @media only screen and (max-width: 700px)
   .cta
     width: 60%
+    margin: 7% auto auto auto
 
     &.cta--large
       width: 65%
@@ -56,9 +72,14 @@
     &.cta--large
       width: 82%
 
+@media only screen and (max-width: 550px)
+  .cta.cta--read-more
+    width: 35%
+
 @media only screen and (max-width: 500px)
   .cta
     width: 80%
+    margin: 8% auto auto auto
 
     &.cta--large
       width: 84%
@@ -71,5 +92,9 @@
       width: 89%
 
 @media only screen and (max-width: 380px)
-  .cta.cta--large
-    width: 92%
+  .cta
+    &.cta--large
+      width: 92%
+
+    &.cta--read-more
+      width: 38%
