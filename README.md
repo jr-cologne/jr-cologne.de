@@ -73,11 +73,16 @@ An overview of what I have done each day is listed below under **Changelog**.
 - Styled the Welcome Section (almost finished, If any, I will probably only make small changes to it)
 - Fixed some things about Gulp and removed minification by it because it destroyed my images for any reason
 
-**27/07**
+**27/07:**
 - Styled the About Section (probably completely finished)
 - Styled the Portfolio Section (probably completely finished)
 - Simplified/Improved Markup
 - Added more images
+
+**28/07:**
+- Styled the Blog Section and Resources Section
+- Improved Markup
+- Further small improvements/changes
 
 ## A few more words for you...
 Are you interested in my upcoming website? You are welcome to contribute to this in any kind!
