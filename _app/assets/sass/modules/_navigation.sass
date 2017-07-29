@@ -1,0 +1,58 @@
+.nav
+  width: 32%
+
+  ul
+    display: flex
+    flex: 1
+    justify-content: space-between
+
+  li
+    list-style: none
+    display: flex
+
+  a
+    display: block
+    text-align: center
+    color: $main-font-color
+    font-size: 1.4rem
+    flex: 1
+
+    &.current, &:hover
+      color: $dark-blue
+
+  &.nav--main .navbar
+    display: none
+    position: relative
+
+    #hamburger-button
+      display: block
+      height: 40px
+      padding: 0
+      border: none
+
+    .hamburger-icon, .hamburger-icon_top, .hamburger-icon_bottom
+      position: absolute
+      top: 50%
+      transform: translateY(-50%)
+      width: 30px
+      height: 5px
+      background-color: $dark-blue
+      transition: all .25s ease-in-out
+
+    .hamburger-icon_top
+      transform: translateY(calc(-50% - 10px))
+
+    .hamburger-icon_bottom
+      transform: translateY(calc(-50% + 10px))
+
+  &.nav--footer
+    width: 38.5%
+
+  &.nav--legal
+    width: 20%
+
+    a
+      font-size: 1.2rem
+
+// Media Queries Navigation //
+@import '../media/_media_navigation'

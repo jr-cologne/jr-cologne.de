@@ -177,5 +177,65 @@ main > section
     width: 70%
     margin: auto
 
+// Contact Section //
+.contact-section
+  .text, .social-container
+    margin-bottom: 5%
+
+  .text
+    font-size: 1.6rem
+    text-align: center
+
+  .social-container
+    display: flex
+    flex-wrap: wrap
+
+    .social-item
+      display: block
+      width: 33.333%
+
+      &.twitter
+        background-color: $twitter-color
+
+      &.github
+        background-color: $github-color
+
+      &.codepen
+        background-color: $codepen-color
+
+    .social-network
+      display: block
+      color: white
+      text-align: center
+      font-size: 1.5rem
+      font-weight: normal
+      margin: 10% auto
+
+      &::before
+        content: ''
+        display: block
+        width: 120px
+        height: 120px
+        background:
+          repeat: no-repeat
+          size: cover
+        margin: auto auto 2% auto
+
+    .twitter .social-network::before
+      background-image: url('../img/icons/twitter-icon.svg')
+
+    .github .social-network::before
+      background-image: url('../img/icons/github-icon.svg')
+
+    .codepen .social-network::before
+      background-image: url('../img/icons/codepen-icon.svg')
+
+  .email
+    display: block
+    color: $blue
+    font-weight: bold
+    font-size: 3.5rem
+    text-align: center
+
 // Media Queries Index Page //
 @import '../media/_media_index'

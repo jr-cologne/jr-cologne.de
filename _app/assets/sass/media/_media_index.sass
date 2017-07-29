@@ -65,9 +65,26 @@
     .resources-info
       width: 90%
 
+  .contact-section
+    .text, .social-container
+      margin-bottom: 6%
+
+    .social-container .social-item
+      width: 50%
+
+      &.twitter
+        width: 100%
+
 @media only screen and (max-width: 860px)
   .welcome-section
     height: calc(100vh - 126px)
+
+  .contact-section
+    .social-container .social-item
+      width: 100%
+
+    .email
+      font-size: 2.8rem
 
 @media only screen and (max-width: 700px)
   main > section
@@ -78,6 +95,16 @@
 
   .resources-section .resources-container
     margin-bottom: 7%
+
+    .resource
+      margin-bottom: 7%
+
+  .contact-section
+    .text, .social-container
+      margin-bottom: 7%
+
+    .email
+      font-size: 2.4rem
 
 @media only screen and (max-width: 600px)
   .welcome-section
@@ -95,8 +122,11 @@
   .blog-section
     padding: 0 7% 8% 7%
 
-  .resources-section .resources-container .resource
-    margib-bottom: 7%
+  .contact-section
+    padding: 0 0 8% 0
+
+    .email
+      font-size: 2.2rem
 
 @media only screen and (max-width: 500px)
   main > section
@@ -118,7 +148,7 @@
       float: none
       margin: 0 auto 5% auto
 
-  .portfolio-section, .blog-section, .resources-section
+  .portfolio-section, .blog-section, .resources-section, .contact-section
     padding: 0 0 9% 0
 
   .portfolio-section .showcase .card-text
@@ -128,6 +158,13 @@
     .resources-container, .resources-container .resource
       margin-bottom: 8%
 
+  .contact-section
+    .text, .social-container
+      margin-bottom: 8%
+
+    .email
+      font-size: 1.8rem
+
 @media only screen and (max-width: 450px)
   .portfolio-section .showcase
     .card-heading
@@ -136,6 +173,12 @@
     .card-text
       width: 92%
 
+  .contact-section .text
+    padding: 0 10%
+
 @media only screen and (max-width: 400px)
   .welcome-section
     height: calc(100vh - 144px)
+
+  .contact-section .email
+    font-size: 1.6rem

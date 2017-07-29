@@ -1,0 +1,132 @@
+@media only screen and (max-width: 1700px)
+  .nav.nav--legal
+    width: 21.5%
+
+@media only screen and (max-width: 1600px)
+  .nav
+    width: 38%
+
+    &.nav--footer
+      width: 45%
+
+    &.nav--legal
+      width: 24.5%
+
+@media only screen and (max-width: 1450px)
+  .nav
+    &.nav--footer
+      width: 48%
+
+    &.nav--legal
+      width: 26%
+
+@media only screen and (max-width: 1400px)
+  .nav
+    width: 43%
+
+    &.nav--footer
+      width: 55%
+
+    &.nav--legal
+      width: 29%
+
+@media only screen and (max-width: 1250px)
+  .nav
+    &.nav--footer
+      width: 56%
+
+    &.nav--legal
+      width: 31.5%
+
+@media only screen and (max-width: 1200px)
+  .nav
+    width: 48%
+
+    &.nav--footer
+      width: 64%
+
+    &.nav--legal
+      width: 35%
+
+@media only screen and (max-width: 1080px)
+  .nav
+    width: 50%
+
+    &.nav--footer
+      width: 69%
+
+    &.nav--legal
+      width: 38%
+
+@media only screen and (max-width: 1024px)
+  .nav, .nav.nav--footer, .nav.nav--legal
+    width: 100%
+    margin-top: 10px
+
+  .nav
+    &.nav--main
+      ul
+        flex-direction: column
+        width: 100%
+        opacity: 0
+        position: absolute
+        top: 100%
+        left: -100%
+        z-index: 99
+        transition: all .4s ease-in-out
+        background: white
+
+      a
+        text-align: left
+        padding: 0.8% 2%
+        border-bottom: 1px solid $white-gray
+
+      &.open
+        ul
+          opacity: 1
+          left: 0
+
+        .navbar
+          .hamburger-icon
+            opacity: 0
+
+          .hamburger-icon_top
+            transform: rotate(45deg)
+
+          .hamburger-icon_bottom
+            transform: rotate(-45deg)
+
+      .navbar
+        display: block
+
+@media only screen and (max-width: 860px)
+  .nav
+    margin-top: 12px
+
+    a
+      padding: 1.2% 2.4%
+
+@media only screen and (max-width: 600px)
+  .nav
+    margin-top: 15px
+
+    a
+      padding: 1.5% 2.7%
+
+    &.nav--footer, &.nav--legal
+      ul
+        flex-wrap: wrap
+        justify-content: space-around
+
+      li
+        width: 34%
+
+      a
+        text-align: left
+
+@media only screen and (max-width: 400px)
+  .nav
+    margin-top: 18px
+
+    a
+      padding: 2% 3.2%
