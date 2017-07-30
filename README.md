@@ -89,6 +89,11 @@ An overview of what I have done each day is listed below under **Changelog**.
 - Styled the Footer (will definitely be revised, I'm not really happy with the result)
 - Made Modules out of Navigation and Logo for better code structure
 
+**30/07:**
+- Revised Navigation Module (especially Footer Nav)
+- Added Hover Effect to Social Cards/Items in Contact Section
+- Small improvements for responsiveness etc.
+
 ## A few more words for you...
 Are you interested in my upcoming website? You are welcome to contribute to this in any kind!
 Ask questions, give feedback, help me out to improve the code, add new features...
