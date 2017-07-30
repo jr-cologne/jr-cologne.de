@@ -36,6 +36,9 @@
   .welcome-section
     height: calc(100vh - 120px)
 
+    .welcome-section-overlay
+      padding-top: 7%
+
   .portfolio-section .showcase
     flex-direction: column
 
@@ -90,6 +93,9 @@
   main > section
     padding: 0 7% 8% 7%
 
+  .welcome-section .welcome-section-overlay
+    padding-top: 8%
+
   .blog-section, .resources-section
     padding: 0 10% 8% 10%
 
@@ -133,6 +139,9 @@
     padding: 0 8% 9% 8%
 
   .welcome-section
+    .welcome-section-overlay
+      padding-top: 9%
+
     .welcome-text
       font-size: 2.5rem
 
@@ -177,8 +186,31 @@
     padding: 0 10%
 
 @media only screen and (max-width: 400px)
+  main > section
+    padding: 0 9% 10% 9%
+
   .welcome-section
     height: calc(100vh - 144px)
 
-  .contact-section .email
-    font-size: 1.6rem
+    .welcome-section-overlay
+      padding-top: 10%
+
+  .about-section .about-text
+    margin-bottom: 9%
+
+    img
+      margin: 0 auto 9% auto
+
+  .portfolio-section, .blog-section, .resources-section, .contact-section
+    padding: 0 0 10% 0
+
+  .resources-section
+    .resources-container, .resources-container .resource
+      margin-bottom: 9%
+
+  .contact-section
+    .text, .social-container
+      margin-bottom: 8%
+
+    .email
+      font-size: 1.6rem
