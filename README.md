@@ -94,6 +94,12 @@ An overview of what I have done each day is listed below under **Changelog**.
 - Added Hover Effect to Social Cards/Items in Contact Section
 - Small improvements for responsiveness etc.
 
+**01/08:**
+- Fixed padding of nav items
+- Added Parallax Effect for Welcome Section
+- Added fixed header on scroll (header animates in and stays fixed on the top after you scrolled down 1/5 of the window)
+- Further small improvements/changes
+
 ## A few more words for you...
 Are you interested in my upcoming website? You are welcome to contribute to this in any kind!
 Ask questions, give feedback, help me out to improve the code, add new features...
