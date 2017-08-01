@@ -34,6 +34,7 @@ function welcome_parallax() {
 
 // Fixed Header //
 var header = document.getElementById('header');
+var headerHeight = header.clientHeight;
 var fixed = false;
 
 document.addEventListener('scroll', fixedHeader);
@@ -45,7 +46,7 @@ function fixedHeader() {
   if (scrollY > windowHeight / 5) {
     fixed = true;
     header.classList.add('fixed');
-  } else if (scrollY <= windowHeight / 4 && fixed) {
+  } else if (scrollY == 0 && fixed) {
     fixed = false;
     header.classList.remove('fixed');
   }
