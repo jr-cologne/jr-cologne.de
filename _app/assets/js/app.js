@@ -31,3 +31,24 @@ function welcome_parallax() {
 
   return false;
 }
+
+// Fixed Header //
+var header = document.getElementById('header');
+var fixed = false;
+
+document.addEventListener('scroll', fixedHeader);
+
+function fixedHeader() {
+  var windowHeight = window.innerHeight;
+  var scrollY = window.scrollY || window.pageYOffset;
+
+  if (scrollY > windowHeight / 5) {
+    fixed = true;
+    header.classList.add('fixed');
+  } else if (scrollY <= windowHeight / 4 && fixed) {
+    fixed = false;
+    header.classList.remove('fixed');
+  }
+
+  return false;
+}
