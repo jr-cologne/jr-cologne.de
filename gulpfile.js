@@ -66,6 +66,9 @@ gulp.task('js', function () {
   return gulp.src(['_app/assets/js/*.js'])
     .pipe(uglify())
     .pipe(gulp.dest('_site/_app/assets/js'))
+    .pipe(browserSync.reload({
+      stream: true
+    }));
 })
 
 gulp.task('images', function () {
