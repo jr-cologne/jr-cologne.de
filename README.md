@@ -100,6 +100,16 @@ An overview of what I have done each day is listed below under **Changelog**.
 - Added fixed header on scroll (header animates in and stays fixed on the top after you scrolled down 1/5 of the window)
 - Further small improvements/changes
 
+**02/08:**
+- Improved browser compatibility of Navigation
+- Changed Implementation of Parallax Effect in Welcome Section ([parallax library rellax](https://github.com/dixonandmoe/rellax) instead of own code)
+- Remove fixed header (caused problems in combination with parallax effect and I not really liked it generally)
+- Fixed Gulp bug: Page was not reloaded when a js file was changed
+- Added Smooth Scrolling Effect for CTA in Welcome Section
+- Added Portfolio Page (almost finished)
+- Restructured JS Code for better use across all pages
+- Made Module out of Portfolio Card
+
 ## A few more words for you...
 Are you interested in my upcoming website? You are welcome to contribute to this in any kind!
 Ask questions, give feedback, help me out to improve the code, add new features...
