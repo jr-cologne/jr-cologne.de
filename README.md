@@ -110,6 +110,13 @@ An overview of what I have done each day is listed below under **Changelog**.
 - Restructured JS Code for better use across all pages
 - Made Module out of Portfolio Card
 
+**03/08:**
+- Added Blog and Resources Page
+- Changed Favicon
+- Revised .htaccess
+- Fixed margins of elements on Portfolio and Blog Page
+- Further small fixes/improvements
+
 ## A few more words for you...
 Are you interested in my upcoming website? You are welcome to contribute to this in any kind!
 Ask questions, give feedback, help me out to improve the code, add new features...
