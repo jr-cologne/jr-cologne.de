@@ -12,7 +12,6 @@ RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
   ExpiresByType text/css                      "access plus 2 weeks"
 
   # Favicon
-  ExpiresByType image/vnd.microsoft.icon      "access plus 3 months"
   ExpiresByType image/x-icon                  "access plus 3 months"
 
   # HTML and PHP
@@ -25,6 +24,7 @@ RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
   ExpiresByType text/javascript               "access plus 1 month"
 
   # Media files
+  ExpiresByType audio/mpeg                    "access plus 1 month"
   ExpiresByType audio/ogg                     "access plus 1 month"
   ExpiresByType image/bmp                     "access plus 1 month"
   ExpiresByType image/gif                     "access plus 1 month"
