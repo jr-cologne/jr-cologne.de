@@ -117,6 +117,10 @@ An overview of what I have done each day is listed below under **Changelog**.
 - Fixed margins of elements on Portfolio and Blog Page
 - Further small fixes/improvements
 
+**04/08:**
+- Added Tags Page
+- Further small fixes/improvements
+
 ## A few more words for you...
 Are you interested in my upcoming website? You are welcome to contribute to this in any kind!
 Ask questions, give feedback, help me out to improve the code, add new features...
