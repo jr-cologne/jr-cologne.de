@@ -1,0 +1,36 @@
+// General Styles //
+@import '../_style'
+
+// Page Styles //
+main
+  padding: 0 25% 6% 25%
+
+.tags-text
+  display: block
+  text-align: center
+  font:
+    weight: normal
+    size: 1.5rem
+  margin-bottom: 5%
+
+.tag-previews
+  .tag-preview
+    background-color: white
+    margin-bottom: 4%
+    box-shadow: 0px 3px 6px rgba(0,0,0,0.3)
+
+    &:last-child
+      margin-bottom: 0
+
+    header
+      padding: 3% 0
+
+    .tag-preview-text, footer
+      padding: 3%
+
+    footer
+      display: flex
+      justify-content: flex-end
+
+// Media Queries Tags Page //
+@import '../media/_media_tags.sass'

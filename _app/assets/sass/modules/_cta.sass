@@ -10,6 +10,9 @@
   text-align: center
   box-shadow: 0px 3px 6px rgba(0,0,0,0.3)
 
+  &:hover
+    background-color: $orange
+
   &.cta--large
     width: 23%
 
@@ -22,8 +25,8 @@
     @extend .cta--read-more
     width: 27%
 
-  &:hover
-    background-color: $orange
+  &.cta--small
+    width: 18%
 
 // Media Queries CTA //
 @import '../media/_media_cta'

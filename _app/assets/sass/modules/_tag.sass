@@ -1,0 +1,23 @@
+.tag
+  display: block
+  margin: auto
+  background-color: $light-blue
+  color: $dark-blue
+  width: 38%
+  padding: 0.4em
+  border-radius: 9999px
+  font:
+    size: 2rem
+    weight: normal
+  text-align: center
+  transition: all .3s linear
+
+  &:hover
+    background-color: $dark-blue
+    color: $light-blue
+
+  &.tag--large
+    width: 56%
+
+// Media Queries Tag //
+@import '../media/_media_tag'
