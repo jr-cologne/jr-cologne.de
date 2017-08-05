@@ -121,6 +121,11 @@ An overview of what I have done each day is listed below under **Changelog**.
 - Added Tags Page
 - Further small fixes/improvements
 
+**05/08:**
+- Added Markup of all Portfolio Single/Item Pages
+- Linked them up on Homepage and Portfolio Page
+- Basic setup for Styles, on which I will proceed tomorrow
+
 ## A few more words for you...
 Are you interested in my upcoming website? You are welcome to contribute to this in any kind!
 Ask questions, give feedback, help me out to improve the code, add new features...
