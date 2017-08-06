@@ -1,0 +1,26 @@
+.back-container
+  display: flex
+  margin-top: 6%
+
+  .back-button, .back-button::before
+    transition: all .3s ease-in-out
+
+  .back-button
+    color: $main-font-color
+
+    &:hover
+      color: $dark-blue
+
+      &::before
+        background-image: url('../img/icons/back-button-hover.svg')
+
+    &::before
+      content: ''
+      display: inline-block
+      vertical-align: bottom
+      height: 30px
+      width: 30px
+      background:
+        image: url('../img/icons/back-button.svg')
+        repeat: no-repeat
+        size: cover
