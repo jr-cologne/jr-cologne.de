@@ -126,6 +126,11 @@ An overview of what I have done each day is listed below under **Changelog**.
 - Linked them up on Homepage and Portfolio Page
 - Basic setup for Styles, on which I will proceed tomorrow
 
+**06/08:**
+- Added first Desktop Styles for Portfolio Single/Item Pages
+- Improved Markup of them
+- and many smaller changes/fixes...
+
 ## A few more words for you...
 Are you interested in my upcoming website? You are welcome to contribute to this in any kind!
 Ask questions, give feedback, help me out to improve the code, add new features...
