@@ -17,23 +17,21 @@ title: Portfolio Item 4
 
     <ul>
       <li><a href="/">Startseite</a></li>
-      <li><a href="portfolio.html" class="current">Portfolio</a></li>
-      <li><a href="blog.html">Blog</a></li>
-      <li><a href="resources.html">Ressourcen</a></li>
+      <li><a href="/portfolio.html" class="current">Portfolio</a></li>
+      <li><a href="/blog.html">Blog</a></li>
+      <li><a href="/resources.html">Ressourcen</a></li>
     </ul>
   </nav>
 </header>
 
 <main>
-  <div class="back-container">
-    <a href="../portfolio.html">Zurück zum Portfolio</a>
-  </div>
+  {% include back-button.html path='../portfolio.html' text='Zurück zum Portfolio' %}
 
   <article class="article">
-    <header>
-      <h1 class="article-heading">Portfolio</h1>
+    <header class="article-header">
+      <h1 class="article-heading">Portfolio Item 4</h1>
 
-      <img src="../_app/assets/img/img4-large.jpg" alt="Portfolio Item 4 Image" class="article-image">
+      <div id="article-image" class="article-image" style="background-image: url('../_app/assets/img/img4-large.jpg')"></div>
     </header>
 
     <section class="article-text">
@@ -90,12 +88,14 @@ title: Portfolio Item 4
       </p>
 
       <figure class="article-content-image">
-        <img src="../_app/assets/img/img5-large.jpg" alt="Portfolio Item 4 Content Image">
+        <div class="article-content-image-wrap">
+          <img src="../_app/assets/img/img3-large.jpg" alt="Portfolio Item 4 Content Image">
+        </div>
 
-        <figcaption class="article-content-img-info">
-          <p class="article-content-img-description">Lorem ipsum dolor sit amet</p>
+        <figcaption class="article-content-image-info">
+          <p class="article-content-image-description">Lorem ipsum dolor sit amet</p>
 
-          <p><small class="article-content-img-source">
+          <p><small class="article-content-image-source">
             Bild: <a href="https://pixabay.com/" target="_blank" title="pixabay.com">pixabay.com</a>
           </small></p>
         </figcaption>
@@ -141,17 +141,17 @@ title: Portfolio Item 4
     <nav class="nav nav--footer">
       <ul>
         <li><a href="/">Startseite</a></li>
-        <li><a href="portfolio.html" class="current">Portfolio</a></li>
-        <li><a href="blog.html">Blog</a></li>
-        <li><a href="resources.html">Ressourcen</a></li>
+        <li><a href="/portfolio.html" class="current">Portfolio</a></li>
+        <li><a href="/blog.html">Blog</a></li>
+        <li><a href="/resources.html">Ressourcen</a></li>
       </ul>
     </nav>
   </div>
 
   <nav class="nav nav--legal">
     <ul>
-      <li><a href="impressum.html">Impressum</a></li>
-      <li><a href="datenschutz.html">Datenschutz</a></li>
+      <li><a href="/impressum.html">Impressum</a></li>
+      <li><a href="/datenschutz.html">Datenschutz</a></li>
     </ul>
   </nav>
 </footer>

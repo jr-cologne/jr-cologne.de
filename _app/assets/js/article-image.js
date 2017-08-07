@@ -1,14 +1,32 @@
 // Article Image Parallax Effect //
-if ( matchMedia("only screen and (min-width: 1024px)").matches ) {
-  var articleImage = document.getElementById('article-image');
-  var articleImageHeight = articleImage.clientHeight;
-  var articleImagePositionTop = articleImage.getBoundingClientRect().top;
+var articleImage = document.getElementById('article-image');
 
-  articleImage.style.backgroundPosition = 'center ' + articleImagePositionTop + 'px';
+fixArticleImagePosition();
 
-  document.addEventListener('scroll', articleImageParallax);
+document.addEventListener('scroll', articleImageParallax);
 
-  function articleImageParallax() {
+window.addEventListener('resize', function () {
+  disableArticleImageEffects();
+  fixArticleImagePosition();
+  articleImageParallax();
+});
+
+function disableArticleImageEffects() {
+  if (window.innerWidth <= 1024) {
+    articleImage.style.backgroundPosition = 'center center';
+  }
+}
+
+function fixArticleImagePosition() {
+  if (window.innerWidth > 1024) {
+    var articleImagePositionTop = articleImage.getBoundingClientRect().top;
+
+    articleImage.style.backgroundPosition = 'center ' + articleImagePositionTop + 'px';
+  }
+}
+
+function articleImageParallax() {
+  if (window.innerWidth > 1024) {
     var scrollY = window.scrollY || window.pageYOffset;
     var articleImagePositionTop = articleImage.getBoundingClientRect().top;
     var parallaxValue = articleImagePositionTop - scrollY / 2;

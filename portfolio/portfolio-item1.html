@@ -17,17 +17,15 @@ title: Portfolio Item 1
 
     <ul>
       <li><a href="/">Startseite</a></li>
-      <li><a href="portfolio.html" class="current">Portfolio</a></li>
-      <li><a href="blog.html">Blog</a></li>
-      <li><a href="resources.html">Ressourcen</a></li>
+      <li><a href="/portfolio.html" class="current">Portfolio</a></li>
+      <li><a href="/blog.html">Blog</a></li>
+      <li><a href="/resources.html">Ressourcen</a></li>
     </ul>
   </nav>
 </header>
 
 <main>
-  <div class="back-container">
-    <a href="../portfolio.html" class="back-button">Zurück zum Portfolio</a>
-  </div>
+  {% include back-button.html path='../portfolio.html' text='Zurück zum Portfolio' %}
 
   <article class="article">
     <header class="article-header">
@@ -91,7 +89,7 @@ title: Portfolio Item 1
 
       <figure class="article-content-image">
         <div class="article-content-image-wrap">
-          <img src="../_app/assets/img/img2-large.jpg" alt="Portfolio Item 1 Content Image">
+          <img src="../_app/assets/img/img6-large.jpg" alt="Portfolio Item 1 Content Image">
         </div>
 
         <figcaption class="article-content-image-info">
@@ -143,17 +141,17 @@ title: Portfolio Item 1
     <nav class="nav nav--footer">
       <ul>
         <li><a href="/">Startseite</a></li>
-        <li><a href="portfolio.html" class="current">Portfolio</a></li>
-        <li><a href="blog.html">Blog</a></li>
-        <li><a href="resources.html">Ressourcen</a></li>
+        <li><a href="/portfolio.html" class="current">Portfolio</a></li>
+        <li><a href="/blog.html">Blog</a></li>
+        <li><a href="/resources.html">Ressourcen</a></li>
       </ul>
     </nav>
   </div>
 
   <nav class="nav nav--legal">
     <ul>
-      <li><a href="impressum.html">Impressum</a></li>
-      <li><a href="datenschutz.html">Datenschutz</a></li>
+      <li><a href="/impressum.html">Impressum</a></li>
+      <li><a href="/datenschutz.html">Datenschutz</a></li>
     </ul>
   </nav>
 </footer>
