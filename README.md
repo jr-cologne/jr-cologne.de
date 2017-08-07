@@ -131,6 +131,11 @@ An overview of what I have done each day is listed below under **Changelog**.
 - Improved Markup of them
 - and many smaller changes/fixes...
 
+**07/08:**
+- Fixed various links
+- Improved article-image.js
+- Responsive Styles for Portfolio Single/Item Pages (will be revised, but for the time being, I will move on and work on the next pages)
+
 ## A few more words for you...
 Are you interested in my upcoming website? You are welcome to contribute to this in any kind!
 Ask questions, give feedback, help me out to improve the code, add new features...
