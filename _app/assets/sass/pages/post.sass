@@ -1,0 +1,48 @@
+// General Styles //
+@import '../_style'
+
+// Page Styles //
+.article-top-bar
+  display: flex
+  justify-content: space-between
+  margin: 2% 0 6% 0
+
+  .back-button, .back-button::before
+    transition: all .3s ease-in-out
+
+  .back-button
+    color: $main-font-color
+    display: flex
+    align-items: center
+
+    &:hover
+      color: $dark-blue
+
+      &::before
+        background-image: url('../img/icons/back-button-hover.svg')
+
+    &::before
+      content: ''
+      height: 30px
+      width: 30px
+      background:
+        image: url('../img/icons/back-button.svg')
+        repeat: no-repeat
+        size: cover
+
+  time
+    font-size: 0.9rem
+    display: flex
+    align-items: center
+
+    &::after
+      content: ''
+      width: 30px
+      height: 30px
+      background:
+        image: url('../img/icons/time-icon.svg')
+        repeat: no-repeat
+        size: cover
+
+// Media Queries Post Page //
+@import '../media/_media_post'
