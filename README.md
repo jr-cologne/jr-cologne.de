@@ -141,6 +141,11 @@ An overview of what I have done each day is listed below under **Changelog**.
 - Small Gulp fix
 - Restructured Styles a bit
 
+**09/08:**
+- Added Resource Pages
+- Made everything much more dynamic and easiert to maintain with Jekyll
+- Removed unused Gulp plugins/packages
+
 ## A few more words for you...
 Are you interested in my upcoming website? You are welcome to contribute to this in any kind!
 Ask questions, give feedback, help me out to improve the code, add new features...
