@@ -1,13 +1,23 @@
 ---
 layout: post
 title: Article 1
-date: 2017-04-29 19:00:00 +0200
-date_string: Samstag, 29.04.2017
-image: /_app/assets/img/img1-large.jpg
+date: "2017-04-29 19:00:00 +0200"
+date_string: "Samstag, 29.04.2017"
+image: { url: "/_app/assets/img/img1-large.jpg", alt: "Article 1 Image" }
+preview-text: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus."
 categories: blog
 tags:
   - Webdesign
   - Webentwicklung
+
+content-images:
+  - {
+      image: "/_app/assets/img/img6-large.jpg",
+      alt: "Portfolio Item 1 Image",
+      description: "Portfolio Item 1 Image",
+      source: 'Bild: <a href="https://pixabay.com/" target="_blank" title="pixabay.com">pixabay.com</a>'
+    }
+
 ---
 
 <header class="header">
@@ -38,7 +48,7 @@ tags:
     <header class="article-header">
       <h1 class="article-heading">{{ page.title }}</h1>
 
-      <div id="article-image" class="article-image" style="background-image: url('{{ page.image }}')"></div>
+      <div id="article-image" class="article-image" style="background-image: url('{{ page.image.url }}')"></div>
     </header>
 
     <section class="article-text">
@@ -94,19 +104,7 @@ tags:
         libero venenatis faucibus.
       </p>
 
-      <figure class="article-content-image">
-        <div class="article-content-image-wrap">
-          <img src="/_app/assets/img/img6-large.jpg" alt="{{ page.title }} Content Image">
-        </div>
-
-        <figcaption class="article-content-image-info">
-          <p class="article-content-image-description">{{ page.title }} Content Image</p>
-
-          <p><small class="article-content-image-source">
-            Bild: <a href="https://pixabay.com/" target="_blank" title="pixabay.com">pixabay.com</a>
-          </small></p>
-        </figcaption>
-      </figure>
+      {% include article-content-image.html %}
 
       <p>
         Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
@@ -139,15 +137,7 @@ tags:
       </p>
     </section>
 
-    <section class="tags">
-      <h2>Tags</h2>
-
-      <div class="tags-container">
-        {% for tag in page.tags %}
-          <a href="#" class="tag tag--article">{{ tag }}</a>
-        {% endfor %}
-      </div>
-    </section>
+    {% include tags.html %}
   </article>
 </main>
 

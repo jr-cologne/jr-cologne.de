@@ -1,6 +1,45 @@
 ---
 layout: portfolio
 title: Portfolio
+
+portfolio-cards:
+  - {
+      title: "Portfolio Item 1",
+      image: { url: "/_app/assets/img/img1-large.jpg", alt: "Portfolio Item 1 Image" },
+      url: "portfolio/portfolio-item1.html",
+      text: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus."
+    }
+  - {
+      title: "Portfolio Item 2",
+      image: { url: "/_app/assets/img/img2-large.jpg", alt: "Portfolio Item 2 Image" },
+      url: "portfolio/portfolio-item2.html",
+      text: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus."
+    }
+  - {
+      title: "Portfolio Item 3",
+      image: { url: "/_app/assets/img/img3-large.jpg", alt: "Portfolio Item 3 Image" },
+      url: "portfolio/portfolio-item3.html",
+      text: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus."
+    }
+  - {
+      title: "Portfolio Item 4",
+      image: { url: "/_app/assets/img/img4-large.jpg", alt: "Portfolio Item 4 Image" },
+      url: "portfolio/portfolio-item4.html",
+      text: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus."
+    }
+  - {
+      title: "Portfolio Item 5",
+      image: { url: "/_app/assets/img/img5-large.jpg", alt: "Portfolio Item 5 Image" },
+      url: "portfolio/portfolio-item5.html",
+      text: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus."
+    }
+  - {
+      title: "Portfolio Item 6",
+      image: { url: "/_app/assets/img/img6-large.jpg", alt: "Portfolio Item 6 Image" },
+      url: "portfolio/portfolio-item6.html",
+      text: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus."
+    }
+
 ---
 
 <header class="header">
@@ -25,98 +64,26 @@ title: Portfolio
 </header>
 
 <main>
-  <h2 class="section-heading">Portfolio</h2>
+  <h2 class="section-heading">{{ page.title }}</h2>
 
   <div class="showcase">
-    <a href="portfolio/portfolio-item1.html" class="card card--all">
-      <img src="_app/assets/img/img1.jpg" alt="Portfolio Item 1">
 
-      <div class="card-overlay">
-        <h3 class="card-heading">Lorem ipsum dolor sit amet</h3>
+    {% for portfolio-card in page.portfolio-cards %}
 
-        <p class="card-text">
-          Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
-          Aenean commodo ligula eget dolor. Aenean massa.
-          Cum sociis natoque penatibus et magnis dis parturient montes,
-          nascetur ridiculus mus.
-        </p>
-      </div>
-    </a>
+      <a href="{{ portfolio-card.url }}" class="card card--all">
+        <img src="{{ portfolio-card.image.url }}" alt="{{ portfolio-card.image.alt }}">
 
-    <a href="portfolio/portfolio-item2.html" class="card card--all">
-      <img src="_app/assets/img/img2.jpg" alt="Portfolio Item 2">
+        <div class="card-overlay">
+          <h3 class="card-heading">{{ portfolio-card.title }}</h3>
 
-      <div class="card-overlay">
-        <h3 class="card-heading">Lorem ipsum dolor sit amet</h3>
+          <p class="card-text">
+            {{ portfolio-card.text }}
+          </p>
+        </div>
+      </a>
 
-        <p class="card-text">
-          Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
-          Aenean commodo ligula eget dolor. Aenean massa.
-          Cum sociis natoque penatibus et magnis dis parturient montes,
-          nascetur ridiculus mus.
-        </p>
-      </div>
-    </a>
+    {% endfor %}
 
-    <a href="portfolio/portfolio-item3.html" class="card card--all">
-      <img src="_app/assets/img/img3.jpg" alt="Portfolio Item 3">
-
-      <div class="card-overlay">
-        <h3 class="card-heading">Lorem ipsum dolor sit amet</h3>
-
-        <p class="card-text">
-          Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
-          Aenean commodo ligula eget dolor. Aenean massa.
-          Cum sociis natoque penatibus et magnis dis parturient montes,
-          nascetur ridiculus mus.
-        </p>
-      </div>
-    </a>
-
-    <a href="portfolio/portfolio-item4.html" class="card card--all">
-      <img src="_app/assets/img/img4.jpg" alt="Portfolio Item 4">
-
-      <div class="card-overlay">
-        <h3 class="card-heading">Lorem ipsum dolor sit amet</h3>
-
-        <p class="card-text">
-          Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
-          Aenean commodo ligula eget dolor. Aenean massa.
-          Cum sociis natoque penatibus et magnis dis parturient montes,
-          nascetur ridiculus mus.
-        </p>
-      </div>
-    </a>
-
-    <a href="portfolio/portfolio-item5.html" class="card card--all">
-      <img src="_app/assets/img/img5.jpg" alt="Portfolio Item 5">
-
-      <div class="card-overlay">
-        <h3 class="card-heading">Lorem ipsum dolor sit amet</h3>
-
-        <p class="card-text">
-          Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
-          Aenean commodo ligula eget dolor. Aenean massa.
-          Cum sociis natoque penatibus et magnis dis parturient montes,
-          nascetur ridiculus mus.
-        </p>
-      </div>
-    </a>
-
-    <a href="portfolio/portfolio-item6.html" class="card card--all">
-      <img src="_app/assets/img/img6.jpg" alt="Portfolio Item 6">
-
-      <div class="card-overlay">
-        <h3 class="card-heading">Lorem ipsum dolor sit amet</h3>
-
-        <p class="card-text">
-          Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
-          Aenean commodo ligula eget dolor. Aenean massa.
-          Cum sociis natoque penatibus et magnis dis parturient montes,
-          nascetur ridiculus mus.
-        </p>
-      </div>
-    </a>
   </div>
 </main>
 

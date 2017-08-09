@@ -1,6 +1,45 @@
 ---
 layout: resources
 title: Ressourcen
+
+resources:
+  - {
+      title: "Resource 1",
+      image: { url: "/_app/assets/img/img1-large.jpg", alt: "Resource 1 Image" },
+      url: "resources/resource1.html",
+      text: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem."
+    }
+  - {
+      title: "Resource 2",
+      image: { url: "/_app/assets/img/img2-large.jpg", alt: "Resource 2 Image" },
+      url: "resources/resource2.html",
+      text: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem."
+    }
+  - {
+      title: "Resource 3",
+      image: { url: "/_app/assets/img/img3-large.jpg", alt: "Resource 3 Image" },
+      url: "resources/resource3.html",
+      text: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem."
+    }
+  - {
+      title: "Resource 4",
+      image: { url: "/_app/assets/img/img4-large.jpg", alt: "Resource 4 Image" },
+      url: "resources/resource4.html",
+      text: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem."
+    }
+  - {
+      title: "Resource 5",
+      image: { url: "/_app/assets/img/img5-large.jpg", alt: "Resource 5 Image" },
+      url: "resources/resource5.html",
+      text: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem."
+    }
+  - {
+      title: "Resource 6",
+      image: { url: "/_app/assets/img/img6-large.jpg", alt: "Resource 6 Image" },
+      url: "resources/resource6.html",
+      text: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem."
+    }
+
 ---
 
 <header class="header">
@@ -25,152 +64,34 @@ title: Ressourcen
 </header>
 
 <main>
-  <h2 class="section-heading">Ressourcen</h2>
+  <h2 class="section-heading">{{ page.title }}</h2>
 
   <div class="resources-container">
-    <div class="resource">
-      <header>
-        <img src="_app/assets/img/img1-large.jpg" alt="Resource 1 Image">
 
-        <a href="#" class="resource-overlay">
-          <h3 class="resource-heading">Lorem ipsum dolor sit amet</h3>
-        </a>
-      </header>
+    {% for resource in page.resources %}
 
-      <section class="resource-text">
-        <p>
-          Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
-          Aenean commodo ligula eget dolor. Aenean massa.
-          Cum sociis natoque penatibus et magnis dis parturient montes,
-          nascetur ridiculus mus.
-          Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem.
-        </p>
-      </section>
+      <div class="resource">
+        <header>
+          <img src="{{ resource.image.url }}" alt="{{ resource.image.alt }}">
 
-      <footer>
-        <a href="#" class="cta cta--learn-more">Mehr erfahren</a>
-      </footer>
-    </div>
+          <a href="{{ resource.url }}" class="resource-overlay">
+            <h3 class="resource-heading">{{ resource.title }}</h3>
+          </a>
+        </header>
 
-    <div class="resource">
-      <header>
-        <img src="_app/assets/img/img2-large.jpg" alt="Resource 2 Image">
+        <section class="resource-text">
+          <p>
+            {{ resource.text }}
+          </p>
+        </section>
 
-        <a href="#" class="resource-overlay">
-          <h3 class="resource-heading">Lorem ipsum dolor sit amet</h3>
-        </a>
-      </header>
+        <footer>
+          <a href="{{ resource.url }}" class="cta cta--learn-more">Mehr erfahren</a>
+        </footer>
+      </div>
 
-      <section class="resource-text">
-        <p>
-          Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
-          Aenean commodo ligula eget dolor. Aenean massa.
-          Cum sociis natoque penatibus et magnis dis parturient montes,
-          nascetur ridiculus mus.
-          Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem.
-        </p>
-      </section>
+    {% endfor %}
 
-      <footer>
-        <a href="#" class="cta cta--learn-more">Mehr erfahren</a>
-      </footer>
-    </div>
-
-    <div class="resource">
-      <header>
-        <img src="_app/assets/img/img3-large.jpg" alt="Resource 3 Image">
-
-        <a href="#" class="resource-overlay">
-          <h3 class="resource-heading">Lorem ipsum dolor sit amet</h3>
-        </a>
-      </header>
-
-      <section class="resource-text">
-        <p>
-          Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
-          Aenean commodo ligula eget dolor. Aenean massa.
-          Cum sociis natoque penatibus et magnis dis parturient montes,
-          nascetur ridiculus mus.
-          Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem.
-        </p>
-      </section>
-
-      <footer>
-        <a href="#" class="cta cta--learn-more">Mehr erfahren</a>
-      </footer>
-    </div>
-
-    <div class="resource">
-      <header>
-        <img src="_app/assets/img/img4-large.jpg" alt="Resource 4 Image">
-
-        <a href="#" class="resource-overlay">
-          <h3 class="resource-heading">Lorem ipsum dolor sit amet</h3>
-        </a>
-      </header>
-
-      <section class="resource-text">
-        <p>
-          Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
-          Aenean commodo ligula eget dolor. Aenean massa.
-          Cum sociis natoque penatibus et magnis dis parturient montes,
-          nascetur ridiculus mus.
-          Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem.
-        </p>
-      </section>
-
-      <footer>
-        <a href="#" class="cta cta--learn-more">Mehr erfahren</a>
-      </footer>
-    </div>
-
-    <div class="resource">
-      <header>
-        <img src="_app/assets/img/img5-large.jpg" alt="Resource 5 Image">
-
-        <a href="#" class="resource-overlay">
-          <h3 class="resource-heading">Lorem ipsum dolor sit amet</h3>
-        </a>
-      </header>
-
-      <section class="resource-text">
-        <p>
-          Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
-          Aenean commodo ligula eget dolor. Aenean massa.
-          Cum sociis natoque penatibus et magnis dis parturient montes,
-          nascetur ridiculus mus.
-          Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem.
-        </p>
-      </section>
-
-      <footer>
-        <a href="#" class="cta cta--learn-more">Mehr erfahren</a>
-      </footer>
-    </div>
-
-    <div class="resource">
-      <header>
-        <img src="_app/assets/img/img6-large.jpg" alt="Resource 6 Image">
-
-        <a href="#" class="resource-overlay">
-          <h3 class="resource-heading">Lorem ipsum dolor sit amet</h3>
-        </a>
-      </header>
-
-      <section class="resource-text">
-        <p>
-          Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
-          Aenean commodo ligula eget dolor. Aenean massa.
-          Cum sociis natoque penatibus et magnis dis parturient montes,
-          nascetur ridiculus mus.
-          Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem.
-        </p>
-      </section>
-
-      <footer>
-        <a href="#" class="cta cta--learn-more">Mehr erfahren</a>
-      </footer>
-    </div>
   </div>
 </main>
 
