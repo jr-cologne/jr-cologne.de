@@ -2,15 +2,10 @@ var gulp          = require('gulp');
 var sass          = require('gulp-sass');
 var browserSync   = require('browser-sync').create();
 var uglify        = require('gulp-uglify');
-var gulpIf        = require('gulp-if');
 var cssnano       = require('gulp-cssnano');
-var imagemin      = require('gulp-imagemin');
-var cache         = require('gulp-cache');
-var cp            = require('child_process');
 var gutil         = require('gulp-util');
 var runSequence   = require('run-sequence');
 var run           = require('gulp-run');
-var rename        = require('gulp-rename');
 var autoprefixer  = require('gulp-autoprefixer');
 
 var sass_path = '_app/assets/sass';
