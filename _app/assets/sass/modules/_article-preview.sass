@@ -1,5 +1,6 @@
 .article-preview
   width: 45%
+  background-color: white
   box-shadow: 0px 3px 6px rgba(0,0,0,0.3)
 
   header
@@ -13,11 +14,14 @@
       width: 100%
       transition: all .3s ease-in-out
 
-  &.article-preview--all
+  &.article-preview--all, &.article-preview--tag
     margin-bottom: 4%
 
-    &:nth-last-child(-n+2)
-      margin-bottom: 0
+  &.article-preview--all:nth-last-child(-n+2)
+    margin-bottom: 0
+
+  &.article-preview--tag
+    width: 70%
 
   .article-preview-overlay
     background-color: rgba(0,0,0,0.5)

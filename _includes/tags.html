@@ -3,7 +3,7 @@
 
   <div class="tags-container">
     {% for tag in page.tags %}
-      <a href="#" class="tag tag--article">{{ tag }}</a>
+      <a href="{{ tag.url }}" target="{{ tag.target }}" class="tag tag--article">{{ tag.title }}</a>
     {% endfor %}
   </div>
 </section>

@@ -22,9 +22,16 @@
   &.tag--article
     width: auto
     padding: 0.4em 0.6em
-    margin: 0 2% 0 0
+    margin: 2% 2% 0 0
     font-size: 1rem
-    margin-top: 2%
+
+  &.tag--related-tags
+    @extend .tag--article
+    margin: 2%
+
+  &.tag--no-hover:hover
+    background-color: $light-blue
+    color: $dark-blue
 
 // Media Queries Tag //
 @import '../media/_media_tag'
