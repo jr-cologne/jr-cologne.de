@@ -1,0 +1,33 @@
+// General Styles //
+@import '../_style'
+
+// Page Styles //
+.legal
+  h2, h3
+    font:
+      size: 1.4rem
+      family: $main-font
+    margin-bottom: 1%
+
+  h3
+    font-size: 1.2rem
+    margin-bottom: 0.5%
+
+  ul, .contact, .disclaimer p, > p
+    margin-bottom: 2%
+
+  ul
+    list-style: none
+
+  > ul
+    list-style-type: disc
+    list-style-position: inside
+
+  .disclaimer p:last-child, > p:last-child
+    margin-bottom: 0
+
+  .source
+    font-size: 1rem
+
+// Media Queries Portfolio Page //
+@import '../media/_media_legal'
