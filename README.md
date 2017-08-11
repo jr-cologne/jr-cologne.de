@@ -154,6 +154,12 @@ An overview of what I have done each day is listed below under **Changelog**.
 - Switched to bigger images
 - Further small changes/fixes
 
+**11/08:**
+- Made back-button working in every browser
+- Added Impressum and Privacy Policy Page
+- Added Markup and basic functionality for Contact Form
+- Further small changes/fixes
+
 ## A few more words for you...
 Are you interested in my upcoming website? You are welcome to contribute to this in any kind!
 Ask questions, give feedback, help me out to improve the code, add new features...
