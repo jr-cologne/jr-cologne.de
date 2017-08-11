@@ -58,6 +58,9 @@ I try to work very hard on the website and make updates every day in order to re
 An overview of what I have done each day is listed below under **Changelog**.
 
 ## Changelog
+
+**dd/mm:**
+
 **24/07:**
 - Basic setup of my working environment
 - I have removed the old stuff from the placeholder/coming-soon site and cleaned up everything so that I can start nearly from scratch with focus on the future
@@ -145,6 +148,11 @@ An overview of what I have done each day is listed below under **Changelog**.
 - Added Resource Pages
 - Made everything much more dynamic and easiert to maintain with Jekyll
 - Removed unused Gulp plugins/packages
+
+**10/08:**
+- Added Tag Pages
+- Switched to bigger images
+- Further small changes/fixes
 
 ## A few more words for you...
 Are you interested in my upcoming website? You are welcome to contribute to this in any kind!
