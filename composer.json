@@ -1,0 +1,8 @@
+{
+  "autoload": {
+    "files": [ "_app/php/init.php" ],
+    "psr-4": {
+      "JRCologne\\Utils\\": "_app/php"
+    }    
+  }
+}
