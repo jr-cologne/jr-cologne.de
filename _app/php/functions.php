@@ -36,7 +36,7 @@
   function sendMail(string $name, string $email, string $subject, string $message) {
     $message = new Message($message, $name);
 
-    $mail = new Mail($email, RECEIVER, $subject, $message->getMessage());
+    $mail = new Mail(RECEIVER, $email, $subject, $message->getMessage());
 
     return $mail->sent;
   }

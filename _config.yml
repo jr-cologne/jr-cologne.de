@@ -20,6 +20,8 @@ exclude:
   - _app
   - README.md
   - design
+  - composer.json
+  - vendor/composer/LICENSE
 keep_files:
   - _app
   - kontakt.php

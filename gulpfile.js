@@ -30,7 +30,7 @@ gulp.task('watch', function() {
     gulp.watch('_drafts/*.+(md|markdown|MD)', ['jekyll-watch']);
   }
 
-  gulp.watch(['*.html', '*.php', '_layouts/*.html', '_includes/*.html', 'portfolio/*.html', 'tags/*.html', '_posts/blog/*.html', '!_site/**/*.*'], ['jekyll-watch']);
+  gulp.watch(['*.html', '*.php', '_app/php/**/*.php', '_layouts/*.html', '_includes/*.html', 'portfolio/*.html', 'tags/*.html', '_posts/blog/*.html', '!_site/**/*.*'], ['jekyll-watch']);
 
   gulp.watch('favicon.ico', ['jekyll-watch']);
 });
@@ -72,8 +72,8 @@ gulp.task('images', function () {
 })
 
 gulp.task('php', function () {
-  return gulp.src('_app/php/*.php')
-    .pipe(gulp.dest('_site/_app/php'))
+  return gulp.src(['_app/**/*.php'])
+    .pipe(gulp.dest('_site/_app/'))
 })
 
 gulp.task('jekyll', function() {

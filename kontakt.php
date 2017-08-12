@@ -3,14 +3,6 @@ layout: contact
 title: Kontakt
 ---
 
-<?php
-  require_once('vendor/autoload.php');
-
-  if ($_POST['submit'] == 'Nachricht senden') {
-    $response = processContactForm($_POST);
-  }
-?>
-
 <header class="header">
   <a href="/" class="logo"></a>
 
@@ -35,11 +27,14 @@ title: Kontakt
 <main>
   {% include back-button.html path='impressum.html' text='Zurück zum Impressum' %}
 
-  <h1 class="section-heading">{{ page.title }}</h1>
+  <h1 class="section-heading section-heading--no-padding-top">{{ page.title }}</h1>
 
-  <p>Du möchtest Kontakt zu mir aufnehmen? Dann nutze dafür doch das folgende Kontaktformular. Ich würde mich sehr über eine nette Nachricht freuen und versuche jede E-Mail schnellstmöglich zu beantworten.</p>
+  <p class="text">
+    Du möchtest Kontakt zu mir aufnehmen? Dann nutze dafür doch das folgende
+    Kontaktformular. Ich würde mich sehr über eine nette Nachricht freuen!
+  </p>
 
-  <?php echo !empty($response) ? $response : ''; ?>
+  <!--<?php echo !empty($response) ? $response : ''; ?>-->
 
   <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
     <label for="name">Name:</label>
@@ -49,11 +44,11 @@ title: Kontakt
     <input type="email" name="email" placeholder="you@example.com" id="email" value="<?php echo !empty($_POST['email']) ? clean($_POST['email']) : ''; ?>">
 
     <label for="subject">Betreff:</label>
-    <input type="text" name="subject" placeholder="Hier kannst du dein Anliegen kurz zusammenfassen!" id="subject" value="<?php echo !empty($_POST['subject']) ? clean($_POST['subject']) : ''; ?>">
+    <input type="text" name="subject" placeholder="Dein Anliegen" id="subject" value="<?php echo !empty($_POST['subject']) ? clean($_POST['subject']) : ''; ?>">
 
     <label for="message">Nachricht:</label>
-    <textarea name="message" placeholder="Hier kannst du deine Nachricht hinterlassen!" rows="20" cols="80"><?php echo !empty($_POST['message']) ? clean($_POST['message']) : ''; ?></textarea>
-    
+    <textarea name="message" placeholder="Deine Nachricht" rows="20" cols="80"><?php echo !empty($_POST['message']) ? clean($_POST['message']) : ''; ?></textarea>
+
     <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token'] ?>">
 
     <input type="submit" name="submit" value="Nachricht senden">

@@ -21,7 +21,7 @@
         $this->headers = $this->getHeaders();
       }
       
-      $this->sent = $this->sendMessage();
+      $this->sent = $this->sendMail();
     }
 
     private function getSubject(string $subject) {
@@ -43,7 +43,7 @@
       ]);
     }
 
-    private function sendMessage() {
+    private function sendMail() {
       $to = $this->to;
       $subject = $this->subject;
       $message = $this->message;
