@@ -2,3 +2,21 @@
 @import '../_style'
 
 // Page Styles //
+body
+  display: flex
+  flex-direction: column
+
+header, footer
+  flex: 0 0 auto
+
+main
+  flex: 1 0 auto
+
+p
+  margin-bottom: 3%
+
+  &:last-child
+    margin-bottom: 0
+
+// Media Queries "Thank you" Page //
+@import '../media/_media_danke'
