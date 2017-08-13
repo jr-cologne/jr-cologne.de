@@ -164,6 +164,11 @@ An overview of what I have done each day is listed below under **Changelog**.
 - Finished Contact Form
 - Finished "Thank you" Page
 
+**13/08:**
+- Some padding improvements for device-width <= 360px
+- Added Styles for ul, ol and article content image without figcaption for Articles
+- Changed Implementation of article content image
+
 ## A few more words for you...
 Are you interested in my upcoming website? You are welcome to contribute to this in any kind!
 Ask questions, give feedback, help me out to improve the code, add new features...
