@@ -13,14 +13,6 @@ tags:
   - { title: "Design", url: "/tags/design.html", target: "_self" }
   - { title: "Responsive Webdesign", url: "/tags/responsive-webdesign.html", target: "_self" }
 
-content-images:
-  - {
-      image: "/_app/assets/img/img5-large.jpg",
-      alt: "Portfolio Item 2 Image",
-      description: "Portfolio Item 2 Image",
-      source: 'Bild: <a href="https://pixabay.com/" target="_blank" title="pixabay.com">pixabay.com</a>'
-    }
-
 ---
 
 <header class="header">
@@ -56,7 +48,7 @@ content-images:
 
     <section class="article-text">
       <p>
-        Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
+        <strong><em>Lorem ipsum dolor sit amet</em></strong>, consectetuer adipiscing elit.
         Aenean commodo ligula eget dolor. Aenean massa. Cum sociis
         natoque penatibus et magnis dis parturient montes, nascetur
         ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu,
@@ -74,8 +66,31 @@ content-images:
         libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc,
         blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec
         odio et ante tincidunt tempus. Donec vitae sapien ut libero
-        venenatis faucibus. Nullam quis ante. Etiam sit amet orci eget
-        eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet nibh.
+        venenatis faucibus. Nullam quis ante.
+      </p>
+
+      <ol>
+        <li><a href="">Aenean leo ligula</a></li>
+        <li>fringilla vel, aliquet nec
+          <ol>
+            <li>velit cursus nunc</li>
+            <li>Etiam sit amet orci</li>
+          </ol>
+        </li>
+        <li>Donec vitae sapien</li>
+        <li>Donec pede justo, <em>fringilla vel</em>
+          <ul>
+            <li>Lorem ipsum dolor sit amet</li>
+            <li>Nulla consequat</li>
+            <li><strong>leo eget bibendum</strong></li>
+          </ul>
+        </li>
+        <li>Aenean commodo <strong><a href="">ligula eget dolor</a></strong></li>
+      </ol>
+
+      <p>
+        Etiam sit amet orci eget eros faucibus tincidunt. Duis leo.
+        Sed fringilla mauris sit amet nibh.
         Donec sodales sagittis magna. Sed consequat, leo eget bibendum sodales,
         augue velit cursus nunc, Lorem ipsum dolor sit amet, consectetuer
         adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.
@@ -107,7 +122,7 @@ content-images:
         libero venenatis faucibus.
       </p>
 
-      {% include article-content-image.html %}
+      {% include article-content-image.html image="/_app/assets/img/img5-large.jpg" alt="Article 2 Content Image" description="Article 2 Content Image" source='Bild: <a href="https://pixabay.com/" target="_blank" title="pixabay.com">pixabay.com</a>' %}
 
       <p>
         Lorem ipsum dolor sit amet, consectetuer adipiscing elit.

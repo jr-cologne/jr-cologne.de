@@ -13,14 +13,6 @@ tags:
   - { title: "Apple", url: "https://de.wikipedia.org/wiki/Apple", target: "_blank" }
   - { title: "Mac", url: "https://de.wikipedia.org/wiki/Macintosh", target: "_blank" }
 
-content-images:
-  - {
-      image: "/_app/assets/img/img6-large.jpg",
-      alt: "Portfolio Item 1 Image",
-      description: "Portfolio Item 1 Image",
-      source: 'Bild: <a href="https://pixabay.com/" target="_blank" title="pixabay.com">pixabay.com</a>'
-    }
-
 ---
 
 <header class="header">
@@ -62,6 +54,25 @@ content-images:
         ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu,
         pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo,
         fringilla vel, aliquet nec, vulputate eget, arcu.
+      </p>
+
+      <ul>
+        <li>Lorem ipsum dolor sit amet
+          <ul>
+            <li>incididunt ut labore et dolore <a href="">magna aliqua</a></li>
+            <li>deserunt mollit anim id est laborum</li>
+          </ul>
+        </li>
+        <li>consectetuer adipiscing elit
+          <ul>
+            <li>Lorem ipsum dolor sit amet</li>
+            <li>sed do eiusmod tempor</li>
+          </ul>
+        </li>
+        <li><a href="">Aenean commodo ligula eget dolor</a></li>
+      </ul>
+
+      <p>
         In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo.
         Nullam dictum felis eu pede mollis pretium. Integer tincidunt.
         Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate
@@ -73,7 +84,7 @@ content-images:
         Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper
         libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc,
         blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec
-        odio et ante tincidunt tempus. Donec vitae sapien ut libero
+        odio et ante tincidunt tempus. <a href="">Donec vitae sapien</a> ut libero
         venenatis faucibus. Nullam quis ante. Etiam sit amet orci eget
         eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet nibh.
         Donec sodales sagittis magna. Sed consequat, leo eget bibendum sodales,
@@ -94,20 +105,20 @@ content-images:
         Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.
         In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo.
         Nullam dictum felis eu pede mollis pretium. Integer tincidunt.
-        Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate
+        <em>Cras dapibus</em>. Vivamus elementum semper nisi. Aenean vulputate
         eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae,
         eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis,
         feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet.
         Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue.
         Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus.
-        Maecenas tempus, tellus eget condimentum rhoncus, sem quam
+        Maecenas tempus, <strong>tellus</strong> eget condimentum rhoncus, sem quam
         semper libero, sit amet adipiscing sem neque sed ipsum.
         Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem.
         Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut
         libero venenatis faucibus.
       </p>
 
-      {% include article-content-image.html %}
+      {% include article-content-image.html image="/_app/assets/img/img6-large.jpg" alt="Article 1 Content Image" description="Article 1 Content Image" source='Bild: <a href="https://pixabay.com/" target="_blank" title="pixabay.com">pixabay.com</a>' %}
 
       <p>
         Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
@@ -123,7 +134,7 @@ content-images:
         eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis,
         feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet.
         Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue.
-        Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus.
+        Curabitur ullamcorper ultricies nisi. Nam eget dui. <a href="">Etiam rhoncus</a>.
         Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper
         libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc,
         blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec

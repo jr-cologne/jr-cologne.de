@@ -2,15 +2,6 @@
 layout: portfolio-single
 title: Portfolio Item 3
 image: "/_app/assets/img/img3-large.jpg"
-
-content-images:
-  - {
-      image: "/_app/assets/img/img4-large.jpg",
-      alt: "Portfolio Item 3 Image",
-      description: "Portfolio Item 3 Image",
-      source: 'Bild: <a href="https://pixabay.com/" target="_blank" title="pixabay.com">pixabay.com</a>'
-    }
-
 ---
 
 <header class="header">
@@ -97,7 +88,7 @@ content-images:
         libero venenatis faucibus.
       </p>
 
-      {% include article-content-image.html %}
+      {% include article-content-image.html image="/_app/assets/img/img4-large.jpg" alt="Portfolio Item 3 Content Image" description="Portfolio Item 3 Content Image" source='Bild: <a href="https://pixabay.com/" target="_blank" title="pixabay.com">pixabay.com</a>' %}
 
       <p>
         Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
