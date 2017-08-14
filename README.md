@@ -169,6 +169,9 @@ An overview of what I have done each day is listed below under **Changelog**.
 - Added Styles for ul, ol and article content image without figcaption for Articles
 - Changed Implementation of article content image
 
+**14/08:**
+- Added Blockquote, Tweet and Table for Articles (table is not yet fully responsive)
+
 ## A few more words for you...
 Are you interested in my upcoming website? You are welcome to contribute to this in any kind!
 Ask questions, give feedback, help me out to improve the code, add new features...
