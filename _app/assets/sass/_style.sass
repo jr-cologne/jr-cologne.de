@@ -33,6 +33,8 @@
 @import 'modules/_article-header'
 // Article Content Image //
 @import 'modules/_article-content-image'
+// Blockquote //
+@import 'modules/_blockquote'
 
 ///// Partials /////
 // Header //
@@ -57,6 +59,11 @@ article p:last-child
 
     ul, ol
       margin-bottom: 4%
+
+      &:last-child
+        margin-bottom: 0
+
+    ul, ol
       list-style-position: inside
 
       li
@@ -66,6 +73,9 @@ article p:last-child
         margin-bottom: 0
         padding: 0
         padding-left: 3%
+
+    blockquote p
+      margin-bottom: 0
 
 ///// Media Queries /////
 @import 'media/_media_style'
