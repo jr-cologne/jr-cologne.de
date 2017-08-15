@@ -172,6 +172,11 @@ An overview of what I have done each day is listed below under **Changelog**.
 **14/08:**
 - Added Blockquote, Tweet and Table for Articles (table is not yet fully responsive)
 
+**15/08:**
+- Added Code Block for Articles
+- Added Pen and Gist for Articles
+- Small fix for Table
+
 ## A few more words for you...
 Are you interested in my upcoming website? You are welcome to contribute to this in any kind!
 Ask questions, give feedback, help me out to improve the code, add new features...
