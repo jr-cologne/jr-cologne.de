@@ -8,8 +8,9 @@ var runSequence   = require('run-sequence');
 var run           = require('gulp-run');
 var autoprefixer  = require('gulp-autoprefixer');
 
+var css_path = '_app/assets/css';
 var sass_path = '_app/assets/sass';
-var css_path = '_site/_app/assets/css';
+var site_css_path = '_site/_app/assets/css';
 
 var config = {
   drafts:     !!gutil.env.drafts
@@ -18,6 +19,8 @@ var config = {
 var jekyllDir = '';
 
 gulp.task('watch', function() {
+  gulp.watch(css_path + '/*.css', ['css']);
+
   gulp.watch([sass_path + '/*.sass', sass_path + '/pages/*.sass', sass_path + '/partials/*.sass', sass_path + '/modules/*.sass', sass_path + '/media/*.sass', sass_path + '/helpers/*.sass', sass_path + '/base/*.sass'], ['sass-watch']);
 
   gulp.watch(['_config.yml'], ['jekyll-watch']);
@@ -35,12 +38,22 @@ gulp.task('watch', function() {
   gulp.watch('favicon.ico', ['jekyll-watch']);
 });
 
+gulp.task('css', function() {
+  return gulp.src(css_path + '/*.css')
+    .pipe(autoprefixer({ browsers: ['last 3 versions', '> 0.5%'] }))
+    .pipe(cssnano())
+    .pipe(gulp.dest(site_css_path))
+    .pipe(browserSync.reload({
+      stream: true
+    }));
+})
+
 gulp.task('sass', function() {
   return gulp.src([sass_path + '/pages/*.sass', sass_path + '/all.sass'])
     .pipe(sass())
     .pipe(autoprefixer({ browsers: ['last 3 versions', '> 0.5%'] }))
     .pipe(cssnano())
-    .pipe(gulp.dest(css_path))
+    .pipe(gulp.dest(site_css_path))
     .pipe(browserSync.reload({
       stream: true
     }));
@@ -86,7 +99,7 @@ gulp.task('jekyll', function() {
 });
 
 gulp.task('build', function(cb) {
-  runSequence('jekyll', 'php', 'images', 'sass', 'js', cb);
+  runSequence('jekyll', 'php', 'images', 'sass', 'css', 'js', cb);
 });
 
 gulp.task('sass-watch', ['sass'], function(cb) {
