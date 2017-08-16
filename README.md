@@ -177,6 +177,9 @@ An overview of what I have done each day is listed below under **Changelog**.
 - Added Pen and Gist for Articles
 - Small fix for Table
 
+**16/08:**
+- Revised Table and made it fully responsive
+
 ## A few more words for you...
 Are you interested in my upcoming website? You are welcome to contribute to this in any kind!
 Ask questions, give feedback, help me out to improve the code, add new features...
