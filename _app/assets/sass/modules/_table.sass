@@ -15,21 +15,20 @@
     display: flex
 
   thead
-    background-color: $light-blue
-
     tr, th
       flex: 1
 
     th
       min-width: 100px
       padding: 1%
+      background-color: $light-blue
       color: $dark-blue
 
   tbody
     flex-direction: column
 
     tr
-      &:nth-child(even)
+      &:nth-child(even) td
         background-color: $white-gray
 
       &:hover td
