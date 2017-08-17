@@ -1,20 +1,59 @@
 ---
 layout: danke
-title: Danke
-canonical: danke.html
+title: Danke!
 sitemap: false
+canonical: danke.html
 ---
 
-<div class="wrapper">
-  <div class="back">
-    <a href="index.html" class="back-button">Zurück zur Startseite</a>
+<header class="header">
+  <a href="/" class="logo"></a>
+
+  <nav id="nav" class="nav nav--main">
+    <div class="navbar">
+      <a href="#" id="hamburger-button">
+        <span class="hamburger-icon_top"></span>
+        <span class="hamburger-icon"></span>
+        <span class="hamburger-icon_bottom"></span>
+      </a>
+    </div>
+
+    <ul>
+      <li><a href="/">Startseite</a></li>
+      <li><a href="portfolio.html">Portfolio</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li><a href="resources.html">Ressourcen</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+  {% include back-button.html path='index.html' text='Zurück zur Startseite' %}
+
+  <h1 class="section-heading section-heading--no-padding-top">{{ page.title }}</h1>
+
+  <p><strong>Deine Nachricht wurde erfolgreich gesendet. Vielen Dank!</strong></p>
+
+  <p>Ich werde mich bemühen, diese schnellstmöglich zu beantworten. Bitte habe ein wenig Geduld.</p>
+</main>
+
+<footer class="footer footer--white">
+  <div class="footer-logo-nav-container">
+    <a href="/" class="logo"></a>
+
+    <nav class="nav nav--footer">
+      <ul>
+        <li><a href="/">Startseite</a></li>
+        <li><a href="portfolio.html">Portfolio</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="resources.html">Ressourcen</a></li>
+      </ul>
+    </nav>
   </div>
 
-  <main>
-    <p><strong>Deine Nachricht wurde erfolgreich gesendet. Vielen Dank!</strong></p>
-
-    <p>Ich werde mich bemühen, diese schnellstmöglich zu beantworten. Bitte habe ein wenig Geduld.</p>
-  </main>
-
-  {% include footer.html %}
-</div>
+  <nav class="nav nav--legal">
+    <ul>
+      <li><a href="impressum.html">Impressum</a></li>
+      <li><a href="datenschutz.html">Datenschutz</a></li>
+    </ul>
+  </nav>
+</footer>

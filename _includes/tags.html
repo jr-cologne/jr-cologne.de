@@ -1,0 +1,9 @@
+<section class="tags">
+  <h2>Tags</h2>
+
+  <div class="tags-container">
+    {% for tag in page.tags %}
+      <a href="{{ tag.url }}" target="{{ tag.target }}" class="tag tag--article">{{ tag.title }}</a>
+    {% endfor %}
+  </div>
+</section>

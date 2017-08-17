@@ -1,0 +1,125 @@
+---
+layout: resources
+title: Ressourcen
+canonical: resources.html
+
+resources:
+  - {
+      title: "Article Components",
+      image: { url: "/_app/assets/img/article-components-large.png", alt: "Preview Image of the Article Components Resource" },
+      url: "resources/article-components.html",
+      text: "This is the collection/showcase of all article components of this website. What does that mean? All elements, which are listed here, can be used in all types of articles across the website to display different types of content from simple headings over tables to code blocks. I will constantly update this, whenever I change something about it or add a new component."
+    }
+  - {
+      title: "Resource 1",
+      image: { url: "/_app/assets/img/img1-large.jpg", alt: "Resource 1 Image" },
+      url: "resources/resource1.html",
+      text: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem."
+    }
+  - {
+      title: "Resource 2",
+      image: { url: "/_app/assets/img/img2-large.jpg", alt: "Resource 2 Image" },
+      url: "resources/resource2.html",
+      text: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem."
+    }
+  - {
+      title: "Resource 3",
+      image: { url: "/_app/assets/img/img3-large.jpg", alt: "Resource 3 Image" },
+      url: "resources/resource3.html",
+      text: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem."
+    }
+  - {
+      title: "Resource 4",
+      image: { url: "/_app/assets/img/img4-large.jpg", alt: "Resource 4 Image" },
+      url: "resources/resource4.html",
+      text: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem."
+    }
+  - {
+      title: "Resource 5",
+      image: { url: "/_app/assets/img/img5-large.jpg", alt: "Resource 5 Image" },
+      url: "resources/resource5.html",
+      text: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem."
+    }
+  - {
+      title: "Resource 6",
+      image: { url: "/_app/assets/img/img6-large.jpg", alt: "Resource 6 Image" },
+      url: "resources/resource6.html",
+      text: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem."
+    }
+
+---
+
+<header class="header">
+  <a href="/" class="logo"></a>
+
+  <nav id="nav" class="nav nav--main">
+    <div class="navbar">
+      <a href="#" id="hamburger-button">
+        <span class="hamburger-icon_top"></span>
+        <span class="hamburger-icon"></span>
+        <span class="hamburger-icon_bottom"></span>
+      </a>
+    </div>
+
+    <ul>
+      <li><a href="/">Startseite</a></li>
+      <li><a href="portfolio.html">Portfolio</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li><a href="resources.html" class="current">Ressourcen</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+  <h1 class="section-heading">{{ page.title }}</h1>
+
+  <div class="resources-container">
+
+    {% for resource in page.resources %}
+
+      <div class="resource">
+        <header>
+          <img src="{{ resource.image.url }}" alt="{{ resource.image.alt }}">
+
+          <a href="{{ resource.url }}" class="resource-overlay">
+            <h3 class="resource-heading">{{ resource.title }}</h3>
+          </a>
+        </header>
+
+        <section class="resource-text">
+          <p>
+            {{ resource.text }}
+          </p>
+        </section>
+
+        <footer>
+          <a href="{{ resource.url }}" class="cta cta--learn-more">Mehr erfahren</a>
+        </footer>
+      </div>
+
+    {% endfor %}
+
+  </div>
+</main>
+
+<footer class="footer footer--white">
+  <div class="footer-logo-nav-container">
+    <a href="/" class="logo"></a>
+
+    <nav class="nav nav--footer">
+      <ul>
+        <li><a href="/">Startseite</a></li>
+        <li><a href="portfolio.html">Portfolio</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="resources.html" class="current">Ressourcen</a></li>
+      </ul>
+    </nav>
+  </div>
+
+  <nav class="nav nav--legal">
+    <ul>
+      <li><a href="impressum.html">Impressum</a></li>
+      <li><a href="datenschutz.html">Datenschutz</a></li>
+    </ul>
+  </nav>
+</footer>

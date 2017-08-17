@@ -1,0 +1,101 @@
+// General Styles //
+@import '../_style'
+
+// Page Styles //
+main
+  padding: 0 0 6% 0
+
+.tag-section
+  padding: 0 5%
+
+  .article-text
+    overflow: hidden
+
+    .hidden
+      height: 0
+      opacity: 0
+      visibility: hidden
+      transition: all .4s ease-in-out
+      margin: 0
+
+      &.show
+        height: auto
+        opacity: 1
+        visibility: visible
+        margin-bottom: 4%
+
+  .tag-read-more-wrap
+    display: flex
+    justify-content: center
+
+    .tag-read-more, .tag-read-more::before
+      transition: all .3s ease-in-out
+
+    .tag-read-more
+      display: flex
+      text-align: center
+      color: $main-font-color
+
+      &::before
+        content: ''
+        height: 30px
+        width: 30px
+        background:
+          image: url('../img/icons/back-button.svg')
+          repeat: no-repeat
+          size: cover
+        transform: rotate(-90deg)
+
+      &:hover
+        color: $dark-blue
+
+        &::before
+          background-image: url('../img/icons/back-button-hover.svg')
+
+      &.collapse::before
+        transform: rotate(90deg)
+
+.article-suggestions
+  display: flex
+  margin-top: 6%
+  background-color: white
+
+  h3
+    text-align: center
+    font:
+      size: 1.5rem
+      weight: normal
+    margin-bottom: 4%
+    color: $white-gray
+
+  .articles-same-tag, .related-tags-section
+    padding: 4% 0
+    display: flex
+    flex-direction: column
+    align-items: center
+
+  .articles-same-tag
+    > h3
+      color: $blue
+
+  .related-tags-section
+    background-color: $blue
+
+    .related-tags, .articles-related-tags
+      display: flex
+      flex-direction: column
+      align-items: center
+      width: 100%
+
+    .related-tags
+      margin-bottom: 6%
+
+    .tags-container
+      display: flex
+      justify-content: space-around
+      flex-wrap: wrap
+      width: 70%
+      background-color: $white-gray
+
+// Media Queries Tag Page //
+@import '../media/_media_tag-page'

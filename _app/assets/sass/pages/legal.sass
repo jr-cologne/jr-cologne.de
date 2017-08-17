@@ -1,38 +1,33 @@
-// Standard Styles //
+// General Styles //
 @import '../_style'
-// Back-Button //
-@import '../modules/_back-button'
 
-main
-  margin-top: 3%
-  font-size: 1rem
-
-  h2
-    margin-top: 1.5%
-
-    &:first-child
-      margin-top: 0
-      margin-bottom: 1.5%
+// Page Styles //
+.legal
+  h2, h3
+    font:
+      size: 1.4rem
+      family: $main-font
+    margin-bottom: 1%
 
   h3
-    margin-top: 1%
+    font-size: 1.2rem
+    margin-bottom: 0.5%
 
-  h4
-    margin-top: 0.75%
+  ul, .contact, .disclaimer p, > p
+    margin-bottom: 2%
 
-  p, ul
-    margin-top: 1%
-
-.datenschutz
   ul
-    padding-left: 3%
+    list-style: none
 
-    li
-      list-style: inside disc
+  > ul
+    list-style-type: disc
+    list-style-position: inside
 
-  iframe
-    margin-top: 1%
+  .disclaimer p:last-child, > p:last-child
+    margin-bottom: 0
 
+  .source
+    font-size: 1rem
 
-// Media Queries //
+// Media Queries Portfolio Page //
 @import '../media/_media_legal'

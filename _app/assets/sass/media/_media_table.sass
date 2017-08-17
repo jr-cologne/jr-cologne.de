@@ -1,0 +1,51 @@
+@media only screen and (max-width: 860px)
+  .table
+    thead
+      display: none
+
+    tbody
+      tr
+        flex-direction: column
+
+        &:nth-child(even) td
+          background-color: white
+
+        &:hover td
+          color: $main-font-color
+
+        td
+          &:first-child
+            background-color: $light-blue
+            color: $dark-blue
+            font-weight: bold
+
+          &:nth-child(even)
+            background-color: $white-gray
+
+          &:hover
+            color: $dark-blue
+
+      td
+        justify-content: space-around
+        align-items: stretch
+
+        &::before
+          content: attr(data-th)
+          display: block
+          text-align: left
+
+@media only screen and (max-width: 500px)
+  .table
+    margin-bottom: 5%
+
+@media only screen and (max-width: 400px)
+  .table
+    margin-bottom: 8%
+
+@media only screen and (max-width: 360px)
+  .table
+    caption
+      padding: 5%
+
+    thead th, tbody td
+      padding: 3%

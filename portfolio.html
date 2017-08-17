@@ -1,0 +1,111 @@
+---
+layout: portfolio
+title: Portfolio
+canonical: portfolio.html
+
+portfolio-cards:
+  - {
+      title: "Portfolio Item 1",
+      image: { url: "/_app/assets/img/img1-large.jpg", alt: "Portfolio Item 1 Image" },
+      url: "portfolio/portfolio-item1.html",
+      text: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus."
+    }
+  - {
+      title: "Portfolio Item 2",
+      image: { url: "/_app/assets/img/img2-large.jpg", alt: "Portfolio Item 2 Image" },
+      url: "portfolio/portfolio-item2.html",
+      text: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus."
+    }
+  - {
+      title: "Portfolio Item 3",
+      image: { url: "/_app/assets/img/img3-large.jpg", alt: "Portfolio Item 3 Image" },
+      url: "portfolio/portfolio-item3.html",
+      text: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus."
+    }
+  - {
+      title: "Portfolio Item 4",
+      image: { url: "/_app/assets/img/img4-large.jpg", alt: "Portfolio Item 4 Image" },
+      url: "portfolio/portfolio-item4.html",
+      text: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus."
+    }
+  - {
+      title: "Portfolio Item 5",
+      image: { url: "/_app/assets/img/img5-large.jpg", alt: "Portfolio Item 5 Image" },
+      url: "portfolio/portfolio-item5.html",
+      text: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus."
+    }
+  - {
+      title: "Portfolio Item 6",
+      image: { url: "/_app/assets/img/img6-large.jpg", alt: "Portfolio Item 6 Image" },
+      url: "portfolio/portfolio-item6.html",
+      text: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus."
+    }
+
+---
+
+<header class="header">
+  <a href="/" class="logo"></a>
+
+  <nav id="nav" class="nav nav--main">
+    <div class="navbar">
+      <a href="#" id="hamburger-button">
+        <span class="hamburger-icon_top"></span>
+        <span class="hamburger-icon"></span>
+        <span class="hamburger-icon_bottom"></span>
+      </a>
+    </div>
+
+    <ul>
+      <li><a href="/">Startseite</a></li>
+      <li><a href="portfolio.html" class="current">Portfolio</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li><a href="resources.html">Ressourcen</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+  <h1 class="section-heading">{{ page.title }}</h1>
+
+  <div class="showcase">
+
+    {% for portfolio-card in page.portfolio-cards %}
+
+      <a href="{{ portfolio-card.url }}" class="card card--all">
+        <img src="{{ portfolio-card.image.url }}" alt="{{ portfolio-card.image.alt }}">
+
+        <div class="card-overlay">
+          <h3 class="card-heading">{{ portfolio-card.title }}</h3>
+
+          <p class="card-text">
+            {{ portfolio-card.text }}
+          </p>
+        </div>
+      </a>
+
+    {% endfor %}
+
+  </div>
+</main>
+
+<footer class="footer footer--white">
+  <div class="footer-logo-nav-container">
+    <a href="/" class="logo"></a>
+
+    <nav class="nav nav--footer">
+      <ul>
+        <li><a href="/">Startseite</a></li>
+        <li><a href="portfolio.html" class="current">Portfolio</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="resources.html">Ressourcen</a></li>
+      </ul>
+    </nav>
+  </div>
+
+  <nav class="nav nav--legal">
+    <ul>
+      <li><a href="impressum.html">Impressum</a></li>
+      <li><a href="datenschutz.html">Datenschutz</a></li>
+    </ul>
+  </nav>
+</footer>

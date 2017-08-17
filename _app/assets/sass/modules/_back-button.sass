@@ -1,17 +1,43 @@
-.back-button
-  color: $blue
-  transition-duration: .1s
+.back-container
+  display: flex
+  margin: 2% 0 6% 0
 
-  &:hover
-    color: $dark-blue
+  .back-button, .back-button::before
+    transition: all .3s ease-in-out
 
-.back-button, .back-button::before
-  display: inline-block
+  .back-button
+    color: $main-font-color
+    display: flex
+    align-items: center
 
-.back-button::before
-  content: ''
-  background-image: url('../img/min/icons/back-button.svg')
-  width: 30px
-  height: 30px
-  background-size: cover
-  vertical-align: middle
+    &:hover
+      color: $dark-blue
+
+      .back-icon::after
+        opacity: 1
+        visibility: visible
+
+    .back-icon
+      height: 30px
+      width: 30px
+      background:
+        image: url('../img/icons/back-button.svg')
+        repeat: no-repeat
+        size: cover
+      transition: all .3s ease-in-out
+
+      &::after
+        display: block
+        content: ''
+        height: 30px
+        width: 30px
+        background:
+          image: url('../img/icons/back-button-hover.svg')
+          repeat: no-repeat
+          size: cover
+        opacity: 0
+        visibility: hidden
+        transition: all .3s ease-in-out
+
+// Media Queries Back Button //
+@import '../media/_media_back-button'

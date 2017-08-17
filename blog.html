@@ -1,0 +1,82 @@
+---
+layout: blog
+title: Blog
+canonical: blog.html
+---
+
+<header class="header">
+  <a href="/" class="logo"></a>
+
+  <nav id="nav" class="nav nav--main">
+    <div class="navbar">
+      <a href="#" id="hamburger-button">
+        <span class="hamburger-icon_top"></span>
+        <span class="hamburger-icon"></span>
+        <span class="hamburger-icon_bottom"></span>
+      </a>
+    </div>
+
+    <ul>
+      <li><a href="/">Startseite</a></li>
+      <li><a href="portfolio.html">Portfolio</a></li>
+      <li><a href="blog.html" class="current">Blog</a></li>
+      <li><a href="resources.html">Ressourcen</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+  <h1 class="section-heading section-heading--small">{{ page.title }}</h1>
+
+  <div class="article-previews">
+
+    {% for post in site.posts %}
+
+    <article class="article-preview article-preview--all">
+      <header>
+        <img src="{{ post.image.url }}" alt="{{ post.image.alt }}">
+
+        <a href="{{ post.url }}" class="article-preview-overlay">
+          <h3 class="article-preview-heading">{{ post.title }}</h3>
+        </a>
+      </header>
+
+      <section class="article-preview-text">
+        <p>
+          {{ post.preview-text }}
+        </p>
+      </section>
+
+      <footer>
+        <time datetime="{{ post.date }}" class="date">{{ post.date_string }}</time>
+
+        <a href="{{ post.url }}" class="cta cta--read-more">Mehr lesen</a>
+      </footer>
+    </article>
+
+    {% endfor %}
+
+  </div>
+</main>
+
+<footer class="footer footer--white">
+  <div class="footer-logo-nav-container">
+    <a href="/" class="logo"></a>
+
+    <nav class="nav nav--footer">
+      <ul>
+        <li><a href="/">Startseite</a></li>
+        <li><a href="portfolio.html">Portfolio</a></li>
+        <li><a href="blog.html" class="current">Blog</a></li>
+        <li><a href="resources.html">Ressourcen</a></li>
+      </ul>
+    </nav>
+  </div>
+
+  <nav class="nav nav--legal">
+    <ul>
+      <li><a href="impressum.html">Impressum</a></li>
+      <li><a href="datenschutz.html">Datenschutz</a></li>
+    </ul>
+  </nav>
+</footer>

@@ -1,9 +1,9 @@
 <?php
   const RECEIVER = 'kontakt@jr-cologne.de';
+  const ERR_HTML_START = '<p><strong class="error">';
+  const ERR_HTML_END = '</strong></p>';
 
   error_reporting(E_ALL & ~E_NOTICE);
-
-  //error_reporting(E_ALL);
 
   ini_set('display_errors', 'Off');
   ini_set('log_errors', 'On');

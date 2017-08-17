@@ -1,0 +1,40 @@
+.tag
+  display: block
+  margin: auto
+  background-color: $light-blue
+  color: $dark-blue
+  width: 38%
+  padding: 0.4em
+  border-radius: 9999px
+  font:
+    size: 2rem
+    weight: normal
+  text-align: center
+  transition: all .3s linear
+
+  &:hover
+    background-color: $dark-blue
+    color: $light-blue
+
+  &.tag--large
+    width: 56%
+
+  &.tag--article
+    width: auto
+    padding: 0.4em 0.6em
+    margin: 2% 2% 0 0
+    font-size: 1rem
+
+  &.tag--related-tags
+    @extend .tag--article
+    margin: 2%
+
+  &.tag--tag-page
+    width: 40%
+
+  &.tag--no-hover:hover
+    background-color: $light-blue
+    color: $dark-blue
+
+// Media Queries Tag //
+@import '../media/_media_tag'

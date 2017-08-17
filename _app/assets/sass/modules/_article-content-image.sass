@@ -1,0 +1,39 @@
+.article-content-image
+  max-width: 1200px
+  box-shadow: 0px 3px 6px rgba(0,0,0,0.3)
+  margin: 5% 0
+
+  .article-content-image-wrap
+    overflow: hidden
+
+    img
+      width: 100%
+      transition: all .3s ease-in-out
+
+      &:hover
+        transform: scale(1.05)
+
+  .article-content-image-info
+    display: flex
+    justify-content: space-between
+    padding: 3%
+    background-color: white
+
+    p
+      margin: 0
+
+    .article-content-image-source
+      display: block
+      font:
+        size: 1rem
+        weight: normal
+
+      a
+        color: $main-font-color
+        transition: all .2s linear
+
+        &:hover
+          color: $orange
+
+// Media Queries Article Content Image //
+@import '../media/_media_article-content-image'

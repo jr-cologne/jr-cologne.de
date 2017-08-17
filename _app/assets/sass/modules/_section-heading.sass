@@ -1,0 +1,23 @@
+.section-heading
+  color: $blue
+  text-align: center
+  padding: 1.5% 0 1% 0
+  font-size: 2rem
+  margin-bottom: 6%
+
+  &::after
+    content: ''
+    display: block
+    margin: auto
+    background-color: $blue
+    width: 2em
+    padding: 0.1em
+
+  &.section-heading--small::after
+    width: 1.2em
+
+  &.section-heading--no-padding-top
+    padding-top: 0
+
+// Media Queries Section Heading //
+@import '../media/_media_section-heading.sass'

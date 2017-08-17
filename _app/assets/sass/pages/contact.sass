@@ -1,61 +1,55 @@
-// Standard Styles //
+// General Styles //
 @import '../_style'
-// Back-Button //
-@import '../modules/_back-button'
 
-main
-  margin-top: 3%
+// Page Styles //
+.text, .error
+  text-align: center
+
+.error
+  display: block
+  margin-top: 4%
 
 form
-  margin-top: 2%
-  display: flex
-  flex-direction: column
-  padding: 1% 2%
-  width: 100%
+  margin-top: 4%
 
-  .field_wrap
-    margin-bottom: 2%
-    display: flex
-    width: 100%
-
-  .field_wrap.two-col
-    justify-content: space-between
-
-    input, textarea
-      width: 49%
-
-  input, textarea
+  label, input, textarea
     display: block
     width: 100%
-    background-color: white
+    padding: 1%
+
+  input, textarea
     outline: none
-    border: 1px solid transparent
+    border: none
+    transition: all .3s ease-in-out
     box-shadow: 5px 5px 7.5px rgba(0,0,0,0.3)
-    padding: 1.25%
-    transition: all .3s ease-in
 
     &:focus
       box-shadow: 10px 10px 15px rgba(0,0,0,0.1)
       transform: scale(1.0005)
 
+  label
+    padding-left: 0
+    margin-top: 1.5%
+    transition: all .2s linear
+
   input[type="submit"]
+    width: 25%
+    margin: 3.5% auto auto auto
+    padding: 1.2em
     cursor: pointer
     background-color: $blue
-    padding: 1.8%
-    margin: 2% auto
-    width: 22%
-    text-align: center
     color: white
-    border-radius: 15px
-    box-shadow: 0 15px 10px -10px rgba(0,0,0,0.4)
+    text-align: center
     text-transform: uppercase
     font-size: 1.3rem
     letter-spacing: 0.105em
+    white-space: normal
+    border-radius: 15px
+    box-shadow: 0 15px 10px -10px rgba(0,0,0,0.4)
 
     &:hover
       box-shadow: 0 35px 20px -20px rgba(0,0,0,0.2)
       transform: scale(1.1) translateY(-10px)
 
-
-// Media Queries //
-@import '../media/_media_contact'
+// Media Queries Contact Page //
+@import '../media/_media_contact.sass'
