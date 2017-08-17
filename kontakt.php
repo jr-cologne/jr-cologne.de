@@ -1,6 +1,7 @@
 ---
 layout: contact
 title: Kontakt
+canonical: kontakt.php
 ---
 
 <header class="header">
