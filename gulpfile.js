@@ -33,7 +33,7 @@ gulp.task('watch', function() {
     gulp.watch('_drafts/*.+(md|markdown|MD)', ['jekyll-watch']);
   }
 
-  gulp.watch(['*.html', '*.php', '_app/php/**/*.php', '_layouts/*.html', '_includes/*.html', 'portfolio/*.html', 'tags/*.html', '_posts/blog/*.html', '!_site/**/*.*'], ['jekyll-watch']);
+  gulp.watch(['*.html', '*.php', '_app/php/**/*.php', '_layouts/*.html', '_includes/*.html', 'portfolio/*.html', 'tags/*.html', '_posts/blog/*.html', 'resources/*.html', '!_site/**/*.*'], ['jekyll-watch']);
 
   gulp.watch('favicon.ico', ['jekyll-watch']);
 });
