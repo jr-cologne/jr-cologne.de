@@ -2,6 +2,8 @@
 
 The source code of my [personal website](https://jr-cologne.de/), which will go online in August or September.
 
+Currently, the website is in version 0.1. You can see the site in action under [dev.jr-cologne.de](https://dev.jr-cologne.de/).
+
 ## Design
 
 This is the final design of my website. You can [click through the prototype](https://xd.adobe.com/view/c8f790e2-bb39-4451-8132-c78b44e30971/) or just have a look onto the pictures below.
@@ -187,6 +189,7 @@ An overview of what I have done each day is listed below under **Changelog**.
 - Added Article Components Resource
 - Fixed bug: Read more button was not always on the bottom of the article preview or resource card
 - Set Canonicals for all pages
+- Released version 0.1
 
 ## A few more words for you...
 Are you interested in my upcoming website? You are welcome to contribute to this in any kind!
