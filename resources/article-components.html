@@ -1,0 +1,269 @@
+---
+layout: resource
+title: Article Components
+image: "/_app/assets/img/img1-large.jpg"
+
+code: |
+  <!DOCTYPE html>
+  <html>
+    <head>
+      <meta charset="utf-8">
+      <title>Document Title</title>
+    </head>
+    <body>
+      <?php
+        echo 'Hello World!';
+      ?>
+
+      <style>
+        p {
+          color: red;
+        }
+      </style>
+
+      <script>
+        console.log('Hello World!');
+      </script>
+    </body>
+  </html>
+
+---
+
+<header class="header">
+  <a href="/" class="logo"></a>
+
+  <nav id="nav" class="nav nav--main">
+    <div class="navbar">
+      <a href="#" id="hamburger-button">
+        <span class="hamburger-icon_top"></span>
+        <span class="hamburger-icon"></span>
+        <span class="hamburger-icon_bottom"></span>
+      </a>
+    </div>
+
+    <ul>
+      <li><a href="/">Startseite</a></li>
+      <li><a href="/portfolio.html">Portfolio</a></li>
+      <li><a href="/blog.html">Blog</a></li>
+      <li><a href="/resources.html" class="current">Ressourcen</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+  {% include back-button.html path='../resources.html' text='Zurück zu den Ressourcen' %}
+
+  <article class="article">
+    <header class="article-header">
+      <h1 class="article-heading">{{ page.title }}</h1>
+
+      <div id="article-image" class="article-image" style="background-image: url('{{ page.image }}')"></div>
+    </header>
+
+    <section class="article-text">
+      <p>
+        This is the collection/showcase of all article components of this
+        website. What does that mean? All elements, which are listed here,
+        can be used in all types of articles across the website to display
+        different types of content from simple headings over tables to code
+        blocks. I will constantly update this, whenever I change components or add a new one.
+      </p>
+
+      <h3>Currently supported components</h3>
+
+      <p>These are the components that are currently existing:</p>
+
+      <ul>
+        <li><a href="#headings">Heading 3-6 (h3-h6)</a></li>
+        <li><a href="#ul">Unordered List (ul)</a></li>
+        <li><a href="#ol">Ordered List (ol)</a></li>
+        <li><a href="#table">Table</a></li>
+        <li><a href="#image-with-caption">Image with Caption</a></li>
+        <li><a href="#image-without-caption">Image without Caption</a></li>
+        <li><a href="#blockquote">Blockquote</a></li>
+        <li><a href="#code-block">Code Block</a></li>
+        <li><a href="#github-gist">GitHub Gist</a></li>
+        <li><a href="#codepen-pen">CodePen Pen</a></li>
+        <li><a href="#twitter-tweet">Twitter Tweet</a></li>
+      </ul>
+
+      <h3 id="headings">Headings</h3>
+
+      <p>If you are wondering why you can only find heading 3 to heading 6 here: Heading 1 and 2 are used as section headings or page headings and should therefore not be used inside articles itself.</p>
+
+      <h3>Heading 3 (h3)</h3>
+
+      <h4>Heading 4 (h4)</h4>
+
+      <h5>Heading 5 (h5)</h5>
+
+      <h6>Heading 6 (h6)</h6>
+
+      <h3 class="margin-top">Lists</h3>
+
+      <h4 id="ul">Unordered List (ul)</h4>
+
+      <ul>
+        <li>List Item 1</li>
+        <li>List Item 2</li>
+        <li>List Item 3</li>
+      </ul>
+
+      <h5>Nested Unordered List</h5>
+
+      <ul>
+        <li>List Item 1</li>
+        <li>List Item 2
+          <ul>
+            <li>Nested List Item 1</li>
+            <li>Nested List Item 2</li>
+            <li>Nested List Item 3</li>
+          </ul>
+        </li>
+        <li>List Item 3</li>
+      </ul>
+
+      <h4 id="ol">Ordered List (ol)</h4>
+
+      <ol>
+        <li>List Item 1</li>
+        <li>List Item 2</li>
+        <li>List Item 3</li>
+      </ol>
+
+      <h5>Nested Ordered List</h5>
+
+      <ol>
+        <li>List Item 1</li>
+        <li>List Item 2
+          <ol>
+            <li>Nested List Item 1</li>
+            <li>Nested List Item 2</li>
+            <li>Nested List Item 3</li>
+          </ol>
+        </li>
+        <li>List Item 3</li>
+      </ol>
+
+      <h4>Mixed Nested List</h4>
+
+      <ul>
+        <li>List Item 1</li>
+        <li>List Item 2
+          <ol>
+            <li>Nested List Item 1</li>
+            <li>Nested List Item 2</li>
+            <li>Nested List Item 3</li>
+          </ol>
+        </li>
+        <li>List Item 3</li>
+      </ul>
+
+      <h3 id="table">Table</h3>
+
+      <table class="table">
+        <caption>This is the caption of the table</caption>
+
+        <thead>
+          <tr>
+            <th>Column 1 Heading</th>
+            <th>Column 2 Heading</th>
+            <th>Column 3 Heading</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+            <td data-th="Column 1 Heading">Row 1 - Column 1</td>
+            <td data-th="Column 2 Heading">Row 1 - Column 2</td>
+            <td data-th="Column 3 Heading">Row 1 - Column 3</td>
+          </tr>
+          <tr>
+            <td data-th="Column 1 Heading">Row 2 - Column 1</td>
+            <td data-th="Column 2 Heading">Row 2 - Column 2</td>
+            <td data-th="Column 3 Heading">Row 2 - Column 3</td>
+          </tr>
+          <tr>
+            <td data-th="Column 1 Heading">Row 3 - Column 1</td>
+            <td data-th="Column 2 Heading">Row 3 - Column 2</td>
+            <td data-th="Column 3 Heading">Row 3 - Column 3</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>Images</h3>
+
+      <h4 id="image-with-caption">Image with Caption</h4>
+
+      {% include article-content-image.html image="/_app/assets/img/img4-large.jpg" alt="Image with Caption" description="Image with Caption" source='Bild: <a href="https://pixabay.com/" target="_blank" title="pixabay.com">pixabay.com</a>' %}
+
+      <h4 id="image-without-caption">Image without Caption</h4>
+
+      <figure class="article-content-image">
+        <div class="article-content-image-wrap">
+          <img src="/_app/assets/img/img4-large.jpg" alt="Image without Caption">
+        </div>
+      </figure>
+
+      <h3 id="blockquote">Blockquote</h3>
+
+      <blockquote cite="source">
+        <p>
+          Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate
+          eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae,
+          eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis,
+          feugiat a, tellus.
+        </p>
+
+        <cite>Source</cite>
+      </blockquote>
+
+      <h3 id="code-block">Code Block</h3>
+
+      <pre class="code"><code>{{ page.code | xml_escape }}</code></pre>
+
+      <h3 id="github-gist">GitHub Gist</h3>
+
+      <script src="https://gist.github.com/jr-cologne/7ebe8a4feb26b05bc0ba43a48c55ab1b.js"></script>
+
+      <h3 id="codepen-pen">CodePen Pen</h3>
+
+      <p data-height="400" data-theme-id="0" data-slug-hash="gRbvZR" data-default-tab="result" data-user="jr-cologne" data-embed-version="2" data-pen-title="Responsive Equal Height Columns without Flexbox" class="codepen">See the Pen <a href="https://codepen.io/jr-cologne/pen/gRbvZR/">Responsive Equal Height Columns without Flexbox</a> by JR Cologne (<a href="https://codepen.io/jr-cologne">@jr-cologne</a>) on <a href="https://codepen.io">CodePen</a>.</p>
+
+      <h3 id="twitter-tweet">Twitter Tweet</h3>
+
+      <div class="tweet">
+        <blockquote class="twitter-tweet" data-lang="de"><p lang="de" dir="ltr">Ich werde mich jetzt damit auseinandersetzen, einen Tweet in meine Website einbinden zu können. Das ist jetzt sozusagen der Test-Tweet. 😀</p>&mdash; JR Cologne (@jrcologne) <a href="https://twitter.com/jrcologne/status/897047314728194049">14. August 2017</a></blockquote>
+      </div>
+    </section>
+  </article>
+</main>
+
+<footer class="footer footer--white">
+  <div class="footer-logo-nav-container">
+    <a href="/" class="logo"></a>
+
+    <nav class="nav nav--footer">
+      <ul>
+        <li><a href="/">Startseite</a></li>
+        <li><a href="/portfolio.html">Portfolio</a></li>
+        <li><a href="/blog.html">Blog</a></li>
+        <li><a href="/resources.html" class="current">Ressourcen</a></li>
+      </ul>
+    </nav>
+  </div>
+
+  <nav class="nav nav--legal">
+    <ul>
+      <li><a href="/impressum.html">Impressum</a></li>
+      <li><a href="/datenschutz.html">Datenschutz</a></li>
+    </ul>
+  </nav>
+</footer>
+
+<!-- smooth-scroll (https://github.com/GabrielDelepine/smooth-scroll) -->
+<script src="/_app/assets/js/smooth-scroll.js"></script>
+
+{% include code-highlighter.html %}
+{% include pen-embed-code.html %}
+{% include tweet-embed-code.html %}
