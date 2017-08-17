@@ -180,6 +180,14 @@ An overview of what I have done each day is listed below under **Changelog**.
 **16/08:**
 - Revised Table and made it fully responsive
 
+**17/08:**
+- Added Heading Styles for Articles
+- Fixed margin when number of items on Portfolio/Blog/Resources Page is odd
+- Gulp fix for Resource Pages
+- Added Article Components Resource
+- Fixed bug: Read more button was not always on the bottom of the article preview or resource card
+- Set Canonicals for all pages
+
 ## A few more words for you...
 Are you interested in my upcoming website? You are welcome to contribute to this in any kind!
 Ask questions, give feedback, help me out to improve the code, add new features...
