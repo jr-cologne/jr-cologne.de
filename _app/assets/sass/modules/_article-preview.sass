@@ -17,8 +17,12 @@
   &.article-preview--all, &.article-preview--tag
     margin-bottom: 4%
 
-  &.article-preview--all:nth-last-child(-n+2)
-    margin-bottom: 0
+  &.article-preview--all
+    &:nth-last-child(-n+2)
+      margin-bottom: 0
+
+    &:nth-last-child(2):nth-child(even)
+      margin-bottom: 4%
 
   &.article-preview--tag
     width: 70%
