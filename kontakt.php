@@ -35,7 +35,7 @@ canonical: kontakt.php
     Kontaktformular. Ich würde mich sehr über eine nette Nachricht freuen!
   </p>
 
-  <!--<?php echo !empty($response) ? $response : ''; ?>-->
+  <?php echo !empty($response) ? $response : ''; ?>
 
   <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
     <label for="name">Name:</label>
