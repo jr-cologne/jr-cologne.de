@@ -2,7 +2,7 @@
 
 The source code of my [personal website](https://jr-cologne.de/), which will go online in August or September.
 
-Currently, the website is in version 0.1. You can see the site in action under [dev.jr-cologne.de](https://dev.jr-cologne.de/).
+Currently, the website is in version 0.3. You can see the site in action under [dev.jr-cologne.de](https://dev.jr-cologne.de/).
 
 ## Design
 
@@ -190,6 +190,13 @@ An overview of what I have done each day is listed below under **Changelog**.
 - Fixed bug: Read more button was not always on the bottom of the article preview or resource card
 - Set Canonicals for all pages
 - Released version 0.1
+
+**22/08:**
+- Changed Error Handling
+- Optimized PHP Code for Contact Form
+- Added Back to top Button
+- further small fixes/changes
+- Released version 0.2 and 0.3
 
 ## A few more words for you...
 Are you interested in my upcoming website? You are welcome to contribute to this in any kind!
