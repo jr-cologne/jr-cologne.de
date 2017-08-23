@@ -1,5 +1,5 @@
 .back-to-top-button
-  display: none
+  display: block
   background-color: rgba(0,0,0,0.7)
   color: white
   font-size: 0.8rem
@@ -7,9 +7,12 @@
   right: 3%
   bottom: 3%
   padding: 0.8em
+  opacity: 0
+  visibility: hidden
 
   &:hover
     color: $orange
 
   &.show
-    display: block
+    opacity: 1
+    visibility: visible

@@ -2,7 +2,7 @@
 
 The source code of my [personal website](https://jr-cologne.de/), which will go online in August or September.
 
-Currently, the website is in version 0.3. You can see the site in action under [dev.jr-cologne.de](https://dev.jr-cologne.de/).
+Currently, the website is in version 0.4. You can see the site in action under [dev.jr-cologne.de](https://dev.jr-cologne.de/).
 
 ## Design
 
@@ -197,6 +197,11 @@ An overview of what I have done each day is listed below under **Changelog**.
 - Added Back to top Button
 - further small fixes/changes
 - Released version 0.2 and 0.3
+
+**23/08:**
+- Put 3rd Party Code in vendor folder or include it with npm
+- Optimized Back to top Button: Prevent Footer from being covered by him
+- Added Notification for Users who have deactivated JS and then also directly display the Nav
 
 ## A few more words for you...
 Are you interested in my upcoming website? You are welcome to contribute to this in any kind!

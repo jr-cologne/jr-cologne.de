@@ -13,6 +13,8 @@
     {% include head.html stylesheet='contact' %}
   </head>
   <body>
+    {% include js-deactivated-box.html %}
+
     {{ content }}
 
     {% include foot.html %}

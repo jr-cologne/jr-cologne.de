@@ -1,0 +1,52 @@
+<noscript>
+  <style>
+    .js-deactivated-box {
+      display: block;
+      background-color: #BDD4DE;
+      color: #2B3A42;
+      padding: 0.5%;
+    }
+
+    .js-deactivated-box p {
+      display: inline-block;
+    }
+
+    .js-deactivated-box strong {
+      font-weight: normal;
+    }
+
+    .js-deactivated-box .close-button {
+      display: inline-block;
+      font-size: 0.8rem;
+      margin-left: 0.5%;
+    }
+
+    #close-js-deactivated-box:target  {
+      display: none;
+    }
+
+    @media only screen and (max-width: 1024px) {
+      .nav.nav--main .navbar {
+        display: none;
+      }
+
+      .nav.nav--main ul {
+        opacity: 1;
+        left: 0;
+        position: relative;
+      }
+    }
+
+    @media only screen and (max-width: 500px) {
+      .js-deactivated-box {
+        padding: 3%;
+      }
+    }
+  </style>
+
+  <div class="js-deactivated-box" id="close-js-deactivated-box">
+    <p><strong>Du hast JavaScript deaktiviert. <a href="http://www.enable-javascript.com/de/" target="_blank">Bitte aktiviere es</a>, um alle Funktionen dieser Website uneingeschränkt nutzen zu können.</strong></p>
+
+    <a href="#close-js-deactivated-box" class="close-button">Schließen</a>
+  </div>
+</noscript>
