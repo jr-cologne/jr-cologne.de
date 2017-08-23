@@ -14,8 +14,7 @@ if (documentHeight > 1800) {
 
 function show() {
   var scrollY = window.scrollY || window.pageYOffset;
-                      //  && backToTopButton position < footer position - 50
-  console.log(backToTopButton.getBoundingClientRect().top + backToTopButtonHeight, footer.getBoundingClientRect().top);
+  
   if (scrollY > 1400 && backToTopButton.getBoundingClientRect().top + backToTopButtonHeight < footer.getBoundingClientRect().top - 80) {
     if (!backToTopButton.classList.contains('show')) {
       backToTopButton.classList.add('show');
