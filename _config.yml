@@ -11,6 +11,7 @@ github_username: jr-cologne
 codepen_username: jr-cologne
 
 markdown: kramdown
+
 exclude:
   - Gemfile
   - Gemfile.lock
@@ -21,11 +22,11 @@ exclude:
   - README.md
   - design
   - composer.json
-  - vendor/composer/LICENSE
 keep_files:
   - _app
   - kontakt.php
   - sitemap.xml
+  - node_modules
 
 plugins:
   - jekyll-sitemap

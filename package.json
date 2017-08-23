@@ -18,5 +18,9 @@
     "gulp-uglify": "^2.1.2",
     "gulp-util": "^3.0.8",
     "run-sequence": "^1.2.2"
+  },
+  "dependencies": {
+    "@gabriel-delepine/smooth-scroll": "^1.4.0",
+    "rellax": "^1.1.0"
   }
 }
