@@ -58,7 +58,7 @@ code: |
     <header class="article-header">
       <h1 class="article-heading">{{ page.title }}</h1>
 
-      <div id="article-image" class="article-image" style="background-image: url('{{ page.image }}')"></div>
+      <div id="article-image" class="article-image" style="background-image: url('{{ page.image }}'); background-position: 25% center;"></div>
     </header>
 
     <section class="article-text">
@@ -263,7 +263,7 @@ code: |
 </footer>
 
 <!-- smooth-scroll (https://github.com/GabrielDelepine/smooth-scroll) -->
-<script src="/_app/assets/js/smooth-scroll.js"></script>
+<script src="../node_modules/@gabriel-delepine/smooth-scroll/smooth-scroll.min.js"></script>
 
 {% include code-highlighter.html %}
 {% include pen-embed-code.html %}
