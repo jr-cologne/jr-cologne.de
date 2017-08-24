@@ -1,6 +1,13 @@
 // Article Image Parallax Effect //
 var articleImage = document.getElementById('article-image');
 
+var specificBackgroundPosition = false;
+
+if (articleImage.style.backgroundPosition) {
+  specificBackgroundPosition = true;
+  var wantedHorizontalBackgroundPosition = articleImage.style.backgroundPosition.split(' ')[0];
+}
+
 fixArticleImagePosition();
 
 document.addEventListener('scroll', articleImageParallax);
@@ -13,7 +20,11 @@ window.addEventListener('resize', function () {
 
 function disableArticleImageEffects() {
   if (window.innerWidth <= 1024) {
-    articleImage.style.backgroundPosition = 'center center';
+    if (!specificBackgroundPosition) {
+      articleImage.style.backgroundPosition = 'center center';
+    } else {
+      articleImage.style.backgroundPosition = wantedHorizontalBackgroundPosition + ' center';
+    }
   }
 }
 
@@ -21,7 +32,11 @@ function fixArticleImagePosition() {
   if (window.innerWidth > 1024) {
     var articleImagePositionTop = articleImage.getBoundingClientRect().top;
 
-    articleImage.style.backgroundPosition = 'center ' + articleImagePositionTop + 'px';
+    if (!specificBackgroundPosition) {
+      articleImage.style.backgroundPosition = 'center ' + articleImagePositionTop + 'px';
+    } else {
+      articleImage.style.backgroundPosition = wantedHorizontalBackgroundPosition + ' ' + articleImagePositionTop + 'px';
+    }
   }
 }
 
@@ -31,6 +46,10 @@ function articleImageParallax() {
     var articleImagePositionTop = articleImage.getBoundingClientRect().top;
     var parallaxValue = articleImagePositionTop - scrollY / 2;
 
-    articleImage.style.backgroundPosition = 'center ' + parallaxValue + 'px';
+    if (!specificBackgroundPosition) {
+      articleImage.style.backgroundPosition = 'center ' + parallaxValue + 'px';
+    } else {
+      articleImage.style.backgroundPosition = wantedHorizontalBackgroundPosition + ' ' + parallaxValue + 'px';
+    }
   }
 }
