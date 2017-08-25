@@ -6,37 +6,37 @@ canonical: portfolio.html
 portfolio-cards:
   - {
       title: "Portfolio Item 1",
-      image: { url: "/_app/assets/img/img1-large.jpg", alt: "Portfolio Item 1 Image" },
+      image: { src: "/_app/assets/img/img1.jpg", srcset: "/_app/assets/img/img1.jpg 1280w, /_app/assets/img/img1-large.jpg 1920w", alt: "Portfolio Item 1 Image" },
       url: "portfolio/portfolio-item1.html",
       text: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus."
     }
   - {
       title: "Portfolio Item 2",
-      image: { url: "/_app/assets/img/img2-large.jpg", alt: "Portfolio Item 2 Image" },
+      image: { src: "/_app/assets/img/img2.jpg", srcset: "/_app/assets/img/img2.jpg 1280w, /_app/assets/img/img2-large.jpg 1920w", alt: "Portfolio Item 2 Image" },
       url: "portfolio/portfolio-item2.html",
       text: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus."
     }
   - {
       title: "Portfolio Item 3",
-      image: { url: "/_app/assets/img/img3-large.jpg", alt: "Portfolio Item 3 Image" },
+      image: { src: "/_app/assets/img/img3.jpg", srcset: "/_app/assets/img/img3.jpg 1280w, /_app/assets/img/img3-large.jpg 1920w", alt: "Portfolio Item 3 Image" },
       url: "portfolio/portfolio-item3.html",
       text: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus."
     }
   - {
       title: "Portfolio Item 4",
-      image: { url: "/_app/assets/img/img4-large.jpg", alt: "Portfolio Item 4 Image" },
+      image: { src: "/_app/assets/img/img4.jpg", srcset: "/_app/assets/img/img4.jpg 1280w, /_app/assets/img/img4-large.jpg 1920w", alt: "Portfolio Item 4 Image" },
       url: "portfolio/portfolio-item4.html",
       text: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus."
     }
   - {
       title: "Portfolio Item 5",
-      image: { url: "/_app/assets/img/img5-large.jpg", alt: "Portfolio Item 5 Image" },
+      image: { src: "/_app/assets/img/img5.jpg", srcset: "/_app/assets/img/img5.jpg 1280w, /_app/assets/img/img5-large.jpg 1920w", alt: "Portfolio Item 5 Image" },
       url: "portfolio/portfolio-item5.html",
       text: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus."
     }
   - {
       title: "Portfolio Item 6",
-      image: { url: "/_app/assets/img/img6-large.jpg", alt: "Portfolio Item 6 Image" },
+      image: { src: "/_app/assets/img/img6.jpg", srcset: "/_app/assets/img/img6.jpg 1280w, /_app/assets/img/img6-large.jpg 1920w", alt: "Portfolio Item 6 Image" },
       url: "portfolio/portfolio-item6.html",
       text: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus."
     }
@@ -72,7 +72,7 @@ portfolio-cards:
     {% for portfolio-card in page.portfolio-cards %}
 
       <a href="{{ portfolio-card.url }}" class="card card--all">
-        <img src="{{ portfolio-card.image.url }}" alt="{{ portfolio-card.image.alt }}">
+        <img src="{{ portfolio-card.image.src }}" srcset="{{ portfolio-card.image.srcset }}" alt="{{ portfolio-card.image.alt }}">
 
         <div class="card-overlay">
           <h3 class="card-heading">{{ portfolio-card.title }}</h3>

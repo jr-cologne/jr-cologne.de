@@ -4,7 +4,7 @@ title: Article 3
 canonical: blog/2017/04/27/article3.html
 date: "2017-04-27 19:00:00 +0200"
 date_string: "Donnerstag, 27.04.2017"
-image: { url: "/_app/assets/img/img3-large.jpg", alt: "Article 3 Image" }
+image: { src: "/_app/assets/img/img3-large.jpg", srcset: "/_app/assets/img/img3.jpg 1280w, /_app/assets/img/img3-large.jpg 1920w", alt: "Article 3 Image" }
 preview-text: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus."
 categories: blog
 
@@ -43,7 +43,7 @@ tags:
     <header class="article-header">
       <h1 class="article-heading">{{ page.title }}</h1>
 
-      <div id="article-image" class="article-image" style="background-image: url('{{ page.image.url }}')"></div>
+      <div id="article-image" class="article-image" style="background-image: url('{{ page.image.src }}')"></div>
     </header>
 
     <section class="article-text">
@@ -58,7 +58,7 @@ tags:
 
       <figure class="article-content-image">
         <div class="article-content-image-wrap">
-          <img src="/_app/assets/img/img2-large.jpg" alt="Article 3 Content Image 1">
+          <img src="/_app/assets/img/img2.jpg" srcset="/_app/assets/img/img2.jpg 1280w, /_app/assets/img/img2-large.jpg 1920w" alt="Article 3 Content Image 1">
         </div>
       </figure>
 
@@ -108,7 +108,7 @@ tags:
         libero venenatis faucibus.
       </p>
 
-      {% include article-content-image.html image="/_app/assets/img/img4-large.jpg" alt="Article 3 Content Image 2" description="Article 3 Content Image 2" source='Bild: <a href="https://pixabay.com/" target="_blank" title="pixabay.com">pixabay.com</a>' %}
+      {% include article-content-image.html image="/_app/assets/img/img4.jpg" srcset="/_app/assets/img/img4.jpg 1280w, /_app/assets/img/img4-large.jpg 1920w" alt="Article 3 Content Image 2" description="Article 3 Content Image 2" source='Bild: <a href="https://pixabay.com/" target="_blank" title="pixabay.com">pixabay.com</a>' %}
 
       <p>
         Lorem ipsum dolor sit amet, consectetuer adipiscing elit.

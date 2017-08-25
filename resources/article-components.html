@@ -196,13 +196,13 @@ code: |
 
       <h4 id="image-with-caption">Image with Caption</h4>
 
-      {% include article-content-image.html image="/_app/assets/img/img4-large.jpg" alt="Image with Caption" description="Image with Caption" source='Bild: <a href="https://pixabay.com/" target="_blank" title="pixabay.com">pixabay.com</a>' %}
+      {% include article-content-image.html src="/_app/assets/img/img4.jpg" srcset="/_app/assets/img/img4.jpg 1280w, /_app/assets/img/img4-large.jpg 1920w" alt="Image with Caption" description="Image with Caption" source='Bild: <a href="https://pixabay.com/" target="_blank" title="pixabay.com">pixabay.com</a>' %}
 
       <h4 id="image-without-caption">Image without Caption</h4>
 
       <figure class="article-content-image">
         <div class="article-content-image-wrap">
-          <img src="/_app/assets/img/img4-large.jpg" alt="Image without Caption">
+          <img src="/_app/assets/img/img4.jpg" srcset="/_app/assets/img/img4.jpg 1280w, /_app/assets/img/img4-large.jpg 1920w" alt="Image without Caption">
         </div>
       </figure>
 
