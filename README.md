@@ -211,6 +211,10 @@ An overview of what I have done each day is listed below under **Changelog**.
 - Made Back to top Button rounded
 - Added side padding for Article Heading
 
+**25/08:**
+- Optimized .htaccess
+- Optimized performance
+
 ## A few more words for you...
 Are you interested in my upcoming website? You are welcome to contribute to this in any kind!
 Ask questions, give feedback, help me out to improve the code, add new features...
