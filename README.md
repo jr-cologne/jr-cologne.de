@@ -215,6 +215,13 @@ An overview of what I have done each day is listed below under **Changelog**.
 - Optimized .htaccess
 - Optimized performance
 
+**28/08:**
+- Changed that JS is now loaded asynchronously
+- Added rel="noopener" to external links
+- Fixed that Footer Styles were not loaded and made some links more descriptive
+- Optimized Performance and loading of images by lazy loading
+- Further small bug fixes and changes
+
 ## A few more words for you...
 Are you interested in my upcoming website? You are welcome to contribute to this in any kind!
 Ask questions, give feedback, help me out to improve the code, add new features...
