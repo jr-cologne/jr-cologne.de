@@ -2,7 +2,7 @@
 
 The source code of my [personal website](https://jr-cologne.de/), which will go online in September.
 
-Currently, the website is in version 0.5. You can see the site in action under [dev.jr-cologne.de](https://dev.jr-cologne.de/).
+Currently, the website is in version 0.6. You can see the site in action under [dev.jr-cologne.de](https://dev.jr-cologne.de/).
 
 ## Design
 
