@@ -1,6 +1,7 @@
 <figure class="article-content-image">
   <div class="article-content-image-wrap">
-    <img src="{{ include.src }}" srcset="{{ include.srcset }}" alt="{{ include.alt }}">
+    <noscript class="loaded"><img src="{{ include.src }}" srcset="{{ include.srcset }}" alt="{{ include.alt }}"></noscript>
+    <img data-original="{{ include.src }}" data-original-set="{{ include.srcset }}" alt="{{ include.alt }}">
   </div>
 
   <figcaption class="article-content-image-info">
