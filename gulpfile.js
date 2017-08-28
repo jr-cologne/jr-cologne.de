@@ -20,19 +20,13 @@ var jekyllDir = '';
 gulp.task('watch', function () {
   gulp.watch([sass_path + '/*.sass', sass_path + '/pages/*.sass', sass_path + '/partials/*.sass', sass_path + '/modules/*.sass', sass_path + '/media/*.sass', sass_path + '/helpers/*.sass', sass_path + '/base/*.sass'], ['sass-watch']);
 
-  gulp.watch(['_config.yml'], ['jekyll-watch']);
-
-  gulp.watch('_app/assets/js/*.js', ['js']);
-
-  gulp.watch('_posts/**/*.+(md|markdown|MD)', ['jekyll-watch']);
+  gulp.watch(['_config.yml', '_posts/**/*.+(md|markdown|MD)', '*.html', '*.php', '_app/php/*.php', '_app/php/**/*.php', '_layouts/*.html', '_includes/*.html', 'portfolio/*.html', 'tags/*.html', '_posts/blog/*.html', 'resources/*.html', '!_site/**/*.*', 'favicon.ico', '.htaccess'], ['jekyll-watch']);
 
   if (config.drafts) {
     gulp.watch('_drafts/*.+(md|markdown|MD)', ['jekyll-watch']);
   }
 
-  gulp.watch(['*.html', '*.php', '_app/php/*.php', '_app/php/**/*.php', '_layouts/*.html', '_includes/*.html', 'portfolio/*.html', 'tags/*.html', '_posts/blog/*.html', 'resources/*.html', '!_site/**/*.*'], ['jekyll-watch']);
-
-  gulp.watch('favicon.ico', ['jekyll-watch']);
+  gulp.watch('_app/assets/js/*.js', ['js']);
 });
 
 gulp.task('vendor', function () {
@@ -45,6 +39,13 @@ gulp.task('vendor', function () {
     .pipe(gulp.dest('_site/_app/assets/vendor'));
   gulp.src(['_app/assets/vendor/highlightjs/**/*'], { 'base': '_app/assets/vendor' })
     .pipe(gulp.dest('_site/_app/assets/vendor'));
+});
+
+gulp.task('css', function () {
+  return gulp.src(['node_modules/normalize.css/normalize.css'])
+    .pipe(autoprefixer({ browsers: ['last 3 versions', '> 0.5%'] }))
+    .pipe(cssnano())
+    .pipe(gulp.dest('node_modules/normalize.css'));
 });
 
 gulp.task('sass', function () {
@@ -79,7 +80,7 @@ gulp.task('js', function () {
 });
 
 gulp.task('node_modules', function () {
-  gulp.src(['node_modules/rellax/**/*', 'node_modules/@gabriel-delepine/smooth-scroll/**/*'], { 'base': 'node_modules' })
+  gulp.src(['node_modules/rellax/**/*', 'node_modules/@gabriel-delepine/smooth-scroll/**/*', 'node_modules/normalize.css/**/*', 'node_modules/vanilla-lazyload/**/*'], { 'base': 'node_modules' })
     .pipe(gulp.dest('_site/node_modules'));
 });
 
@@ -103,7 +104,7 @@ gulp.task('jekyll', function () {
 });
 
 gulp.task('build', function (cb) {
-  runSequence('jekyll', 'php', 'images', 'sass', 'node_modules', 'vendor', 'js', cb);
+  runSequence('jekyll', 'php', 'images', 'sass', 'css', 'node_modules', 'vendor', 'js', cb);
 });
 
 gulp.task('sass-watch', ['sass'], function (cb) {

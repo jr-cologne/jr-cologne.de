@@ -4,7 +4,7 @@ title: Article 4
 canonical: blog/2017/04/26/article4.html
 date: "2017-04-26 19:00:00 +0200"
 date_string: "Mittwoch, 26.04.2017"
-image: { url: "/_app/assets/img/img4-large.jpg", alt: "Article 4 Image" }
+image: { src: "/_app/assets/img/img4-large.jpg", srcset: "/_app/assets/img/img4.jpg 1280w, /_app/assets/img/img4-large.jpg 1920w", alt: "Article 4 Image" }
 preview-text: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus."
 categories: blog
 
@@ -15,11 +15,11 @@ tags:
 ---
 
 <header class="header">
-  <a href="/" class="logo"></a>
+  <a href="/" class="logo" title="jr-cologne.de Logo"></a>
 
   <nav id="nav" class="nav nav--main">
     <div class="navbar">
-      <a href="#" id="hamburger-button">
+      <a href="#" id="hamburger-button" title="Navigation">
         <span class="hamburger-icon_top"></span>
         <span class="hamburger-icon"></span>
         <span class="hamburger-icon_bottom"></span>
@@ -42,7 +42,7 @@ tags:
     <header class="article-header">
       <h1 class="article-heading">{{ page.title }}</h1>
 
-      <div id="article-image" class="article-image" style="background-image: url('{{ page.image.url }}')"></div>
+      <div id="article-image" class="article-image" style="background-image: url('{{ page.image.src }}')"></div>
     </header>
 
     <section class="article-text">
@@ -67,7 +67,7 @@ tags:
         odio et ante tincidunt tempus.
       </p>
 
-      <script src="https://gist.github.com/jr-cologne/7ebe8a4feb26b05bc0ba43a48c55ab1b.js"></script>
+      <script async src="https://gist.github.com/jr-cologne/7ebe8a4feb26b05bc0ba43a48c55ab1b.js"></script>
 
       <p>
         <q>Donec vitae sapien ut libero venenatis faucibus.</q>
@@ -104,7 +104,7 @@ tags:
         libero venenatis faucibus.
       </p>
 
-      {% include article-content-image.html image="/_app/assets/img/img3-large.jpg" alt="Article 4 Content Image" description="Article 4 Content Image" source='Bild: <a href="https://pixabay.com/" target="_blank" title="pixabay.com">pixabay.com</a>' %}
+      {% include article-content-image.html image="/_app/assets/img/img3.jpg" srcset="/_app/assets/img/img3.jpg 1280w, /_app/assets/img/img3-large.jpg 1920w" alt="Article 4 Content Image" description="Article 4 Content Image" source='Bild: <a href="https://pixabay.com/" target="_blank" rel="noopener" title="pixabay.com">pixabay.com</a>' %}
 
       <p>
         Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
@@ -154,7 +154,7 @@ tags:
 
 <footer class="footer footer--white">
   <div class="footer-logo-nav-container">
-    <a href="/" class="logo"></a>
+    <a href="/" class="logo" title="jr-cologne.de Logo"></a>
 
     <nav class="nav nav--footer">
       <ul>

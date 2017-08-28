@@ -31,11 +31,11 @@ code: |
 ---
 
 <header class="header">
-  <a href="/" class="logo"></a>
+  <a href="/" class="logo" title="jr-cologne.de Logo"></a>
 
   <nav id="nav" class="nav nav--main">
     <div class="navbar">
-      <a href="#" id="hamburger-button">
+      <a href="#" id="hamburger-button" title="Navigation">
         <span class="hamburger-icon_top"></span>
         <span class="hamburger-icon"></span>
         <span class="hamburger-icon_bottom"></span>
@@ -196,13 +196,14 @@ code: |
 
       <h4 id="image-with-caption">Image with Caption</h4>
 
-      {% include article-content-image.html image="/_app/assets/img/img4-large.jpg" alt="Image with Caption" description="Image with Caption" source='Bild: <a href="https://pixabay.com/" target="_blank" title="pixabay.com">pixabay.com</a>' %}
+      {% include article-content-image.html src="/_app/assets/img/img4.jpg" srcset="/_app/assets/img/img4.jpg 1280w, /_app/assets/img/img4-large.jpg 1920w" alt="Image with Caption" description="Image with Caption" source='Bild: <a href="https://pixabay.com/" target="_blank" rel="noopener" title="pixabay.com">pixabay.com</a>' %}
 
       <h4 id="image-without-caption">Image without Caption</h4>
 
       <figure class="article-content-image">
         <div class="article-content-image-wrap">
-          <img src="/_app/assets/img/img4-large.jpg" alt="Image without Caption">
+          <noscript class="loaded"><img src="/_app/assets/img/img4.jpg" srcset="/_app/assets/img/img4.jpg 1280w, /_app/assets/img/img4-large.jpg 1920w" alt="Image without Caption"></noscript>
+          <img data-original="/_app/assets/img/img4.jpg" data-original-set="/_app/assets/img/img4.jpg 1280w, /_app/assets/img/img4-large.jpg 1920w" alt="Image without Caption">
         </div>
       </figure>
 
@@ -242,7 +243,7 @@ code: |
 
 <footer class="footer footer--white">
   <div class="footer-logo-nav-container">
-    <a href="/" class="logo"></a>
+    <a href="/" class="logo" title="jr-cologne.de Logo"></a>
 
     <nav class="nav nav--footer">
       <ul>
@@ -263,7 +264,7 @@ code: |
 </footer>
 
 <!-- smooth-scroll (https://github.com/GabrielDelepine/smooth-scroll) -->
-<script src="../node_modules/@gabriel-delepine/smooth-scroll/smooth-scroll.min.js"></script>
+<script async src="../node_modules/@gabriel-delepine/smooth-scroll/smooth-scroll.min.js"></script>
 
 {% include code-highlighter.html %}
 {% include pen-embed-code.html %}

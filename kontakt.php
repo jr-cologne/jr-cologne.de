@@ -5,11 +5,11 @@ canonical: kontakt.php
 ---
 
 <header class="header">
-  <a href="/" class="logo"></a>
+  <a href="/" class="logo" title="jr-cologne.de Logo"></a>
 
   <nav id="nav" class="nav nav--main">
     <div class="navbar">
-      <a href="#" id="hamburger-button">
+      <a href="#" id="hamburger-button" title="Navigation">
         <span class="hamburger-icon_top"></span>
         <span class="hamburger-icon"></span>
         <span class="hamburger-icon_bottom"></span>
@@ -58,7 +58,7 @@ canonical: kontakt.php
 
 <footer class="footer footer--white">
   <div class="footer-logo-nav-container">
-    <a href="/" class="logo"></a>
+    <a href="/" class="logo" title="jr-cologne.de Logo"></a>
 
     <nav class="nav nav--footer">
       <ul>

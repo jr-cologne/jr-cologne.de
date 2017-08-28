@@ -6,43 +6,43 @@ canonical: resources.html
 resources:
   - {
       title: "Article Components",
-      image: { url: "/_app/assets/img/article-components-large.png", alt: "Preview Image of the Article Components Resource" },
+      image: { src: "/_app/assets/img/article-components.png", srcset: "/_app/assets/img/article-components.png 1280w, /_app/assets/img/article-components-large.png 1920w", alt: "Preview Image of the Article Components Resource" },
       url: "resources/article-components.html",
       text: "This is the collection/showcase of all article components of this website. What does that mean? All elements, which are listed here, can be used in all types of articles across the website to display different types of content from simple headings over tables to code blocks. I will constantly update this, whenever I change something about it or add a new component."
     }
   - {
       title: "Resource 1",
-      image: { url: "/_app/assets/img/img1-large.jpg", alt: "Resource 1 Image" },
+      image: { src: "/_app/assets/img/img1.jpg", srcset: "/_app/assets/img/img1.jpg 1280w, /_app/assets/img/img1-large.jpg 1920w", alt: "Resource 1 Image" },
       url: "resources/resource1.html",
       text: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem."
     }
   - {
       title: "Resource 2",
-      image: { url: "/_app/assets/img/img2-large.jpg", alt: "Resource 2 Image" },
+      image: { src: "/_app/assets/img/img2.jpg", srcset: "/_app/assets/img/img2.jpg 1280w, /_app/assets/img/img2-large.jpg 1920w", alt: "Resource 2 Image" },
       url: "resources/resource2.html",
       text: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem."
     }
   - {
       title: "Resource 3",
-      image: { url: "/_app/assets/img/img3-large.jpg", alt: "Resource 3 Image" },
+      image: { src: "/_app/assets/img/img3.jpg", srcset: "/_app/assets/img/img3.jpg 1280w, /_app/assets/img/img3-large.jpg 1920w", alt: "Resource 3 Image" },
       url: "resources/resource3.html",
       text: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem."
     }
   - {
       title: "Resource 4",
-      image: { url: "/_app/assets/img/img4-large.jpg", alt: "Resource 4 Image" },
+      image: { src: "/_app/assets/img/img4.jpg", srcset: "/_app/assets/img/img4.jpg 1280w, /_app/assets/img/img4-large.jpg 1920w", alt: "Resource 4 Image" },
       url: "resources/resource4.html",
       text: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem."
     }
   - {
       title: "Resource 5",
-      image: { url: "/_app/assets/img/img5-large.jpg", alt: "Resource 5 Image" },
+      image: { src: "/_app/assets/img/img5.jpg", srcset: "/_app/assets/img/img5.jpg 1280w, /_app/assets/img/img5-large.jpg 1920w", alt: "Resource 5 Image" },
       url: "resources/resource5.html",
       text: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem."
     }
   - {
       title: "Resource 6",
-      image: { url: "/_app/assets/img/img6-large.jpg", alt: "Resource 6 Image" },
+      image: { src: "/_app/assets/img/img6.jpg", srcset: "/_app/assets/img/img6.jpg 1280w, /_app/assets/img/img6-large.jpg 1920w", alt: "Resource 6 Image" },
       url: "resources/resource6.html",
       text: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem."
     }
@@ -50,11 +50,11 @@ resources:
 ---
 
 <header class="header">
-  <a href="/" class="logo"></a>
+  <a href="/" class="logo" title="jr-cologne.de Logo"></a>
 
   <nav id="nav" class="nav nav--main">
     <div class="navbar">
-      <a href="#" id="hamburger-button">
+      <a href="#" id="hamburger-button" title="Navigation">
         <span class="hamburger-icon_top"></span>
         <span class="hamburger-icon"></span>
         <span class="hamburger-icon_bottom"></span>
@@ -79,7 +79,8 @@ resources:
 
       <div class="resource">
         <header>
-          <img src="{{ resource.image.url }}" alt="{{ resource.image.alt }}">
+          <noscript class="loaded"><img src="{{ resource.image.src }}" srcset="{{ resource.image.srcset }}" alt="{{ resource.image.alt }}"></noscript>
+          <img data-original="{{ resource.image.src }}" data-original-set="{{ resource.image.srcset }}" alt="{{ resource.image.alt }}">
 
           <a href="{{ resource.url }}" class="resource-overlay">
             <h3 class="resource-heading">{{ resource.title }}</h3>
@@ -104,7 +105,7 @@ resources:
 
 <footer class="footer footer--white">
   <div class="footer-logo-nav-container">
-    <a href="/" class="logo"></a>
+    <a href="/" class="logo" title="jr-cologne.de Logo"></a>
 
     <nav class="nav nav--footer">
       <ul>

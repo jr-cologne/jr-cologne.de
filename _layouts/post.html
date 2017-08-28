@@ -9,7 +9,9 @@
     {{ content }}
 
     <!-- article-image.js -->
-    <script src="/_app/assets/js/article-image.js"></script>
+    <script async src="/_app/assets/js/article-image.js"></script>
+
+    {% include lazyload.html %}
 
     {% include foot.html %}
   </body>
