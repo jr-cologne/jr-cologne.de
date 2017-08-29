@@ -160,3 +160,7 @@
 - Fixed that Footer Styles were not loaded and made some links more descriptive
 - Optimized Performance and loading of images by lazy loading
 - Further small bug fixes and changes
+
+**29/08:**
+- Changed Favicon
+- Moved Changelog to seperate file
