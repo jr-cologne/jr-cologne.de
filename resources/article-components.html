@@ -1,7 +1,7 @@
 ---
 layout: resource
 title: Article Components
-image: "/_app/assets/img/article-components-large.png"
+image: "https://res.cloudinary.com/jr-cologne-de/image/upload/c_fit,f_auto,fl_lossy,q_auto,w_1920/article-components.png"
 canonical: resources/article-components.html
 
 code: |
@@ -58,7 +58,7 @@ code: |
     <header class="article-header">
       <h1 class="article-heading">{{ page.title }}</h1>
 
-      <div id="article-image" class="article-image" style="background-image: url('{{ page.image }}'); background-position: 25% center;"></div>
+      <div id="article-image" class="article-image" data-bg-pos-x="25%" style="background-image: url('{{ page.image }}')"></div>
     </header>
 
     <section class="article-text">
@@ -196,14 +196,14 @@ code: |
 
       <h4 id="image-with-caption">Image with Caption</h4>
 
-      {% include article-content-image.html src="/_app/assets/img/img4.jpg" srcset="/_app/assets/img/img4.jpg 1280w, /_app/assets/img/img4-large.jpg 1920w" alt="Image with Caption" description="Image with Caption" source='Bild: <a href="https://pixabay.com/" target="_blank" rel="noopener" title="pixabay.com">pixabay.com</a>' %}
+      {% include article-content-image.html src="https://res.cloudinary.com/jr-cologne-de/image/upload/ar_1.5,c_scale,f_auto,fl_lossy,q_auto,w_1280/img4.jpg" srcset="https://res.cloudinary.com/jr-cologne-de/image/upload/ar_1.5,c_scale,f_auto,fl_lossy,q_auto,w_1280/img4.jpg 1280w, https://res.cloudinary.com/jr-cologne-de/image/upload/ar_1.5,c_scale,f_auto,fl_lossy,q_auto,w_1920/img4.jpg 1920w" alt="Image with Caption" description="Image with Caption" source='Bild: <a href="https://pixabay.com/" target="_blank" rel="noopener" title="pixabay.com">pixabay.com</a>' %}
 
       <h4 id="image-without-caption">Image without Caption</h4>
 
       <figure class="article-content-image">
         <div class="article-content-image-wrap">
-          <noscript class="loaded"><img src="/_app/assets/img/img4.jpg" srcset="/_app/assets/img/img4.jpg 1280w, /_app/assets/img/img4-large.jpg 1920w" alt="Image without Caption"></noscript>
-          <img data-original="/_app/assets/img/img4.jpg" data-original-set="/_app/assets/img/img4.jpg 1280w, /_app/assets/img/img4-large.jpg 1920w" alt="Image without Caption">
+          <noscript class="loaded"><img src="https://res.cloudinary.com/jr-cologne-de/image/upload/ar_1.5,c_scale,f_auto,fl_lossy,q_auto,w_1280/img4.jpg" srcset="https://res.cloudinary.com/jr-cologne-de/image/upload/ar_1.5,c_scale,f_auto,fl_lossy,q_auto,w_1280/img4.jpg 1280w, https://res.cloudinary.com/jr-cologne-de/image/upload/ar_1.5,c_scale,f_auto,fl_lossy,q_auto,w_1920/img4.jpg 1920w" alt="Image without Caption"></noscript>
+          <img data-original="https://res.cloudinary.com/jr-cologne-de/image/upload/ar_1.5,c_scale,f_auto,fl_lossy,q_auto,w_1280/img4.jpg" data-original-set="https://res.cloudinary.com/jr-cologne-de/image/upload/ar_1.5,c_scale,f_auto,fl_lossy,q_auto,w_1280/img4.jpg 1280w, https://res.cloudinary.com/jr-cologne-de/image/upload/ar_1.5,c_scale,f_auto,fl_lossy,q_auto,w_1920/img4.jpg 1920w" alt="Image without Caption">
         </div>
       </figure>
 

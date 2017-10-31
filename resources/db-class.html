@@ -1,0 +1,113 @@
+---
+layout: resource
+title: DB-Class
+description: Eine einfache Datenbank-Klasse mit PHP, PDO und einem Query Builder. Die Klasse erweitert PDO für mehr Kontrolle sowie dem Erhalt von allen Features, die PDO mit sich bringt. Der Nutzung dieser Datenbank-Klasse sind also keine Grenzen gesetzt.
+image: "https://res.cloudinary.com/jr-cologne-de/image/upload/c_fit,f_auto,fl_lossy,q_auto,w_1920/db-class.png"
+canonical: resources/db-class.html
+
+code: composer require jr-cologne/db-class
+---
+
+<header class="header">
+  <a href="/" class="logo" title="jr-cologne.de Logo"></a>
+
+  <nav id="nav" class="nav nav--main">
+    <div class="navbar">
+      <a href="#" id="hamburger-button" title="Navigation">
+        <span class="hamburger-icon_top"></span>
+        <span class="hamburger-icon"></span>
+        <span class="hamburger-icon_bottom"></span>
+      </a>
+    </div>
+
+    <ul>
+      <li><a href="/">Startseite</a></li>
+      <li><a href="/portfolio.html">Portfolio</a></li>
+      <li><a href="/blog.html">Blog</a></li>
+      <li><a href="/resources.html" class="current">Ressourcen</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+  {% include back-button.html path='../resources.html' text='Zurück zu den Ressourcen' %}
+
+  <article class="article">
+    <header class="article-header">
+      <h1 class="article-heading">{{ page.title }}</h1>
+
+      <div id="article-image" class="article-image" style="background-image: url('{{ page.image }}')"></div>
+    </header>
+
+    <section class="article-text">
+      <p>
+        Du bist es langsam satt für jede Interaktion mit einer Datenbank immer
+        selber den ganzen PHP- sowie SQL-Code zu schreiben?
+      </p>
+
+      <p>
+        Dann ist diese Datenbank-Klasse genau das richtige für dich!
+      </p>
+
+      <p>
+        Warum? Die Klasse beinhaltet einen Query-Builder und zusätzlich setzt
+        sie dir keinerlei Grenzen, da sie PDO erweitert und du genauso
+        auf alle Funktionen von PDO zurückgreifen kannst.
+      </p>
+
+      <p>
+        Wenn du also mal etwas komplexere Queries machen musst,
+        für die diese Klasse keine Funktion bereitstellt, kannst du dies
+        ohne Probleme auch mit der Datenbank-Klasse machen,
+        indem du sie im Prinzip einfach wie PDO behandelst.
+      </p>
+
+      <p>
+        Na, neugierig? Du findest die Datenbank-Klasse auf <a href="https://github.com/jr-cologne/db-class" target="_blank" rel="noopener">GitHub</a>
+        und <a href="https://packagist.org/packages/jr-cologne/db-class" target="_blank" rel="noopener">Packagist</a>.
+        Folglich kannst du sie dank Composer mit einem
+        einzigen Befehl in dein Projekt einbinden:
+      </p>
+
+      <pre class="code"><code class="shell">{{ page.code | xml_escape }}</code></pre>
+
+      <p>
+        Die Dokumentation kannst du genauso dort einsehen,
+        und sollten doch mal Fragen oder Probleme auftauchen,
+        kannst du dies gerne <a href="https://github.com/jr-cologne/db-class/issues" target="_blank" rel="noopener">in Form eines Issues auf GitHub ausdrücken</a>
+        oder mich <a href="https://twitter.com/{{ site.twitter_username }}/" target="_blank" rel="noopener">bei Twitter anschreiben</a>.
+      </p>
+
+      <p>
+        Ich wünsche dir viel Spaß mit dieser Datenbank-Klasse und hoffe,
+        dass sie dir ein wenig Arbeit bei der Entwicklung abnimmt!
+      </p>
+
+      <p><small class="source">Titelbild: Screenshot des <a href="https://github.com/jr-cologne/db-class" target="_blank" rel="noopener">GitHub-Repositorys (jr-cologne/db-class)</a></small></p>
+    </section>
+  </article>
+</main>
+
+<footer class="footer footer--white">
+  <div class="footer-logo-nav-container">
+    <a href="/" class="logo" title="jr-cologne.de Logo"></a>
+
+    <nav class="nav nav--footer">
+      <ul>
+        <li><a href="/">Startseite</a></li>
+        <li><a href="/portfolio.html">Portfolio</a></li>
+        <li><a href="/blog.html">Blog</a></li>
+        <li><a href="/resources.html" class="current">Ressourcen</a></li>
+      </ul>
+    </nav>
+  </div>
+
+  <nav class="nav nav--legal">
+    <ul>
+      <li><a href="/impressum.html">Impressum</a></li>
+      <li><a href="/datenschutz.html">Datenschutz</a></li>
+    </ul>
+  </nav>
+</footer>
+
+{% include code-highlighter.html %}

@@ -2,6 +2,12 @@
 <html lang="de">
   <head>
     {% include head.html stylesheet='index' %}
+
+    <meta property="og:title" content="{{ site.title }} - {{ page.title }}">
+    <meta property="og:description" content="{{ site.description }}">
+    <meta property="og:image" content="https://res.cloudinary.com/jr-cologne-de/image/upload/c_fit,f_auto,fl_lossy,q_auto,w_1920/welcome-section-bg.jpg">
+    <meta property="og:url" content="{{ site.url }}/{{ page.canonical }}">
+    <meta property="og:type" content="website">
   </head>
   <body>
     {% include js-deactivated-box.html %}

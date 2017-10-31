@@ -1,0 +1,137 @@
+---
+layout: portfolio-single
+title: Login-Script
+description: Dieses Projekt stellt ein relativ einfach gehaltenes datenbankbasiertes Login-Script dar, das mit PHP umgesetzt wurde. So ist es ein ideales Beispiel für einen gesperrten Mitgliederbereich auf einer Website und unterstützt sogar die Anmeldung mit Google.
+image: "https://res.cloudinary.com/jr-cologne-de/image/upload/c_fit,f_auto,fl_lossy,q_auto,w_1920/login-script.png"
+canonical: portfolio/login-script.html
+---
+
+<header class="header">
+  <a href="/" class="logo" title="jr-cologne.de Logo"></a>
+
+  <nav id="nav" class="nav nav--main">
+    <div class="navbar">
+      <a href="#" id="hamburger-button" title="Navigation">
+        <span class="hamburger-icon_top"></span>
+        <span class="hamburger-icon"></span>
+        <span class="hamburger-icon_bottom"></span>
+      </a>
+    </div>
+
+    <ul>
+      <li><a href="/">Startseite</a></li>
+      <li><a href="/portfolio.html" class="current">Portfolio</a></li>
+      <li><a href="/blog.html">Blog</a></li>
+      <li><a href="/resources.html">Ressourcen</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+  {% include back-button.html path='../portfolio.html' text='Zurück zum Portfolio' %}
+
+  <article class="article">
+    <header class="article-header">
+      <h1 class="article-heading">{{ page.title }}</h1>
+
+      <div id="article-image" class="article-image" style="background-image: url('{{ page.image }}')"></div>
+    </header>
+
+    <section class="article-text">
+      <p>
+        Dieses Projekt stellt ein relativ einfach gehaltenes datenbankbasiertes
+        Login-Script dar, das mit PHP umgesetzt wurde.
+      </p>
+
+      <p>
+        Die wesentlichen Features sind:
+      </p>
+      <ul>
+        <li>kostenlose Registrierung sowie Login</li>
+        <li>Zugang zu einem gesperrten/geheimen Bereich</li>
+        <li>Verwaltung der eigenen Profilinformationen, wie z.B. Benutzername, E-Mail und Passwort</li>
+        <li>Registrierung und Login mit Google als Alternative zur klassischen Variante (seit v1.5)</li>
+      </ul>
+
+      <p>
+        Wie du siehst, ist dies also ein gutes Beispiel dafür, wie man
+        beispielsweise einen Mitgliederbereich auf einer Website
+        implementieren könnte.
+      </p>
+
+      <p>
+        Wichtig zu wissen ist dabei, dass das Login-Script auf keinerlei
+        Framework basiert. Es wird lediglich die <a href="https://github.com/google/google-api-php-client" target="_blank" rel="noopener">Google API Client Library
+        for PHP</a> verwendet, um eben die Registrierung und den Login mit Google
+        zu ermöglichen. Für die Datenbankanbindung wird dann wieder auf Marke
+        Eigenbau zurückgegriffen, um genau zu sein auf <a href="https://github.com/jr-cologne/db-class" target="_blank" rel="noopener">diese Datenbank-Klasse</a>.
+      </p>
+
+      <p>
+        Ansonsten liegt der Fokus bei der Entwicklung dieses Login-Scripts
+        natürlich ganz klar beim Punkto Sicherheit. Hierbei wird auf moderne
+        Sicherheitsstandards geachtet, um z.B. die Passwörter der Nutzer
+        zu schützen. Des Weiteren wird eine Verifizierung der E-Mail-Adresse
+        vorausgesetzt, sodass sichergestellt ist, dass dort tatsächlich ein
+        Nutzer vor dem PC sitzt, der ein ernsthaftes Interesse an dem
+        Mitgliederbereich oder ähnlichem hat und nicht irgendwelche schwarzen
+        Schafe durchrutschen.
+      </p>
+
+      <p>
+        Alles in allem bietet das Login-Script also schon jetzt im Herbst 2017
+        eine gute Basis-Funktionalität, wird allerdings auch noch
+        weiterentwickelt und ist somit noch lange nicht
+        auf diese Features begrenzt.
+      </p>
+
+      <p>
+        Was auf jeden Fall noch fehlt, ist eine Möglichkeit, das Passwort
+        zurückzusetzen, falls man dieses mal vergessen haben sollte.
+        Außerdem soll auch noch die Möglichkeit der Anmeldung über
+        externe Dienste erweitert werden. So ist z.B. eine Anmeldung
+        per Twitter geplant.
+      </p>
+
+      <p>
+        Das alles wird vermutlich noch im Jahr 2017 erscheinen,
+        während im 2018 dann mit Version 2 ein komplettes Redesign ansteht.
+        Dies bedeutet, eine komplette Überarbeitung des Codes inkl. Umstieg
+        auf OOP. Eventuell dann sogar mit Framework im Hintergrund.
+        Da steht die Entscheidung noch aus. Wirklich größere Änderungen
+        an der Funktionalität des Login-Scripts wird es dann allerdings
+        nicht geben, da es sonst den Rahmen sprengen würde.
+      </p>
+
+      <p>
+        Wenn du immer auf dem Laufenden bleiben möchtest, empfehle ich dir
+        das <a href="https://github.com/jr-cologne/login-script" target="_blank" rel="noopener">GitHub-Repository</a>
+        als zentrale Anlaufstelle. Ansonsten wird es sicher auch ab und zu
+        das eine oder andere Update hier auf <a href="/" target="_blank" rel="noopener">jr-cologne.de</a>
+        oder auf <a href="https://twitter.com/{{ site.twitter_username }}/" target="_blank" rel="noopener">Twitter</a> dazu geben.
+      </p>
+    </section>
+  </article>
+</main>
+
+<footer class="footer footer--white">
+  <div class="footer-logo-nav-container">
+    <a href="/" class="logo" title="jr-cologne.de Logo"></a>
+
+    <nav class="nav nav--footer">
+      <ul>
+        <li><a href="/">Startseite</a></li>
+        <li><a href="/portfolio.html" class="current">Portfolio</a></li>
+        <li><a href="/blog.html">Blog</a></li>
+        <li><a href="/resources.html">Ressourcen</a></li>
+      </ul>
+    </nav>
+  </div>
+
+  <nav class="nav nav--legal">
+    <ul>
+      <li><a href="/impressum.html">Impressum</a></li>
+      <li><a href="/datenschutz.html">Datenschutz</a></li>
+    </ul>
+  </nav>
+</footer>

@@ -1,0 +1,102 @@
+---
+layout: resource
+title: CodePen
+description: CodePen ist eine Online-Plattform mit Elementen eines sozialen Netzwerks für Frontend-Webentwickler, die ihre Arbeit präsentieren möchten, kleine Code Snippets mit anderen teilen wollen oder einfach nur auf der Suche nach Inspiration sind.
+image: "https://res.cloudinary.com/jr-cologne-de/image/upload/c_fit,f_auto,fl_lossy,q_auto,w_1920/codepen.png"
+canonical: resources/codepen.html
+---
+
+<header class="header">
+  <a href="/" class="logo" title="jr-cologne.de Logo"></a>
+
+  <nav id="nav" class="nav nav--main">
+    <div class="navbar">
+      <a href="#" id="hamburger-button" title="Navigation">
+        <span class="hamburger-icon_top"></span>
+        <span class="hamburger-icon"></span>
+        <span class="hamburger-icon_bottom"></span>
+      </a>
+    </div>
+
+    <ul>
+      <li><a href="/">Startseite</a></li>
+      <li><a href="/portfolio.html">Portfolio</a></li>
+      <li><a href="/blog.html">Blog</a></li>
+      <li><a href="/resources.html" class="current">Ressourcen</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+  {% include back-button.html path='../resources.html' text='Zurück zu den Ressourcen' %}
+
+  <article class="article">
+    <header class="article-header">
+      <h1 class="article-heading">{{ page.title }}</h1>
+
+      <div id="article-image" class="article-image" data-bg-pos-x="start" style="background-image: url('{{ page.image }}')"></div>
+    </header>
+
+    <section class="article-text">
+      <p>
+        <a href="https://codepen.io/" target="_blank" rel="noopener">CodePen</a> ist eine Online-Plattform mit Elementen eines
+        sozialen Netzwerks für Frontend-Webentwickler, die ihre Arbeit
+        präsentieren möchten, kleine Code Snippets mit anderen teilen wollen
+        oder einfach nur auf der Suche nach Inspiration sind.
+      </p>
+
+      <p>
+        Das Konzept ist relativ simpel: Man erstellt sich einen Account
+        und bekommt eine eigene Profilseite, die ein wenig an ein
+        Portfolio erinnert. Anschließend kann man über den Online-Editor
+        von CodePen sogenannte Pens erstellen, die im Grunde für kleine
+        Code Snippets bis hin zu One-Page-Websites vielfältig einsetzbar
+        sind und die Nutzung von HTML, CSS, JavaScript sowie verschiedene
+        Präprozessoren, Frameworks und sonstige hilfreiche Dinge für die
+        Entwicklung erlauben. Diese Pens erscheinen dann auf der eigenen
+        Profilseite, sodass man sich super eine Art Portfolio
+        mit CodePen aufbauen kann.
+      </p>
+
+      <p>
+        Damit ist aber noch lange nicht Schluss. Neben den Pens bietet
+        CodePen auch noch die Erstellung und Verwaltung von ganzen Projekten
+        und das Verfassen von Artikeln an, die ebenfalls auf der Plattform
+        erstellt und veröffentlicht werden können.
+      </p>
+
+      <p>
+        Die grundsätzlichen Funktion auf der Plattform sind dabei
+        immer kostenlos. Möchte man jedoch ein paar mehr Funktionen
+        genießen können, gibt es noch die Möglichkeit, ein Upgrade
+        des Accounts auf Pro vorzunehmen. Für die Meisten sollte der
+        kostenlose Account aber reichen. Ich komme damit
+        beispielsweise auch ohne Probleme aus.
+      </p>
+
+      <p><small class="source">Titelbild: Screenshot von <a href="https://codepen.io/" target="_blank" rel="noopener">CodePen</a></small></p>
+    </section>
+  </article>
+</main>
+
+<footer class="footer footer--white">
+  <div class="footer-logo-nav-container">
+    <a href="/" class="logo" title="jr-cologne.de Logo"></a>
+
+    <nav class="nav nav--footer">
+      <ul>
+        <li><a href="/">Startseite</a></li>
+        <li><a href="/portfolio.html">Portfolio</a></li>
+        <li><a href="/blog.html">Blog</a></li>
+        <li><a href="/resources.html" class="current">Ressourcen</a></li>
+      </ul>
+    </nav>
+  </div>
+
+  <nav class="nav nav--legal">
+    <ul>
+      <li><a href="/impressum.html">Impressum</a></li>
+      <li><a href="/datenschutz.html">Datenschutz</a></li>
+    </ul>
+  </nav>
+</footer>

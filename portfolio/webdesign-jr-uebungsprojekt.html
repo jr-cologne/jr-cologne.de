@@ -1,0 +1,115 @@
+---
+layout: portfolio-single
+title: Webdesign JR Übungsprojekt
+description: Beim Webdesign JR Übungsprojekt geht es um die Website meiner eigenen fiktionalen Webdesign-Agentur Webdesign JR. Die erste richtige stabile Version ist im Herbst 2016 erschienen. Die zweite Version erscheint voraussichtlich Ende 2017 oder Anfang 2018, dann mit einem kompletten Redesign.
+image: "https://res.cloudinary.com/jr-cologne-de/image/upload/c_fit,f_auto,fl_lossy,q_auto,w_1920/webdesign-jr-uebungsprojekt.png"
+canonical: portfolio/webdesign-jr-uebungsprojekt.html
+---
+
+<header class="header">
+  <a href="/" class="logo" title="jr-cologne.de Logo"></a>
+
+  <nav id="nav" class="nav nav--main">
+    <div class="navbar">
+      <a href="#" id="hamburger-button" title="Navigation">
+        <span class="hamburger-icon_top"></span>
+        <span class="hamburger-icon"></span>
+        <span class="hamburger-icon_bottom"></span>
+      </a>
+    </div>
+
+    <ul>
+      <li><a href="/">Startseite</a></li>
+      <li><a href="/portfolio.html" class="current">Portfolio</a></li>
+      <li><a href="/blog.html">Blog</a></li>
+      <li><a href="/resources.html">Ressourcen</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+  {% include back-button.html path='../portfolio.html' text='Zurück zum Portfolio' %}
+
+  <article class="article">
+    <header class="article-header">
+      <h1 class="article-heading">{{ page.title }}</h1>
+
+      <div id="article-image" class="article-image" data-bg-pos-x="start" style="background-image: url('{{ page.image }}')"></div>
+    </header>
+
+    <section class="article-text">
+      <p>
+        Wie sich aus dem Namen schon ergibt, besteht dieses Projekt rein aus
+        Übungs- bzw. Testzwecken.
+      </p>
+
+      <p>
+        Damals als ich mit dem Projekt begonnen habe, was ca. um die
+        Jahreswende 2015/16 war, hatte ich zwar HTML, CSS und Co halbwegs
+        auf dem Kasten, konnte meine Kenntnisse jedoch noch nie so richtig
+        praxisnah anwenden. Deswegen kam ich also auf die Idee, eine einfache
+        Website für meine eigene fiktionale Webdesign-Agentur zu erstellen und
+        so zu erlernen, wie man nach und nach eine Website aufbauen kann.
+      </p>
+
+      <p>
+        Dabei war es mir erstmal allerdings nicht so wichtig, ein super
+        schönes und durchdachtes Design zu haben oder gar eine wirklich
+        professionelle Seite mit CMS und weiteren Dingen, die heutzutage
+        eigentlich zum Standard gehören, zu errichten. Vielmehr ging es
+        mir darum, meine technischen Kenntnisse anzuwenden und das Projekt
+        dann mit der Zeit weiterzuführen und zu verbessern, bis ich
+        irgendwann bei eben dieser professionellen Website lande,
+        die wirklich so aussieht als handele es sich dabei um eine
+        echte Webdesign-Agentur.
+      </p>
+
+      <p>
+        Wenn man sich die aktuelle Version 1, die jetzt schon fast seit
+        einem Jahr steht, anschaut, würde jeder allerdings völlig zurecht
+        sagen, dass ich mein Ziel dann aber sicher noch nicht erreicht habe.
+        Und genauso ist es auch: Version 1 ist wirklich noch eine sehr
+        einfache Website, die nur geringfügig bis gar nicht an die einer
+        Webdesign-Agentur erinnert.
+        Dies wird sich auch erst mit Version 2 ändern,
+        die für Ende 2017 oder Anfang 2018 geplant ist.
+      </p>
+
+      <p>
+        Die zweite Iteration wird voraussichtlich mit WordPress aufgezogen
+        und diesmal wird natürlich auch deutlich mehr Wert auf ein nettes
+        Design gelegt. Seid einfach mal gespannt, wie sich das dann entwickelt.
+      </p>
+
+      <p>
+        Wer immer auf dem aktuellen Stand bzgl. dem Übungsprojekt Webdesign JR
+        bleiben möchte, kann gerne im <a href="https://github.com/jr-cologne/webdesign-jr-training-project" target="_blank" rel="noopener">GitHub-Repository</a> des Projektes auf die
+        Watch-Funktionalität zurückgreifen. Ansonsten werde ich aber sicher
+        auch das eine oder andere dazu hier auf <a href="/">jr-cologne.de</a> schreiben bzw.
+        euch bei <a href="https://twitter.com/{{ site.twitter_username }}/" target="_blank" rel="noopener">Twitter</a> auf dem Laufenden halten.
+      </p>
+    </section>
+  </article>
+</main>
+
+<footer class="footer footer--white">
+  <div class="footer-logo-nav-container">
+    <a href="/" class="logo" title="jr-cologne.de Logo"></a>
+
+    <nav class="nav nav--footer">
+      <ul>
+        <li><a href="/">Startseite</a></li>
+        <li><a href="/portfolio.html" class="current">Portfolio</a></li>
+        <li><a href="/blog.html">Blog</a></li>
+        <li><a href="/resources.html">Ressourcen</a></li>
+      </ul>
+    </nav>
+  </div>
+
+  <nav class="nav nav--legal">
+    <ul>
+      <li><a href="/impressum.html">Impressum</a></li>
+      <li><a href="/datenschutz.html">Datenschutz</a></li>
+    </ul>
+  </nav>
+</footer>

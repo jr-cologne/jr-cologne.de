@@ -2,6 +2,11 @@
 <html lang="de">
   <head>
     {% include head.html stylesheet='tag-page' %}
+
+    <meta property="og:title" content="{{ site.title }} - {{ page.title }}">
+    <meta property="og:description" content="{{ page.description }}">
+    <meta property="og:url" content="{{ site.url }}/{{ page.canonical }}">
+    <meta property="og:type" content="article">
   </head>
   <body>
     {% include js-deactivated-box.html %}
