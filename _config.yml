@@ -25,6 +25,7 @@ exclude:
   - _app
   - README.md
   - CHANGELOG.md
+  - DESIGN.md
   - design
   - composer.json
 keep_files:
