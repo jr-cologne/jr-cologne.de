@@ -17,6 +17,12 @@ An overview of what I have done each day during the main development phase is li
 
 Other changes and updates are not included in the changelog, therefore please refer to the [release notes](https://github.com/jr-cologne/jr-cologne.de/releases).
 
+## License
+
+This project is licensed under the [MIT License](https://github.com/jr-cologne/jr-cologne.de/blob/master/LICENSE).
+
+Please note that the German copyright (*Urheberrecht*) applies for the content of the website. Only the code itself here on GitHub is licensed under the MIT license, nothing else!
+
 ## A few more words for you...
 
 Are you interested in my website? You are welcome to contribute to this in any kind!
