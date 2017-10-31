@@ -159,6 +159,19 @@ AddDefaultCharset utf-8
   </IfModule>
 </FilesMatch>
 
+<FilesMatch "sitemap.xml|robots.txt$">
+  # Apache < 2.3
+  <IfModule !mod_authz_core.c>
+      Order allow,deny
+      Allow from all
+  </IfModule>
+
+  # Apache ≥ 2.3
+  <IfModule mod_authz_core.c>
+      Require all granted
+  </IfModule>
+</FilesMatch>
+
 # Remove the `X-Powered-By` response header
 <IfModule mod_headers.c>
   Header unset X-Powered-By
@@ -316,5 +329,5 @@ FileETag None
 </IfModule>
 
 # Error Pages
-ErrorDocument 404 errors/404.html
-ErrorDocument 500 errors/500.html
+ErrorDocument 404 https://jr-cologne.de/errors/404.html
+ErrorDocument 500 https://jr-cologne.de/errors/500.html
