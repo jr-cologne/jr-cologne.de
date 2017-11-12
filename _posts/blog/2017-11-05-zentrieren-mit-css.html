@@ -1,0 +1,875 @@
+---
+layout: post
+title: Zentrieren mit CSS
+canonical: blog/2017/11/05/zentrieren-mit-css.html
+date: "2017-11-05 17:00:00 +0100"
+date_string: "Sonntag, 05.11.2017"
+article-image: "https://res.cloudinary.com/jr-cologne-de/image/upload/c_fit,f_auto,fl_lossy,q_auto,w_1920/zentrieren-mit-css.png"
+image: { src: "https://res.cloudinary.com/jr-cologne-de/image/upload/ar_1.5,c_scale,f_auto,fl_lossy,q_auto,w_1280/zentrieren-mit-css.png", srcset: "https://res.cloudinary.com/jr-cologne-de/image/upload/ar_1.5,c_scale,f_auto,fl_lossy,q_auto,w_1280/zentrieren-mit-css.png 1280w, https://res.cloudinary.com/jr-cologne-de/image/upload/ar_1.5,c_scale,f_auto,fl_lossy,q_auto,w_1920/zentrieren-mit-css.png 1920w", alt: "Willkommen auf jr-cologne.de - Das erwartet euch Vorschaubild" }
+preview-text: "Heute beschäftigen wir uns mit einem Thema, das nicht nur Anfänger das eine oder andere Mal ins Boxhorn jagt. Auch Fortgeschrittene oder Profis haben immer mal wieder das Problem, dass sie in Situationen kommen, bei denen selbst sie unsicher sind, wie sich ein bestimmtes Element in einem speziellen Anwendungsfall (am besten) zentrieren lässt."
+categories: blog
+
+tags:
+  - { title: "CSS", url: "https://de.wikipedia.org/wiki/Cascading_Style_Sheets", target: "_blank" }
+  - { title: "Webdesign", url: "https://de.wikipedia.org/wiki/Webdesign", target: "_blank" }
+  - { title: "Webentwicklung", url: "https://de.wikipedia.org/wiki/Webentwicklung", target: "_blank" }
+  - { title: "Responsive Webdesign", url: "https://de.wikipedia.org/wiki/Responsive_Webdesign", target: "_blank" }
+
+code1: |
+  p {
+    text-align: center;
+  }
+
+code2: |
+  p {
+    text-align: center;
+    width: 400px;
+    border: 1px solid green;
+  }
+
+code3: |
+  div {
+    text-align: center;
+  }
+
+  a {
+    border: 1px solid green;
+  }
+
+code4: |
+  div {
+    background-color: lightgreen;
+    height: 100px;
+  }
+
+  p {
+    line-height: 100px;
+  }
+
+code5: |
+  div {
+    background-color: lightgreen;
+  }
+
+  p {
+    padding: 2% 0;
+  }
+
+code6: |
+  html, body {
+    height: 100%;
+  }
+
+  div {
+    background-color: lightgreen;
+    height: 10%;
+    position: relative;
+  }
+
+  p {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    margin: 0;  /* Zurücksetzen des vom Browser vergebenen margins */
+  }
+
+code7: |
+  div {
+    background-color: lightgreen;
+    height: 100px;
+  }
+
+  p {
+    line-height: 100px;
+    text-align: center;
+  }
+
+code8: |
+  div {
+    background-color: lightgreen;
+  }
+
+  p {
+    padding: 2% 0;
+    text-align: center;
+  }
+
+code9: |
+  html, body {
+    height: 100%;
+  }
+
+  div {
+    background-color: lightgreen;
+    height: 10%;
+    position: relative;
+  }
+
+  p {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    margin: 0;  /* Zurücksetzen des vom Browser vergebenen margins */
+    width: 100%;
+    text-align: center;
+    border: 1px solid red;
+  }
+
+code10: |
+  div.parent {
+    background-color: lightgreen;
+  }
+
+  div.child {
+    background-color: red;
+    margin: 0 auto;
+    width: 800px;
+    padding: 1%;
+  }
+
+code11: |
+  div {
+    background-color: lightgreen;
+  }
+
+  img {
+    display: block;
+    margin: 0 auto;
+    width: 800px;
+  }
+
+code12: |
+  div.parent {
+    background-color: lightgreen;
+    height: 300px;
+    position: relative;
+  }
+
+  div.child {
+    background-color: red;
+    width: 100%;
+    height: 100px;
+    position: absolute;
+    top: 50%;
+    margin-top: -50px;
+  }
+
+code13: |
+  div.parent {
+    background-color: lightgreen;
+    height: 300px;
+    position: relative;
+  }
+
+  div.child {
+    background-color: red;
+    width: 100%;
+    padding: 1% 0;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+code14: |
+  div.parent {
+    background-color: lightgreen;
+    height: 300px;
+    position: relative;
+  }
+
+  div.child {
+    background-color: red;
+    width: 500px;
+    height: 200px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: -100px 0 0 -250px;
+  }
+
+code15: |
+  div.parent {
+    background-color: lightgreen;
+    height: 300px;
+    position: relative;
+  }
+
+  div.child {
+    background-color: red;
+    width: 80%;
+    height: 70%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+code16: |
+  div.parent {
+    background-color: lightgreen;
+    height: 300px;
+    text-align: center;
+  }
+
+  div.child {
+    background-color: red;
+    display: inline-block;
+    height: 100%;
+    width: 30%;
+    margin-left: 1.5%;
+  }
+
+  div.child:first-child {
+    margin-left: 0;
+  }
+
+code17: |
+  html, body {
+    height: 100%;
+  }
+
+  div.parent {
+    background-color: lightgreen;
+    height: 50%;
+    text-align: center;
+    position: relative;
+  }
+
+  div.child {
+    background-color: red;
+    display: inline-block;
+    height: 80%;
+    width: 30%;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    margin-left: 1.5%;
+  }
+
+  div.child:first-child {
+    margin-left: 0;
+  }
+
+code18: |
+  div.parent {
+    background-color: lightgreen;
+    text-align: center;
+  }
+
+  div.child {
+    background-color: red;
+    display: inline-block;
+    width: 30%;
+    margin-left: 1.5%;
+    vertical-align: middle;
+  }
+
+  div.child:first-child {
+    margin-left: 0;
+  }
+
+  div.child p {
+    margin: 0;
+  }
+
+---
+
+<header class="header">
+  <a href="/" class="logo" title="jr-cologne.de Logo"></a>
+
+  <nav id="nav" class="nav nav--main">
+    <div class="navbar">
+      <a href="#" id="hamburger-button" title="Navigation">
+        <span class="hamburger-icon_top"></span>
+        <span class="hamburger-icon"></span>
+        <span class="hamburger-icon_bottom"></span>
+      </a>
+    </div>
+
+    <ul>
+      <li><a href="/">Startseite</a></li>
+      <li><a href="/portfolio.html">Portfolio</a></li>
+      <li><a href="/blog.html" class="current">Blog</a></li>
+      <li><a href="/resources.html">Ressourcen</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+  {% include article-top-bar.html %}
+
+  <article class="article">
+    <header class="article-header">
+      <h1 class="article-heading">{{ page.title }}</h1>
+
+      <div id="article-image" class="article-image" data-article-image-effect="false" style="background-image: url('{{ page.article-image }}')"></div>
+    </header>
+
+    <section class="article-text">
+      <p>
+        Heute beschäftigen wir uns mit einem Thema, das nicht nur Anfänger
+        das eine oder andere Mal ins Boxhorn jagt. Auch Fortgeschrittene
+        oder Profis haben immer mal wieder das Problem, dass sie in Situationen
+        kommen, bei denen selbst sie unsicher sind, wie sich ein bestimmtes
+        Element in einem speziellen Anwendungsfall (am besten) zentrieren lässt.
+      </p>
+
+      <p>
+        In diesem Artikel möchte ich zum einen die unterschiedlichen Faktoren
+        vorstellen, die beim Zentrieren eine Rolle spielen und beeinflussen,
+        was funktioniert und was nicht. Im nächsten Schritt spielen wir dann
+        verschiedene Szenarien durch und besprechen, wie man diese lösen könnte.
+        Zum Ende werde ich noch ein kurzes Fazit ziehen.
+      </p>
+
+      <h3>Warum ist das Zentrieren mit CSS so schwer?</h3>
+
+      <p>
+        Bevor wir tiefer in das Thema einsteigen, möchte ich aber noch kurz
+        eine Frage beantworten, die vermutlich vielen von euch auf
+        dem Herzen liegt: Warum ist das Zentrieren mit CSS so schwer?
+      </p>
+
+      <p>
+        Wenn ihr mich fragt, dann ist es prinzipiell gar nicht so schwer.
+        Eigentlich gibt es in CSS deutlich schwierigere Sachen,
+        mit denen sich ein Webentwickler so rumschlagen muss.
+        Der Grund dafür, dass es zahlreichen Leuten so schwer vorkommt,
+        ist eher die Tatsache, dass besonders beim Zentrieren unzählige
+        Wege nach Rom führen. Durch die vielen unterschiedlichen Faktoren,
+        die beim Zentrieren eine Rolle spielen, gibt es keine allgemeine
+        Lösung, sondern nur situationsabhängige. Was das eine Mal funktioniert,
+        kann beim nächsten Mal der komplett falsche Ansatz sein, da es sich
+        z.B. nicht um Text, sondern ein Bild handelt. Und das ist noch ein
+        sehr einfaches Beispiel.
+      </p>
+
+      <h3>Diese Faktoren müssen beim Zentrieren mit CSS beachtet werden</h3>
+
+      <p>
+        Welche Faktoren müssen wir also berücksichtigen,
+        wenn wir ein beliebiges Element mit CSS zentrieren wollen?
+      </p>
+
+      <p>
+        Die erste Frage, die wir uns stellen müssen, ist logischerweise
+        “<strong>Was soll zentriert werden?</strong>”. Im Wesentlichen kann es darauf zwei
+        verschiedene Antworten geben:
+      </p>
+
+      <ul>
+        <li>Inline-Elemente (z.B. Links) oder Textzeilen (z.B. Text in Paragraphen oder Überschriften)</li>
+        <li>Ein Bild oder ein beliebiges Blockelement (z.B. p, div, header usw.)</li>
+      </ul>
+
+      <p>
+        Der erste Faktor, den es zu berücksichtigen gilt, ist also der Typ
+        des Elements, das zentriert werden soll. Wenn man diese Frage
+        beantwortet hat, fallen schon mal viele Möglichkeiten weg.
+      </p>
+
+      <p>
+        Weiter geht es dann mit der Frage
+        “<strong>Wie soll das Element zentriert werden?</strong>”.
+        Hier gibt es drei Möglichkeiten: Entweder das Element wird horizontal,
+        vertikal oder sogar horizontal und vertikal zentriert.
+        Auch kommt es vor, dass beispielsweise mehrere Elemente gemeinsam
+        ausgerichtet werden sollen. Dieser Faktor kann in einigen Fällen
+        die Schwierigkeit des Zentrierens erhöhen.
+      </p>
+
+      <p>
+        Zuletzt besteht noch die Frage
+        “<strong>Welche Maße sind bekannt?</strong>”.
+        Dabei geht es vor allen Dingen darum, ob die Breite und/oder Höhe des
+        (Eltern)elements bekannt ist. Dies spielt besonders seit der
+        Entwicklung zum responsiven Webdesign eine große Rolle, da es häufig
+        vorkommt, dass die Breite oder Höhe nicht bekannt ist,
+        was den Schwierigkeitsgrad in manchen Fällen ebenfalls deutlich erhöht.
+      </p>
+
+      <p>
+        Nachdem wir die verschiedenen Faktoren kurz angerissen haben,
+        können wir uns nun daran orientieren. Wer die Zusammenhänge der
+        besprochenen Faktoren beim Zentrieren noch nicht ganz verstanden hat,
+        wird nun, wenn es an die konkreten Beispiele geht, noch schlauer werden.
+        Also keine Angst. Vieles ergibt sich von selbst.
+      </p>
+
+      <h3>Inline-Elemente oder Textzeilen zentrieren</h3>
+
+      <p>
+        Auf geht’s! Wir beginnen mit der banalsten Form des Zentrierens:
+        Die Zentrierung von Inline-Elementen oder Textzeilen,
+        wie z.B. Text in Paragraphen oder Überschriften.
+      </p>
+
+      <h4>Horizontale Zentrierung</h4>
+
+      <p>
+        Zuerst zentrieren wir Text in einem Paragraphen horizontal.
+        Um dies zu erreichen, greifen wir auf die CSS-Eigenschaft <code>text-align</code>
+        zurück und setzen diese auf <code>center</code>. Mehr benötigen wir nicht.
+      </p>
+
+      <pre class="code"><code>{{ page.code1 }}</code></pre>
+
+      <p>
+        Wichtig anzumerken ist hierbei, dass sich das “Elternelement” (<code>p</code>)
+        des Textes selber nicht zentriert und die Höhe oder Breite des Elements
+        völlig unrelevant ist. Wenn wir zusätzlich noch einen Rahmen vergeben
+        und die Breite beispielsweise auf 400px einstellen,
+        wird dies eindeutig sichtbar.
+      </p>
+
+      <pre class="code"><code>{{ page.code2 }}</code></pre>
+
+      <p>
+        Dieses Verhalten ändert sich bei Inline-Elementen.
+        Dort können wir nämlich ebenfalls mit <code>text-align</code> eine
+        Zentrierung erreichen, nur in dem Fall von dem ganzen Element.
+      </p>
+
+      <p>
+        Spontan würde sich da z.B. ein Link anbieten.
+        Wieder nutze ich zur Veranschaulichung einen Rahmen und ihr werdet
+        einen deutlichen Unterschied feststellen:
+      </p>
+
+      <pre class="code"><code>{{ page.code3 }}</code></pre>
+
+      <p>
+        Wichtig: Da wir keinen Text, sondern das Inline-Element zentrieren
+        möchten, müssen wir natürlich dem übergeordneten Element die
+        Eigenschaft zuweisen, nicht dem Inline-Element.
+      </p>
+
+      <p>
+        Am besten kann man sich diesen Unterschied mit der Vorstellung merken,
+        dass Text selber auch ein Element ist und wir immer dem Elternelement
+        die entsprechende Eigenschaft zur Zentrierung mitgeben müssen.
+        Beim Link ist also der <code>div</code>-Container ganz klar das Elternelement,
+        das die Eigenschaft bekommt. Beim Text ist es der Paragraph,
+        also das <code>p</code>-Element, welches das Elternelement ist, schließlich
+        befindet sich der Text innerhalb des Paragraphen.
+      </p>
+
+      <h4>Vertikale Zentrierung</h4>
+
+      <p>
+        Soweit, so gut. Aber wie kann man Text oder Inline-Elemente innerhalb
+        eines Containers vertikal zentrieren?
+      </p>
+
+      <p>
+        Hier kommt das erste Mal die Frage nach den Maßen des Containers
+        auf den Tisch. Die Breite des Containers ist erstmal egal,
+        aber was ist mit der Höhe? Diese ist hingegen schon relevant.
+      </p>
+
+      <p>
+        Angenommen wir haben einen Container, der 100px hoch ist:<br>
+        Die Lösung wäre da die Eigenschaft line-height.
+        Mit dieser kann man die Zeilenhöhe des Textes festlegen und,
+        weil der Text innerhalb der Zeile immer vertikal zentriert
+        dargestellt wird, müssen wir die line-height nur an die Größe
+        des Containers anpassen:
+      </p>
+
+      <pre class="code"><code>{{ page.code4 }}</code></pre>
+
+      <p>
+        Das Gleiche funktioniert genauso mit Inline-Elementen,
+        allerdings wird dabei nicht die Höhe des Elements beeinflusst,
+        was bei einem Blockelement hingegen schon passiert.
+      </p>
+
+      <p>
+        Das große Problem bei der <code>line-height</code>-Methode ist,
+        wenn wir eine prozentuale Höhe beim Container haben.
+        Wenn der Container nämlich z.B. die Höhe 10% hat und wir dann versuchen,
+        die <code>line-height</code> ebenfalls daran anzupassen,
+        bekommen wir nicht das gewünschte Ergebnis.
+        Das liegt daran, dass sich eine prozentuale
+        <code>line-height</code>-Angabe an der Schriftgröße orientiert.
+      </p>
+
+      <p>
+        Was haben wir also für Alternativen? Die beste Variante wäre,
+        auf die <code>height</code>-Angabe zu verzichten und die Höhe der
+        Elemente stattdessen durch den Inhalt bestimmen zu lassen.
+        In unserem Beispiel durch den Text sowie die Innenabstände.
+        Das würde unseren Text perfekt vertikal zentrieren:
+      </p>
+
+      <pre class="code"><code>{{ page.code5 }}</code></pre>
+
+      <p>
+        Im Falle eines Inline-Elements, das man zentrieren möchte,
+        müsste man stattdessen dem Elternelement das <code>padding</code> zuweisen.
+      </p>
+
+      <p>
+        Leider gibt es aber auch im responsiven Webdesign immer noch Fälle,
+        wo eine prozentuale Höhe verwendet wird. Folglich brauchen wir
+        auch dafür eine Lösung. Ein Ansatz dafür greift auf absolute
+        Positionierung sowie <code>transform: translateY()</code> zurück.
+        Wichtig anzumerken ist dabei, dass zwar der Text letztendlich auch
+        zentriert ist, aber eigentlich der Paragraph selber zentriert wird.
+      </p>
+
+      <pre class="code"><code>{{ page.code6 }}</code></pre>
+
+      <p>
+        Bei dieser Variante wird der Paragraph im Grunde bezogen auf den
+        übergeordneten <code>div</code>-Container um 50% nach unten “geschoben”,
+        sodass die obere Kante des <code>p</code>-Elements genau vertikal
+        zentriert wird. Da wir aber nicht die obere Kante des Elements,
+        sondern die vertikale Mitte des Elements zentrieren wollen,
+        müssen wir mit <code>transform: translateY(-50%)</code> gegensteuern
+        und das Element um die Hälfte der Höhe zurück nach oben schieben,
+        sodass wir die gewünschte vertikale Zentrierung erreichen.
+      </p>
+
+      <p>
+        Für Inline-Elemente gilt in dem Fall komplett dasselbe.
+      </p>
+
+      <h4>Horizontale und vertikale Zentrierung</h4>
+
+      <p>
+        Nachdem wir uns nun sowohl die horizontale als auch die vertikale
+        Zentrierung für Text und Inline-Elemente angeschaut haben,
+        versuchen wir beides zu kombinieren.
+      </p>
+
+      <p>
+        Beginnen wir mit der Variante für feste Höhen, wie z.B. 100px.
+        Die vertikale Zentrierung hatten wir dabei mit <code>line-height</code>
+        gelöst und die horizontale mit <code>text-align</code>.
+        Genau das können wir jetzt einfach kombinieren:
+      </p>
+
+      <pre class="code"><code>{{ page.code7 }}</code></pre>
+
+      <p>
+        Falls es um die Zentrierung eines Inline-Elements geht,
+        müssen wir, genau wie zuvor, das <code>text-align</code> dem
+        Elternelement und nicht z.B. dem Link zuordnen.
+      </p>
+
+      <p>
+        Soweit die erste Variante. Bei der Zweiten der vertikalen
+        Zentrierung hatten wir mit <code>padding</code> gearbeitet.
+        Dies können wir jetzt wieder machen,
+        kombiniert mit <code>text-align</code>:
+      </p>
+
+      <pre class="code"><code>{{ page.code8 }}</code></pre>
+
+      <p>
+        Bei einem Inline-Element geht dies wieder genauso,
+        allerdings bekommt statt dem Element, das zentriert werden soll,
+        das Elternelement die beiden Eigenschaften
+        <code>text-align</code> sowie <code>padding</code> zugewiesen.
+      </p>
+
+      <p>
+        Für den Fall, dass wir mit einer prozentualen Höhe beim Container
+        arbeiten, greifen wir erneut auf unsere Variante mit absoluter
+        Positionierung sowie <code>transform: translateY()</code> zurück.
+        Da die absolute Positionierung aber dafür sorgt,
+        dass das <code>p</code>-Element seine Breite von 100% verliert,
+        die für jedes Block-Element Standard ist, müssen wir noch zur
+        Korrektur eine Breite von diesen 100% setzen,
+        damit das <code>text-align</code> wieder seinen gewohnten Effekt hat.
+      </p>
+
+      <pre class="code"><code>{{ page.code9 }}</code></pre>
+
+      <p>
+        Clevere Leser werden wissen, dass dies beim Inline-Element nicht
+        nötig ist. Hier reicht es aus, die Definition der Eigenschaft
+        <code>text-align</code> zum Elternelement zu verschieben,
+        wie wir es auch schon zuvor bei der einfachen horizontalen
+        Zentrierung vorgenommen haben.
+      </p>
+
+      <h3>Ein Bild oder ein beliebiges Block-Element zentrieren</h3>
+
+      <p>
+        Nun fahren wir mit den Bildern und Block-Elementen fort.
+        Keine Angst, es wird nicht viel schwerer.
+      </p>
+
+      <h4>Horizontale Zentrierung</h4>
+
+      <p>
+        Ich würde sagen, wir beginnen mit dem Block-Element.
+        Eine horizontale Zentrierung ist, wie eigentlich immer, relativ einfach.
+      </p>
+
+      <p>
+        In den folgenden Beispielen gehen wir von einem <code>div</code> aus,
+        den wir innerhalb eines anderen <code>div</code>-Containers
+        zentrieren möchten. Unser Mittel zum Zweck ist diesmal die
+        <code>margin</code>-Eigenschaft, welche neben Prozent- sowie
+        Pixelwerten usw. auch das Keyword <code>auto</code> erlaubt.
+        Im Prinzip sorgt der Wert <code>auto</code> dafür, dass der Browser
+        selbst den Außenabstand festlegt.
+      </p>
+
+      <p>
+        Im Anwendungsfall der horizontalen Zentrierung,
+        kann man sich das insofern zu Nutzen machen,
+        dass man die Abstände zu den Seiten des Elements,
+        also nach links und rechts, dem Browser mittels <code>auto</code>
+        überlässt. Die Folge ist eine perfekte Zentrierung des Block-Elements.
+        Wichtig ist, dass man dem zu zentrierenden Element eine beliebige
+        Breite mitgibt, da der Container sonst einfach die volle Breite
+        einnimmt und es nichts zu zentrieren gibt.
+      </p>
+
+      <pre class="code"><code>{{ page.code10 }}</code></pre>
+
+      <p>
+        Schön ist übrigens, dass sich die gleiche Methode auch bei Bildern
+        einsetzen lässt. Dabei muss lediglich beachtet werden,
+        dass Bilder keine Block-Elemente, sondern Inline-Block-Elemente sind.
+        Somit muss zuvor der <code>display</code>-Typ geändert werden,
+        denn die Methode mit <code>margin: auto</code> funktioniert nur bei
+        Block-Elementen.
+      </p>
+
+      <pre class="code"><code>{{ page.code11 }}</code></pre>
+
+      <h4>Vertikale Zentrierung</h4>
+
+      <p>
+        Nun kommen wir zur vertikalen Zentrierung. Hier würden sicher viele
+        auf die Idee kommen, dass der <code>margin</code>-Trick ebenfalls
+        funktioniert. Dies ist aber nicht der Fall, da <code>margin-top</code>
+        und <code>-bottom</code> bei dem Wert <code>auto</code> vom Browser
+        auf 0 gesetzt werden.
+      </p>
+
+      <p>
+        Es hilft also alles nichts. Wir müssen leider eine Alternative finden.
+        Die erste Möglichkeit basiert dabei auf einer festen Höhe des
+        Block-Elements in Pixeln:
+      </p>
+
+      <pre class="code"><code>{{ page.code12 }}</code></pre>
+
+      <p>
+        Wie bereits früher in diesem Artikel, greifen wir wieder auf absolute
+        Positionierung zurück. Diesmal nutzen wir allerdings ein negatives
+        <code>margin</code>, um den bereits vorhin beschriebenen Ausgleich
+        zu schaffen, der nötig ist, da sonst lediglich die obere
+        Kante zentriert wird. Demzufolge muss der negative
+        <code>margin-top</code>-Wert natürlich immer genau die Hälfte der
+        Höhe des Elements betragen, das zentriert werden soll.
+      </p>
+
+      <p>
+        Die gleiche Vorgehensweise lässt sich im Grunde wieder auf ein Bild
+        anwenden und diesmal muss sogar der <code>display</code>-Typ
+        nicht geändert werden.
+      </p>
+
+      <p>
+        Des Weiteren ist es allgemein empfehlenswert,
+        <code>transform: translateY(-50%)</code> dem negativem Margin
+        vorzuziehen, da diese Methode schlicht und ergreifend “sauberer” und
+        eleganter ist. Außerdem ist es damit natürlich auch möglich,
+        Container mit einer unbekannten bzw. prozentualen Höhe
+        vertikal zu zentrieren:
+      </p>
+
+      <pre class="code"><code>{{ page.code13 }}</code></pre>
+
+      <h4>Horizontale und vertikale Zentrierung</h4>
+
+      <p>
+        Eine Kombinierung von horizontaler und vertikaler Zentrierung ist
+        erneut relativ leicht machbar.
+      </p>
+
+      <p>
+        Bei einem Block-Element mit fester Höhe und Breite kann absolute
+        Positionierung mit dem negativen <code>margin</code>
+        wie folgt genutzt werden:
+      </p>
+
+      <pre class="code"><code>{{ page.code14 }}</code></pre>
+
+      <p>
+        Der Trick ist genau derselbe, nur dass wir diesmal den Container
+        mit der Eigenschaft <code>left</code> zusätzlich um 50% nach rechts
+        verschieben und wieder mit <code>margin-left</code> dagegenhalten.
+        Zu beachten gilt beim linken <code>margin</code>, dass es
+        selbstverständlich die Hälfte der Breite sein muss.
+      </p>
+
+      <p>
+        Auch dies funktioniert natürlich genauso mit einem Bild und
+        ebenfalls würde ich wiederum dazu raten,
+        <code>transform: translate()</code> statt dem negativen
+        <code>margin</code> zu verwenden. Wie schon zuvor ermöglicht dies
+        die Arbeit mit prozentualen Maßen:
+      </p>
+
+      <pre class="code"><code>{{ page.code15 }}</code></pre>
+
+      <h4>Mehrere Block-Elemente horizontal zentriert in einer Zeile anordnen</h4>
+
+      <p>
+        Nicht selten kommt es vor, dass nicht nur ein Element zentriert werden
+        soll, sondern z.B. drei. Diese sollen sich dann in einer Reihe bzw.
+        Zeile befinden und horizontal zentriert werden.
+      </p>
+
+      <p>
+        Ein Lösungsansatz dafür könnte sein, den Kindelementen den
+        <code>display</code>-Typ <code>inline-block</code> zu verpassen,
+        sodass diese nebeneinander angeordnet werden und sich zudem durch das
+        Setzen der Eigenschaft text-align beim Elternelement zentrieren lassen:
+      </p>
+
+      <pre class="code"><code>{{ page.code16 }}</code></pre>
+
+      <p>
+        Dasselbe funktioniert ebenfalls mit einer prozentualen Höhe des
+        Elternelements, vorausgesetzt das übergeordnete Element des
+        Elternelements hat eine Höhe gesetzt. Wenn dies nicht der Fall ist,
+        hat die prozentuale <code>height</code>-Angabe des Containers nämlich
+        keinen richtigen Bezugswert.
+      </p>
+
+      <h4>Mehrere Block-Elemente horizontal und vertikal zentriert in einer Zeile anordnen</h4>
+
+      <p>
+        Möchte man dies noch ein wenig erweitern und zusätzlich die Container
+        auch vertikal zentrieren, ist dies durch die Kombination mit unserem
+        Wissen zur vertikalen Zentrierung gut möglich. Diesmal verwende ich
+        übrigens prozentuale Werte, damit ihr seht, dass beides funktioniert:
+      </p>
+
+      <pre class="code"><code>{{ page.code17 }}</code></pre>
+
+      <p>
+        Im Grunde handelt es sich dabei um dasselbe Prinzip,
+        wie im Beispiel zuvor, nur haben wir jetzt die relative
+        Positionierung und <code>transform: translateY()</code> hinzugefügt,
+        um ebenfalls eine vertikale Zentrierung zu erreichen.
+        Wichtig ist, dass ihr die Kindelemente wirklich auch relativ
+        positioniert, da sich diese ansonsten nicht mehr im
+        gewöhnlichen Elementfluss befinden und nicht mehr
+        nebeneinander angeordnet sind.
+      </p>
+
+      <p>
+        Da es im responsiven Design aber heutzutage eher nicht gewünscht ist,
+        Höhen zu setzen, gibt es ebenfalls eine Möglichkeit,
+        dem Content die Beeinflussung der Höhen zu überlassen und trotzdem noch
+        die horizontale und vertikale Zentrierung hinzubekommen.
+        Die Lösung ist, alle <code>height</code>-Angaben sowie die Eigenschaften
+        zur vertikalen Zentrierung komplett zu entfernen und anschließend den
+        Kindelementen ein <code>vertical-align</code> von
+        <code>middle</code> zuzuweisen:
+      </p>
+
+      <pre class="code"><code>{{ page.code18 }}</code></pre>
+
+      <p>
+        Wen es stört, dass die größte Box die gesamte Höhe des Elternelements
+        einnimmt, kann diesem ein <code>padding</code> geben.
+      </p>
+
+      <p>
+        Ansonsten ist das große Problem im Vergleich zu der Methode mit einer
+        festen Höhe, dass alle drei Container unterschiedliche Höhen haben.
+      </p>
+
+      <p>
+        Für die Behebung dieses Problems müsste man auf eine komplett andere
+        Konstruktion mit dem <code>display</code>-Typen <code>table</code>
+        zurückgreifen, was definitiv den Rahmen dieses Artikels sprengen würde.
+        Wer dennoch daran interessiert ist, kann sich gerne den
+        folgenden Pen dazu anschauen:
+      </p>
+
+      <p data-height="400" data-theme-id="0" data-slug-hash="gRbvZR" data-default-tab="html,result" data-user="jr-cologne" data-embed-version="2" data-pen-title="Responsive Equal Height Columns without Flexbox" class="codepen">See the Pen <a href="https://codepen.io/jr-cologne/pen/gRbvZR/">Responsive Equal Height Columns without Flexbox</a> by JR Cologne (<a href="https://codepen.io/jr-cologne">@jr-cologne</a>) on <a href="https://codepen.io">CodePen</a>.</p>
+
+      <p>
+        Falls Interesse am sogenannten Thema "Equal Height Columns" besteht,
+        kann ich dies gerne in einem zukünftigen Artikel näher beleuchten.
+      </p>
+
+      <h3>Was ist mit Flexbox und dem Grid-Layout?</h3>
+
+      <p>
+        Genauso haben viele sicherlich auch Flexbox-Lösungen vermisst.
+        Wie ihr schon merkt, handelt es sich bei diesem Artikel um einen
+        sehr langen und ausführlichen. Um die Länge nicht noch weiter zu
+        strapazieren, habe ich mich dazu entschieden, die Möglichkeiten
+        mit Flexbox und dem neuen Grid-Layout nicht zu behandeln und
+        stattdessen in einem zukünftigen Artikel ausführlich darauf
+        einzugehen, wie man mit diesen vergleichsweise sehr neuen
+        Technologien Elemente zentrieren kann.
+      </p>
+
+      <h3>Fazit</h3>
+
+      <p>
+        Zusammenfassend lässt sich sagen, dass das Zentrieren mit CSS,
+        wie schon zuvor angedeutet, ein sehr umfangreiches Thema ist.
+        Trotz allem hält sich der Schwierigkeitsgrad allerdings meist in
+        Grenzen, vorausgesetzt man beschäftigt sich in Ruhe mit diesem
+        Thema und macht sich bewusst, welche Faktoren zu beachten sind.
+      </p>
+
+      <p>
+        Des Weiteren hilft es enorm, wenn man sich zumindest grob mit den
+        unterschiedlichen <code>display</code>-Typen und deren Eigenschaften
+        bzw. Verhalten auskennt, da dies einen der wichtigsten Faktoren
+        beim Zentrieren mit CSS darstellt.
+      </p>
+
+      <p>
+        Ansonsten kann ich zur allgemeinen Beruhigung noch sagen,
+        dass man auch nicht jede einzelne Variante auswendig kennen muss,
+        denn meist braucht man letztendlich dann doch nur zwei oder drei davon.
+        Selbst in diesem doch sehr umfangreichen Artikel haben bei Weitem
+        noch nicht alle Varianten Erwähnung gefunden.
+      </p>
+    </section>
+
+    {% include tags.html %}
+  </article>
+</main>
+
+<footer class="footer footer--white">
+  <div class="footer-logo-nav-container">
+    <a href="/" class="logo" title="jr-cologne.de Logo"></a>
+
+    <nav class="nav nav--footer">
+      <ul>
+        <li><a href="/">Startseite</a></li>
+        <li><a href="/portfolio.html">Portfolio</a></li>
+        <li><a href="/blog.html" class="current">Blog</a></li>
+        <li><a href="/resources.html">Ressourcen</a></li>
+      </ul>
+    </nav>
+  </div>
+
+  <nav class="nav nav--legal">
+    <ul>
+      <li><a href="/impressum.html">Impressum</a></li>
+      <li><a href="/datenschutz.html">Datenschutz</a></li>
+    </ul>
+  </nav>
+</footer>
+
+{% include code-highlighter.html %}
+{% include pen-embed-code.html %}

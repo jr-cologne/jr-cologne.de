@@ -29,6 +29,7 @@ exclude:
   - LICENSE
   - design
   - composer.json
+  - resources/article-components.html
 keep_files:
   - _app
   - kontakt.php
