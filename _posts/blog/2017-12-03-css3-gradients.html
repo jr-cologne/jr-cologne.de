@@ -1,0 +1,601 @@
+---
+layout: post
+title: CSS3 Gradients
+canonical: blog/2017/12/03/css3-gradients.html
+date: "2017-12-03 17:00:00 +0100"
+date_string: "Sonntag, 03.12.2017"
+article-image: "https://res.cloudinary.com/jr-cologne-de/image/upload/c_fit,f_auto,fl_lossy,q_auto,w_1920/css3-gradients.jpg"
+image: { src: "https://res.cloudinary.com/jr-cologne-de/image/upload/ar_1.5,c_scale,f_auto,fl_lossy,q_auto,w_1280/css3-gradients.jpg", srcset: "https://res.cloudinary.com/jr-cologne-de/image/upload/ar_1.5,c_scale,f_auto,fl_lossy,q_auto,w_1280/css3-gradients.jpg 1280w, https://res.cloudinary.com/jr-cologne-de/image/upload/ar_1.5,c_scale,f_auto,fl_lossy,q_auto,w_1920/css3-gradients.jpg 1920w", alt: "CSS3 Gradients Vorschaubild" }
+preview-text: "Seit CSS3 haben wir mit den sogenannten Gradients die Möglichkeit, interessantere Hintergründe zu gestalten und müssen nicht mehr nur auf eine einheitliche Farbe setzen bzw. unnötige Requests und Datenmengen dadurch verschwenden, dass wir einen Farbverlauf per Hintergrundbild umsetzen. Heute werde ich mich mit den grundlegenden Möglichkeiten mit CSS3 Gradients auseinandersetzen und euch diese vorstellen. Auch beschäftigen wir uns am Rande mit dem einen oder anderen potenziellen Anwendungsfall oder kleinem Trick im Bezug auf diese Technologie. CSS3 Gradients sind nämlich bei weitem nicht auf einfache Farbverläufe beschränkt, sondern man kann mit ein wenig Kreativität einiges aus ihnen herausholen."
+categories: blog
+
+tags:
+  - { title: "CSS", url: "https://de.wikipedia.org/wiki/Cascading_Style_Sheets", target: "_blank" }
+  - { title: "Webdesign", url: "https://de.wikipedia.org/wiki/Webdesign", target: "_blank" }
+  - { title: "Webentwicklung", url: "https://de.wikipedia.org/wiki/Webentwicklung", target: "_blank" }
+  - { title: "Responsive Webdesign", url: "https://de.wikipedia.org/wiki/Responsive_Webdesign", target: "_blank" }
+
+code1: |
+  .gradient {
+    background: linear-gradient(direction, color-stop1, color-stop2, ...);
+  }
+
+code2: |
+  .gradient {
+    background: linear-gradient(red, yellow);
+  }
+
+code3: |
+  .gradient {
+    background: linear-gradient(to right, red , yellow);
+  }
+
+code4: |
+  .gradient {
+    background: linear-gradient(to bottom right, red, yellow);
+  }
+
+code5: |
+  .gradient {
+    background: linear-gradient(45deg, red, yellow);
+  }
+
+code6: |
+  .gradient {
+    background: linear-gradient(70deg, red, yellow);
+  }
+
+code7: |
+  .gradient {
+    background: linear-gradient(70deg, red, orange, yellow);
+  }
+
+code8: |
+  .gradient {
+    background: linear-gradient(70deg, red 10%, yellow);
+  }
+
+code9: |
+  .gradient {
+    background: linear-gradient(to right, red 50%, yellow 50%);
+  }
+
+code10: |
+  .gradient {
+    background: linear-gradient(to right, red, red);
+  }
+
+code11: |
+  .gradient {
+    background: linear-gradient(to right, rgba(255, 0, 0, 0), rgba(255, 0, 0, 1));
+  }
+
+code12: |
+  .gradient {
+    background: repeating-linear-gradient(red, yellow 10%, green 20%);
+  }
+
+code13: |
+  .gradient {
+    background: radial-gradient(shape size at position, start-color, ..., last-color);
+  }
+
+code14: |
+  .gradient {
+    background: radial-gradient(red, yellow, green);
+  }
+
+code15: |
+  .gradient {
+    background: radial-gradient(red 5%, yellow 15%, green 60%);
+  }
+
+code16: |
+  .gradient {
+    background: radial-gradient(circle, red, yellow, green);
+  }
+
+code17: |
+  .gradient {
+    background: radial-gradient(circle, yellow 40%, blue 40%);
+  }
+
+code18: |
+  .gradient {
+    background: radial-gradient(farthest-side, red, yellow, black);
+  }
+
+code19: |
+  .gradient {
+    background: radial-gradient(farthest-side at bottom right, red, yellow, black);
+  }
+
+code20: |
+  .gradient {
+    background: radial-gradient(farthest-side at 70% 20%, red, yellow, black);
+  }
+
+code21: |
+  .gradient {
+    background: repeating-radial-gradient(red, yellow 10%, green 15%);
+  }
+
+---
+
+
+<header class="header">
+  <a href="/" class="logo" title="jr-cologne.de Logo"></a>
+
+  <nav id="nav" class="nav nav--main">
+    <div class="navbar">
+      <a href="#" id="hamburger-button" title="Navigation">
+        <span class="hamburger-icon_top"></span>
+        <span class="hamburger-icon"></span>
+        <span class="hamburger-icon_bottom"></span>
+      </a>
+    </div>
+
+    <ul>
+      <li><a href="/">Startseite</a></li>
+      <li><a href="/portfolio.html">Portfolio</a></li>
+      <li><a href="/blog.html" class="current">Blog</a></li>
+      <li><a href="/resources.html">Ressourcen</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+  {% include article-top-bar.html %}
+
+  <article class="article">
+    <header class="article-header">
+      <h1 class="article-heading">{{ page.title }}</h1>
+
+      <div id="article-image" class="article-image" style="background-image: url('{{ page.article-image }}')"></div>
+    </header>
+
+    <section class="article-text">
+      <p>
+        Seit CSS3 haben wir mit den sogenannten Gradients die Möglichkeit,
+        interessantere Hintergründe zu gestalten und müssen nicht mehr nur auf
+        eine einheitliche Farbe setzen bzw. unnötige Requests und Datenmengen
+        dadurch verschwenden, dass wir einen Farbverlauf per
+        Hintergrundbild umsetzen.
+      </p>
+
+      <p>
+        Heute werde ich mich mit den grundlegenden Möglichkeiten mit CSS3
+        Gradients auseinandersetzen und euch diese vorstellen.
+        Auch beschäftigen wir uns am Rande mit dem einen oder anderen potenziellen
+        Anwendungsfall oder kleinem Trick im Bezug auf diese Technologie.
+        CSS3 Gradients sind nämlich bei weitem nicht auf einfache Farbverläufe
+        beschränkt, sondern man kann mit ein wenig Kreativität einiges aus
+        ihnen herausholen.
+      </p>
+
+      <h3>Was sind CSS3 Gradients?</h3>
+
+      <p>
+        Unter CSS3 Gradients versteht man im Grunde eine Technologie,
+        die es ermöglicht, Farbverläufe vom Browser zeichnen bzw. darstellen
+        zu lassen. Statt einfache Farbflächen lassen sich also weiche
+        Übergänge von zwei oder mehr Farben realisieren.
+      </p>
+
+      <p>
+        Der Vorteil gegenüber der alten Vorgehensweise, Bilder für
+        Farbverläufe zu nutzen, liegt auf der Hand: Es müssen keinerlei
+        zusätzliche Dateien vom Server geladen werden, was z.B. die Anzahl
+        der Requests sowie die Ladezeit verringert.
+      </p>
+
+      <p>
+        Des Weiteren haben CSS3 Gradients den Vorteil, dass sie, wie bereits
+        erwähnt, direkt im Browser des Clients generiert werden,
+        was auch ein besseres Aussehen beim “Reinzoomen” mit sich bringt.
+        Ähnlich sieht das beim Responsive Webdesign aus, da sich die Gradients
+        natürlich immer an die jeweiligen Gegebenheiten des Geräts anpassen
+        und nicht ein einheitliches Bild mit einer bestimmten Auflösung
+        geladen werden muss.
+      </p>
+
+      <p>
+        Wichtig ist noch, dass zwischen zwei Typen von Gradients unterschieden
+        werden kann:
+      </p>
+
+      <ul>
+        <li>Linear Gradients (nach unten, oben, links und rechts sowie diagonal)</li>
+        <li>Radial Gradients (breiten sich kreisförmig von einem bestimmten Punkt aus, meist ist das die Mitte)</li>
+      </ul>
+
+      <p>
+        Auch gilt zu beachten, dass Gradients nicht etwa eine CSS-Eigenschaft
+        darstellen, sondern ein Wert bzw. eine Funktion für die Eigenschaft
+        <code>background-image</code> sind. Besonders Letzteres gerät schnell in
+        Vergessenheit, da viele nur den kürzeren Syntax mit <code>background</code> nutzen.
+      </p>
+
+      <h3>Linear Gradients</h3>
+
+      <h4>Syntax</h4>
+
+      <p>
+        Wir beginnen, wie immer, mit den einfachen Dingen und schauen uns
+        erstmal den Syntax an:
+      </p>
+
+      <pre class="code"><code>{{ page.code1 }}</code></pre>
+
+      <p>
+        Hierbei steht <code>direction</code> für die entsprechende Richtung,
+        in die der Farbverlauf gehen soll. Lässt man diese aus, wird ein
+        Gradient mit einem Verlauf von oben nach unten erzeugt.
+        Ansonsten lässt sich über das Keyword <code>to</code> in Kombination mit der
+        entsprechenden Richtung <code>left</code>, <code>right</code>, <code>top</code>, <code>bottom</code> die Ausrichtung des
+        Farbverlaufs einstellen.
+        Darauf folgt dann eine durch Kommata separierte Liste von sogenannten
+        Color Stops, mindestens zwei davon sind erforderlich.
+      </p>
+
+      <h4>Horizontale und vertikale Gradients</h4>
+
+      <p>
+        Möchten wir jetzt z.B. einen Standard-Gradient von oben nach unten
+        mit einem Übergang von rot nach gelb haben, können wir folgenden
+        Code verwenden:
+      </p>
+
+      <pre class="code"><code>{{ page.code2 }}</code></pre>
+
+      <p>
+        Ein Gradient von links nach rechts würde hingegen so aussehen,
+        diesmal müssen wir die Richtung natürlich angeben:
+      </p>
+
+      <pre class="code"><code>{{ page.code3 }}</code></pre>
+
+      <h4>Diagonale Gradients</h4>
+
+      <p>
+        Möchte man jetzt einen schrägen bzw. diagonalen Farbverlauf kreieren,
+        können entweder die Ecken oder eine Gradzahl als
+        Richtung angegeben werden.
+      </p>
+
+      <p>
+        Wie zuvor nutzen wir für Ersteres das Keyword <code>to</code> zusammen mit der
+        entsprechenden Ecken-Bezeichnung. Möchten wir also z.B. einen Verlauf
+        in Richtung der unteren rechten Ecke erreichen, nutzen wir
+        <code>to bottom right</code> als <code>direction</code>:
+      </p>
+
+      <pre class="code"><code>{{ page.code4 }}</code></pre>
+
+      <p>
+        Die Reihenfolge der Keywords für die Ecken, also z.B. von <code>bottom</code>
+        und <code>right</code>, ist dabei übrigens egal. Man könnte also genauso
+        <code>right bottom</code> schreiben.
+      </p>
+
+      <p>
+        Dies ist zwar schon mal ganz nett, aber es könnte schon noch ein
+        wenig besser aussehen, z.B. mit einer bestimmten Ausrichtung
+        nach einer Gradzahl.
+      </p>
+
+      <p>
+        Hierbei wird es dann schon etwas komplexer:<br>
+        So stehen <code>0deg</code> für einen vertikalen Verlauf von unten nach oben,
+        <code>90deg</code> stehen für einen horizontalen Gradient von links nach rechts
+        und immer so weiter im Uhrzeigersinn. Negative Gradzahlen sind ebenso
+        erlaubt und laufen dann entgegen den Uhrzeigersinn. Folglich wären
+        <code>-90deg</code> beispielsweise ein Gradient von rechts nach links.
+      </p>
+
+      <p>
+        Ein Beispiel, welches einen Gradient von links unten nach rechts
+        oben darstellt, könnte so aussehen:
+      </p>
+
+      <pre class="code"><code>{{ page.code5 }}</code></pre>
+
+      <p>
+        Wer fleißig mitdenkt, wird feststellen, dass es sich dabei dann
+        im Grunde um das Äquivalent zu <code>to top right</code> handelt.
+      </p>
+
+      <p>
+        Etwas mehr Sinn würden hingegen z.B. <code>70deg</code> ergeben, was so gesehen
+        zwischen einem Gradient von links nach rechts und einem Farbverlauf
+        von links unten nach rechts oben liegen würde:
+      </p>
+
+      <pre class="code"><code>{{ page.code6 }}</code></pre>
+
+      <h4>Mehr als zwei Color Stops und Anpassung der Position</h4>
+
+      <p>
+        Ebenfalls gibt es, wie schon erwähnt, die Möglichkeit, mehr als zwei
+        Farben (Color Stops) zu definieren. Dafür fügen wir diese einfach
+        mit einem Komma hinzu.
+      </p>
+
+      <pre class="code"><code>{{ page.code7 }}</code></pre>
+
+      <p>
+        Um dies nochmal ein wenig zu verfeinern, haben wir zusätzlich bei
+        den Color Stops noch die Option, explizit deren Position zu definieren.
+        Dies funktioniert, indem wir nach der jeweiligen Farbe ein Leerzeichen
+        gefolgt von einem absoluten Wert oder Prozentwert einfügen.
+      </p>
+
+      <p>
+        Um die genaue Funktion zu verstehen, spielt man am besten mal mit ein
+        paar Werten und schaut sich das Ergebnis an. So lässt sich der Übergang
+        von rot zu gelb z.B. so beeinflussen, dass den überwiegenden Teil des
+        Gradients gelbe Farben einnehmen, indem man rot den
+        Color Stop <code>10%</code> zuweist:
+      </p>
+
+      <pre class="code"><code>{{ page.code8 }}</code></pre>
+
+      <p>
+        Das Besondere an den bestimmten Positionen für die Color Stops ist,
+        dass sich damit auch Flächen mit mehreren Farben ohne Übergang
+        herstellen lassen. Dies erzeugt beispielsweise eine Fläche,
+        wo rot und gelb jeweils die Hälfte des verfügbaren Platzes
+        horizontal gesehen einnehmen:
+      </p>
+
+      <pre class="code"><code>{{ page.code9 }}</code></pre>
+
+      <p>
+        Der Trick liegt schlicht darin, beiden Color Stops dieselbe Position
+        zuzuweisen.
+      </p>
+
+      <h4>CSS3 Gradients und Transparenz</h4>
+
+      <p>
+        Nun haben wir bei den Farben bisher immer auf die Standard-Farben
+        rot, gelb und Co. zurückgegriffen, allerdings sind wir darauf gar
+        nicht begrenzt. Es ist, wie bei <code>background-color</code> und <code>color</code> möglich,
+        alle möglichen Farbwerte zu nutzen. Dazu gehört beispielsweise
+        auch <code>rgba()</code>, wodurch sich Gradients mit Transparenz erstellen lassen.
+      </p>
+
+      <p>
+        Ein Farbverlauf von kompletter Transparenz zu rot wäre somit
+        folgendermaßen umsetzbar:
+      </p>
+
+      <pre class="code"><code>{{ page.code11 }}</code></pre>
+
+      <p>
+        Mit diesem Wissen kann man nun nette Dinge anstellen. So wäre es z.B.
+        denkbar, ein Gradient mit Transparenz als Overlay für ein Bild
+        einzusetzen. Auch ist es möglich, Animationen sehr leicht mit
+        CSS3 Gradients umzusetzen. Ein Beispiel dafür ist die folgende
+        Animation des Hintergrunds:
+      </p>
+
+      <p data-height="400" data-theme-id="0" data-slug-hash="jadQmq" data-default-tab="css,result" data-user="jr-cologne" data-embed-version="2" data-pen-title="Simple Background Animation with Linear Gradient" class="codepen">See the Pen <a href="https://codepen.io/jr-cologne/pen/jadQmq/">Simple Background Animation with Linear Gradient</a> by JR Cologne (<a href="https://codepen.io/jr-cologne">@jr-cologne</a>) on <a href="https://codepen.io">CodePen</a>.</p>
+
+      <p>
+        Hierbei nutzen wir die Tatsache aus, dass Gradients im Prinzip ein
+        <code>background-image</code> sind und animieren die <code>background-position</code>.
+      </p>
+
+      <h4>Repeating Linear Gradients</h4>
+
+      <p>
+        Linear Gradients lassen sich zusätzlich auch noch wiederholen.
+        Hierfür wird die Funktion <code>repeating-linear-gradients()</code> eingesetzt,
+        welche einen Gradient einfach unendlich wiederholt:
+      </p>
+
+      <pre class="code"><code>{{ page.code12 }}</code></pre>
+
+      <p>
+        Die Anzahl der Wiederholungen lassen sich leider nicht beeinflussen,
+        sondern werden vom Browser bestimmt und an die jeweilige Größe des
+        Elements angepasst.
+      </p>
+
+      <h3>Radial Gradients</h3>
+
+      <p>
+        Der zweite Typ der CSS3 Gradients ist der radiale Farbverlauf,
+        welcher sich kreisförmig von einem bestimmten Punkt aus ausbreitet.
+      </p>
+
+      <h4>Syntax</h4>
+
+      <p>
+        Wir beginnen wieder mit dem Syntax:
+      </p>
+
+      <pre class="code"><code>{{ page.code13 }}</code></pre>
+
+      <p>
+        Erstmal wird für einen Radial Gradient natürlich die entsprechende
+        <code>radial-gradient()</code>-Funktion genutzt. Diese beginnt mit der Form,
+        in der sich der Gradient ausbreiten soll. Standardmäßig ist das eine
+        Ellipse. Darauf folgt dann getrennt mit einem Leerzeichen ein Keyword,
+        das für die Größe und Ausbreitung des Farbverlaufs steht.
+        Anschließend gibt man noch mit <code>at</code> eine Position an, von der sich der
+        Verlauf ausbreiten soll. Hier sind Keywords und Werte wie bei der
+        CSS-Eigenschaft <code>background-position</code> erforderlich.
+        Der Standard ist <code>center</code>. Zu guter Letzt fehlen natürlich noch die
+        Color Stops, die sich genauso definieren lassen wie zuvor bei den
+        Linear Gradients.
+      </p>
+
+      <h4>Radial Gradients ohne Anpassung von Form, Ausbreitung und Position</h4>
+
+      <p>
+        Die einfachsten Versionen eines radialen Farbverlaufs mit CSS
+        verzichten erstmal komplett darauf, die Form, Art der Ausbreitung
+        oder die Position anzupassen.
+      </p>
+
+      <p>
+        Dies ist ein Radial Gradient, der sich aus der Mitte als
+        Ellipse ausbreitet:
+      </p>
+
+      <pre class="code"><code>{{ page.code14 }}</code></pre>
+
+      <p>
+        Wie zuvor können wir sehr einfach die Color Stops anpassen und so den
+        Farbverlauf ein wenig optimieren:
+      </p>
+
+      <pre class="code"><code>{{ page.code15 }}</code></pre>
+
+      <h4>Radial Gradients: Form anpassen</h4>
+
+      <p>
+        Die Form dieses guten Stücks lässt sich nun wie folgt anpassen:<br>
+        Wir geben vor den Color Stops schlicht eines der beiden Keywords
+        <code>circle</code> oder <code>ellipse</code> an. Der Standard ist dabei, wie schon gesagt,
+        <code>ellipse</code>.
+      </p>
+
+      <p>
+        Mit <code>circle</code> hingegen können wir jetzt einen kreisförmigen
+        Verlauf definieren:
+      </p>
+
+      <pre class="code"><code>{{ page.code16 }}</code></pre>
+
+      <p>
+        Die Color Stops ließen sich hier selbstverständlich auch wieder
+        anpassen, wodurch wir beispielsweise einfach einen Kreis innerhalb
+        eines Rechtecks erschaffen können, indem wir den beiden Color Stops
+        dieselbe Position zuweisen:
+      </p>
+
+      <pre class="code"><code>{{ page.code17 }}</code></pre>
+
+      <h4>Anpassung von Ausbreitung und Position</h4>
+
+      <p>
+        Bei der Anpassung der Ausbreitung sowie der Ursprungsposition wird es
+        dann etwas kniffelig. Für die Ausbreitung, was oben im Syntax als <code>size</code>
+        bezeichnet wurde, gibt es vier mögliche Keywords:
+      </p>
+
+      <ul>
+        <li><code>closest-side</code></li>
+        <li><code>farthest-side</code></li>
+        <li><code>closest-corner</code></li>
+        <li><code>farthest-corner</code> (Standard)</li>
+      </ul>
+
+      <p>
+        In eine tiefere Erklärung der Keywörter kann ich in diesem Artikel
+        leider nicht einsteigen, jedoch definieren alle im Grunde,
+        wie groß die Endform des Gradients sein soll und an welcher Ecke oder
+        Seite sich die Ausbreitung orientiert. Auch hier rate ich jedem
+        dringend, die verschiedenen Werte für ein besseres Verständnis
+        einfach auszuprobieren. Wer mehr über die Bedeutung der einzelnen
+        Keywords wissen möchte, kann sich dies gerne
+        in der <a href="https://developer.mozilla.org/de/docs/Farbverl%C3%A4ufe_in_CSS#Radiale_Farbverläufe" target="_blank" rel="noopener">Dokumentation des MDN</a> näher anschauen.
+      </p>
+
+      <p>
+        Folgendes wäre ein Beispiel für einen solchen Gradient, wobei das
+        Keyword <code>farthest-side</code> zum Einsatz kommt:
+      </p>
+
+      <pre class="code"><code>{{ page.code18 }}</code></pre>
+
+      <p>
+        Zusätzlich lässt sich mit <code>at</code> und einer darauf folgenden
+        Positionsangabe auch der Ursprung des Gradients beeinflussen.
+        Hier ein Beispiel für die untere rechte Ecke:
+      </p>
+
+      <pre class="code"><code>{{ page.code19 }}</code></pre>
+
+      <p>
+        Prozentwerte sowie absolute Werte sind natürlich ebenfalls möglich:
+      </p>
+
+      <pre class="code"><code>{{ page.code20 }}</code></pre>
+
+      <p>
+        Zu beachten gilt hierbei, dass der erste Wert der horizontale und der
+        zweite der vertikale Wert ist. Die Reihenfolge der Keywords ist
+        hingegen egal.
+      </p>
+
+      <h4>Repeating Radial Gradient</h4>
+
+      <p>
+        Genauso wie bei den linearen Gradients haben wir auch bei
+        Radial Gradients die Möglichkeit der unendlichen Wiederholung.
+        Dies funktioniert mit der Funktion <code>repeating-radial-gradient()</code>
+        und kann beispielsweise so aussehen:
+      </p>
+
+      <pre class="code"><code>{{ page.code21 }}</code></pre>
+
+      <h3>Fazit</h3>
+
+      <p>
+        So, das wars. Da CSS3 Gradients ein Thema darstellt, das durchaus
+        relativ umfangreich ist, war es in diesem Rahmen leider nicht möglich,
+        allzu ausführlich auf alles einzugehen. Ich hoffe, dass der Artikel
+        trotzdem für einige ganz hilfreich ist, die die grundlegenden
+        Möglichkeiten mit CSS3 Gradients kennenlernen möchten.
+      </p>
+
+      <p>
+        Wenn ihr Ideen zu speziellen Anwendungsfällen von Gradients habt,
+        könnt ihr mir diese gerne mitteilen. Vielleicht erscheint dann in
+        Zukunft ein Artikel, der sich mehr auf die Anwendung der Technologie
+        konzentriert. Trotz allem: Ein paar kleine Tricks solltet ihr auch
+        hierdurch an die Hand bekommen haben, wie sich CSS Farbverläufe
+        einsetzen lassen.
+      </p>
+
+      <h3>Weiterführende Links / Quellen</h3>
+
+      <ul>
+        <li><a href="https://developer.mozilla.org/de/docs/Farbverl%C3%A4ufe_in_CSS" target="_blank" rel="noopener">MDN - Verwendung von CSS Farbverläufen</a></li>
+        <li><a href="https://www.w3schools.com/css/css3_gradients.asp" target="_blank" rel="noopener">w3schools.com - CSS3 Gradients</a></li>
+        <li>Titelbild: <a href="https://unsplash.com/photos/27HiryxnHJk" target="_blank" rel="noopener">unsplash.com</a></li>
+      </ul>
+    </section>
+
+    {% include tags.html %}
+  </article>
+</main>
+
+<footer class="footer footer--white">
+  <div class="footer-logo-nav-container">
+    <a href="/" class="logo" title="jr-cologne.de Logo"></a>
+
+    <nav class="nav nav--footer">
+      <ul>
+        <li><a href="/">Startseite</a></li>
+        <li><a href="/portfolio.html">Portfolio</a></li>
+        <li><a href="/blog.html" class="current">Blog</a></li>
+        <li><a href="/resources.html">Ressourcen</a></li>
+      </ul>
+    </nav>
+  </div>
+
+  <nav class="nav nav--legal">
+    <ul>
+      <li><a href="/impressum.html">Impressum</a></li>
+      <li><a href="/datenschutz.html">Datenschutz</a></li>
+    </ul>
+  </nav>
+</footer>
+
+{% include code-highlighter.html %}
+{% include pen-embed-code.html %}
