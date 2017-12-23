@@ -1,0 +1,387 @@
+---
+layout: post
+title: "PHP 7.2: Das ist neu"
+canonical: blog/2017/12/23/php-7_2-das-ist-neu.html
+date: "2017-12-23 16:00:00 +0100"
+date_string: "Samstag, 23.12.2017"
+article-image: "https://res.cloudinary.com/jr-cologne-de/image/upload/c_fit,f_auto,fl_lossy,q_auto,w_1920/php-7_2.png"
+image: { src: "https://res.cloudinary.com/jr-cologne-de/image/upload/ar_1.5,c_scale,f_auto,fl_lossy,q_auto,w_1280/php-7_2.png", srcset: "https://res.cloudinary.com/jr-cologne-de/image/upload/ar_1.5,c_scale,f_auto,fl_lossy,q_auto,w_1280/php-7_2.png 1280w, https://res.cloudinary.com/jr-cologne-de/image/upload/ar_1.5,c_scale,f_auto,fl_lossy,q_auto,w_1920/php-7_2.png 1920w", alt: "PHP 7.2: Das ist neu Vorschaubild" }
+preview-text: "Vor gar nicht allzu langer Zeit, am 30. November 2017, wurde die zweite große Iteration von PHP 7 vorgestellt - PHP 7.2. Bei PHP handelt es sich um eine serverseitige Skriptsprache, die hauptsächlich in der Webentwicklung zur Erstellung von dynamischen Websites bzw. Webanwendungen zum Einsatz kommt und mit Abstand die am meisten genutzte serverseitige Programmiersprache darstellt. Heute schauen wir uns mal die Neuerungen an, die PHP 7.2 mit sich bringt."
+categories: blog
+
+tags:
+  - { title: "PHP", url: "https://de.wikipedia.org/wiki/PHP", target: "_blank" }
+  - { title: "Webentwicklung", url: "https://de.wikipedia.org/wiki/Webentwicklung", target: "_blank" }
+
+code1: |
+  function add(int $number1, int $number2) : int {
+    return $number1 + $number2;
+  }
+
+code2: |
+  class MyClass {
+    public $var = 'Hello World';
+  }
+
+  function foo(MyClass $myclass) {
+    return $myclass->var;
+  }
+
+  echo foo(new MyClass);
+
+code3: |
+  class MyClass {
+    public $var = 'Hello World';
+  }
+
+  class MyOtherClass {
+    public $var = 'Hello World, how are you?';
+  }
+
+  function foo(object $myclass) {
+    return $myclass->var;
+  }
+
+  echo foo(new MyClass);
+  echo foo(new MyOtherClass);
+
+code4: |
+  class MyClass {
+    public $var = 'Hello World';
+  }
+
+  class MyOtherClass {
+    public $var = 'Hello World, how are you?';
+  }
+
+  function randomObject(array $objects) : object {
+    shuffle($objects);
+    return $objects[0];
+  }
+
+  var_dump(randomObject([
+    new MyClass,
+    new MyOtherClass
+  ]));
+
+code5: |
+  password_hash('password', PASSWORD_ARGON2I);
+
+code6: |
+  password_hash('password', PASSWORD_ARGON2I, [
+    'memory_cost' => 1<<17,
+    'time_cost' => 4,
+    'threads' => 2
+  ]);
+
+
+---
+
+
+<header class="header">
+  <a href="/" class="logo" title="jr-cologne.de Logo"></a>
+
+  <nav id="nav" class="nav nav--main">
+    <div class="navbar">
+      <a href="#" id="hamburger-button" title="Navigation">
+        <span class="hamburger-icon_top"></span>
+        <span class="hamburger-icon"></span>
+        <span class="hamburger-icon_bottom"></span>
+      </a>
+    </div>
+
+    <ul>
+      <li><a href="/">Startseite</a></li>
+      <li><a href="/portfolio.html">Portfolio</a></li>
+      <li><a href="/blog.html" class="current">Blog</a></li>
+      <li><a href="/resources.html">Ressourcen</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+  {% include article-top-bar.html %}
+
+  <article class="article">
+    <header class="article-header">
+      <h1 class="article-heading">{{ page.title }}</h1>
+
+      <div id="article-image" class="article-image" style="background-image: url('{{ page.article-image }}')"></div>
+    </header>
+
+    <section class="article-text">
+      <p>
+        Vor gar nicht allzu langer Zeit, am 30. November 2017, wurde die
+        zweite große Iteration von PHP 7 vorgestellt - <a href="http://php.net/archive/2017.php#id2017-11-30-1" target="_blank" rel="noopener">PHP 7.2</a>.
+        Bei <a href="https://de.wikipedia.org/wiki/PHP" target="_blank" rel="noopener">PHP</a> handelt es sich um eine serverseitige Skriptsprache,
+        die hauptsächlich in der Webentwicklung zur Erstellung von dynamischen
+        Websites bzw. Webanwendungen zum Einsatz kommt und mit Abstand die am
+        meisten genutzte serverseitige Programmiersprache darstellt. Heute
+        schauen wir uns mal die Neuerungen an, die <a href="http://php.net/archive/2017.php#id2017-11-30-1" target="_blank" rel="noopener">PHP 7.2</a> mit sich bringt.
+      </p>
+
+      <h3>Das sind die wesentlichen Neuerungen</h3>
+
+      <p>
+        Ich beginne erstmal mit einem kurzen Überblick über die Neuerungen von
+        <a href="http://php.net/archive/2017.php#id2017-11-30-1" target="_blank" rel="noopener">PHP 7.2</a>. So markiert der Release das zweite Feature-Update der
+        PHP-7-Serie und beinhaltet dementsprechend einige neue Features.
+        Auch wurden einige Verbesserungen vorgenommen, Fehler behoben und
+        sogar ein paar Dinge als “deprecated” abgestempelt, was bedeutet,
+        dass diese Funktionen bald aus <a href="https://de.wikipedia.org/wiki/PHP" target="_blank" rel="noopener">PHP</a> entfernt werden.
+      </p>
+
+      <p>
+        Zu den wichtigsten Neuerungen gehört Folgendes:
+      </p>
+
+      <ul>
+        <li><a href="https://wiki.php.net/rfc/object-typehint" target="_blank" rel="noopener">Einführung des Object Typehint</a></li>
+        <li><a href="https://wiki.php.net/rfc/argon2_password_hash" target="_blank" rel="noopener">Neuer Hash-Algorithmus Argon2 für Password-Hashing</a></li>
+        <li><a href="https://wiki.php.net/rfc/mcrypt-viking-funeral" target="_blank" rel="noopener">Entfernung der Mcrypt-Erweiterung</a></li>
+        <li><a href="https://wiki.php.net/rfc/libsodium" target="_blank" rel="noopener">Neue Sodium-Erweiterung</a></li>
+      </ul>
+
+      <p>
+        Nun werden wir uns die einzelnen Änderungen einzeln im Detail anschauen.
+        Wir beginnen mit dem <a href="https://wiki.php.net/rfc/object-typehint" target="_blank" rel="noopener">Object Typehint</a>, der wohl wichtigsten Änderung
+        neben dem neuen <a href="https://wiki.php.net/rfc/argon2_password_hash" target="_blank" rel="noopener">Hash-Algorithmus Argon2</a>.
+      </p>
+
+      <p>
+        Wer an einer vollständigen Liste mit allen Änderungen interessiert ist,
+        kann dies im <a href="http://www.php.net/ChangeLog-7.php#7.2.0" target="_blank" rel="noopener">Changelog von PHP 7.2</a> finden.
+      </p>
+
+      <h3><a href="https://wiki.php.net/rfc/object-typehint" target="_blank" rel="noopener">Object Typehint</a></h3>
+
+      <p>
+        Mit <a href="https://de.wikipedia.org/wiki/PHP#PHP_7" target="_blank" rel="noopener">PHP 7</a> wurden <a href="http://php.net/manual/de/functions.arguments.php#functions.arguments.type-declaration" target="_blank" rel="noopener">Typehints</a> für die sogenannten <a href="http://php.net/manual/de/migration70.new-features.php" target="_blank" rel="noopener">scalar types</a> eingeführt,
+        wodurch man bei Parametern sowie Rückgabewerten von Funktionen einen
+        gewissen Typ erzwingen konnte.
+      </p>
+
+      <p>
+        Eine Funktion, die beispielsweise zwei Integer erwartet, diese addiert
+        und anschließend zurückgibt, kann somit folgendermaßen seit <a href="https://de.wikipedia.org/wiki/PHP#PHP_7" target="_blank" rel="noopener">PHP 7</a>
+        implementiert werden:
+      </p>
+
+      <pre class="code"><code>{{ page.code1 }}</code></pre>
+
+      <p>
+        Beachtet man dies nicht und übergibt als erstes Argument z.B. einen
+        String wie <code>“test”</code>, wird ein <code>Fatal error: Uncaught TypeError</code> geschmissen,
+        welcher besagt, dass nicht der erwartete Typ als Argument übergeben
+        wurde. In unserem Fall wurde ein String statt einem Integer übergeben.
+      </p>
+
+      <p>
+        Neben den einfachen Datentypen wie Strings und Integern war dies in
+        <a href="https://de.wikipedia.org/wiki/PHP#PHP_7" target="_blank" rel="noopener">PHP 7</a> aber auch schon mit Klassen möglich. So können wir einer Funktion
+        vorschreiben, ein Objekt bzw. eine Instanz von einer bestimmten
+        Klasse zu erwarten. Folgender Code würde einfach “Hello World” ausgeben:
+      </p>
+
+      <pre class="code"><code>{{ page.code2 }}</code></pre>
+
+      <p>
+        Würden wir hingehen und wieder ein Argument mit einem falschen Typen
+        übergeben, also z.B. eine Instanz einer anderen Klasse, würde uns
+        wieder eine Fehlermeldung ausgegeben werden.
+      </p>
+
+      <p>
+        <a href="http://php.net/archive/2017.php#id2017-11-30-1" target="_blank" rel="noopener">PHP 7.2</a> ermöglicht uns durch die Einführung des <code>object</code> Datentyps
+        als Typehint nun, dass es vollkommen egal ist, welcher Klasse das
+        übergebene Objekt angehört. Dies bedeutet, dass wir nun Typehints
+        verwenden können, ohne eine bestimmte Klasse vorauszusetzen:
+      </p>
+
+      <pre class="code"><code>{{ page.code3 }}</code></pre>
+
+      <p>
+        In unserem Beispiel haben wir zwei verschiedene Klassen,
+        die unterschiedliche Strings beinhalten, und es daher unten zwei
+        verschiedene Ausgaben gibt. Der wesentliche Punkt dabei:
+        Wir können dank des <code>object</code> Typehints beide Instanzen der
+        verschiedenen Klassen übergeben.
+      </p>
+
+      <p>
+        Genau das Gleiche funktioniert natürlich auch mit Rückgabewerten.
+        Als Beispiel nehmen wir eine kleine Funktion, die zufällig ein
+        Objekt auswählt und zurückgibt, welches ihr zuvor in einem Array
+        zusammen mit anderen Objekten übergeben wurde:
+      </p>
+
+      <pre class="code"><code>{{ page.code4 }}</code></pre>
+
+      <p>
+        Vor <a href="http://php.net/archive/2017.php#id2017-11-30-1" target="_blank" rel="noopener">PHP 7.2</a> hätten wir auf den Typehint des Rückgabewertes
+        verzichten müssen.
+      </p>
+
+      <h3><a href="https://wiki.php.net/rfc/argon2_password_hash" target="_blank" rel="noopener">Neuer Hash-Algorithmus Argon2</a></h3>
+
+      <p>
+        Mit dem neuen <a href="https://wiki.php.net/rfc/argon2_password_hash" target="_blank" rel="noopener">Hash-Algorithmus Argon2</a> erhält <a href="http://php.net/archive/2017.php#id2017-11-30-1" target="_blank" rel="noopener">PHP 7.2</a> auch eine
+        wesentliche Verbesserung in Sachen Sicherheit. So haben wir nun
+        eine moderne und sichere Alternative zum <a href="https://de.wikipedia.org/wiki/Bcrypt" target="_blank" rel="noopener">Bcrypt-Algorithmus</a>,
+        welcher aktuell noch der Standard-Hashing-Algorithmus für die
+        <a href="http://php.net/manual/de/function.password-hash.php" target="_blank" rel="noopener"><code>password_hash()</code>-Funktion</a> ist.
+      </p>
+
+      <p>
+        <a href="https://wiki.php.net/rfc/argon2_password_hash" target="_blank" rel="noopener">Argon2</a> wurde nach dem <a href="https://password-hashing.net/" target="_blank" rel="noopener">“Password Hashing Competition” Wettbewerb</a>,
+        der sich über die Jahre 2013 bis 2015 erstreckte, als neuer
+        Algorithmus für das Hashen von Passwörtern empfohlen.
+        Das Besondere an diesem ist, dass er nun nicht mehr nur einen
+        einzigen Kostenfaktor berücksichtigt, wie es bei <a href="https://de.wikipedia.org/wiki/Bcrypt" target="_blank" rel="noopener">Bcrypt</a> der Fall ist,
+        sondern gleich drei:
+      </p>
+
+      <ol>
+        <li>Die Speichernutzung</li>
+        <li>Die Ausführungszeit bzw. Anzahl der Durchgänge des Algorithmus</li>
+        <li>Die Anzahl der parallel genutzten Threads</li>
+      </ol>
+
+      <p>
+        Resultierend daraus besitzt <a href="https://de.wikipedia.org/wiki/PHP" target="_blank" rel="noopener">PHP</a> jetzt eine neue Konstante
+        <code>PASSWORD_ARGON2I</code> für den neuen Hashing-Algorithmus sowie drei
+        Konstanten, die jeweils den Standardwert (in Klammern angegeben)
+        der drei Kostenfaktoren repräsentieren:
+      </p>
+
+      <ul>
+        <li><code>PASSWORD_ARGON2_DEFAULT_MEMORY_COST</code> (1024 KiB bzw. 1<<10)</li>
+        <li><code>PASSWORD_ARGON2_DEFAULT_TIME_COST</code> (2)</li>
+        <li><code>PASSWORD_ARGON2_DEFAULT_THREADS</code> (2)</li>
+      </ul>
+
+      <p>
+        Möchte man nun also den neuen <a href="https://wiki.php.net/rfc/argon2_password_hash" target="_blank" rel="noopener">Hash-Algorithmus Argon2</a> zum Hashen von
+        Passwörtern nutzen, ist dies mit der <a href="http://php.net/manual/de/function.password-hash.php" target="_blank" rel="noopener">Funktion <code>password_hash()</code></a>
+        ohne Probleme möglich.
+      </p>
+
+      <pre class="code"><code>{{ page.code5 }}</code></pre>
+
+      <p>
+        Gibt man kein Array mit Optionen als drittes Argument an,
+        werden die zuvor besprochenen Standardwerte genutzt.
+      </p>
+
+      <p>
+        Möchte man stattdessen Optionen setzen und die Funktion damit ein
+        wenig an den eigenen Server und deren Leistung anpassen,
+        kann dies so erfolgen:
+      </p>
+
+      <pre class="code"><code>{{ page.code6 }}</code></pre>
+
+      <h3>Bye bye, <a href="http://php.net/manual/de/book.mcrypt.php" target="_blank" rel="noopener">Mcrypt</a>! Hallo, <a href="http://php.net/manual/de/book.sodium.php" target="_blank" rel="noopener">Sodium</a>!</h3>
+
+      <p>
+        Neben neuen Features, die hinzugefügt werden, gibt es auch immer ein
+        paar Sachen, die aussortiert werden. Dies trifft bei <a href="http://php.net/archive/2017.php#id2017-11-30-1" target="_blank" rel="noopener">PHP 7.2</a> auf die
+        <a href="http://php.net/manual/de/book.mcrypt.php" target="_blank" rel="noopener">Mcrypt-Erweiterung</a> zu, welche komplett aus dem PHP Core entfernt wurde.
+      </p>
+
+      <p>
+        Der Grund: <a href="https://wiki.php.net/rfc/mcrypt-viking-funeral" target="_blank" rel="noopener">Mcrypt</a> wird nicht mehr aktiv weiterentwickelt,
+        beinhaltet einige Sicherheitslücken, ist generell nicht mehr auf einem
+        modernen Stand und lässt sich gut durch <a href="http://php.net/manual/de/book.openssl.php" target="_blank" rel="noopener">OpenSSL</a> ersetzen.
+        Dementsprechend hat sich das PHP-Team also entschieden,
+        <a href="https://wiki.php.net/rfc/mcrypt-viking-funeral" target="_blank" rel="noopener">Mcrypt</a> zu entfernen, um die Scriptsprache in gewisser Weise
+        auch “sauber” zu halten.
+      </p>
+
+      <p>
+        Im Gegenzug zur Entfernung der <a href="http://php.net/manual/de/book.mcrypt.php" target="_blank" rel="noopener">Kryptografie-Bibliothek libmcrypt</a>
+        wurde gleich eine Neue mit der Bibliothek <a href="https://wiki.php.net/rfc/libsodium" target="_blank" rel="noopener">libsodium</a> hinzugefügt,
+        welche bisher nur über <a href="https://pecl.php.net/" target="_blank" rel="noopener">PECL</a> als Erweiterung genutzt werden konnte.
+        Nun tauscht die <a href="http://php.net/manual/de/book.sodium.php" target="_blank" rel="noopener">Sodium-Erweiterung</a> praktisch den Platz mit der
+        <a href="http://php.net/manual/de/book.mcrypt.php" target="_blank" rel="noopener">Mcrypt-Erweiterung</a>, was ein gutes Zeichen für ein modernes
+        und sicheres <a href="https://de.wikipedia.org/wiki/PHP" target="_blank" rel="noopener">PHP</a> ist.
+      </p>
+
+      <h3>Deprecations: Diese Features werden bald entfernt</h3>
+
+      <p>
+        Bevor Features aus <a href="https://de.wikipedia.org/wiki/PHP" target="_blank" rel="noopener">PHP</a> komplett entfernt werden, müssen diese
+        erstmal “deprecated” (als veraltet abgestempelt) werden und können
+        dann in der nächsten Hauptversion entfernt werden. Auch in <a href="http://php.net/archive/2017.php#id2017-11-30-1" target="_blank" rel="noopener">PHP 7.2</a>
+        wurden wieder einige Funktionen auf <a href="https://wiki.php.net/rfc/deprecations_php_7_2" target="_blank" rel="noopener">diese Liste</a> gesetzt,
+        sodass sie voraussichtlich ab PHP 8.0 kein Bestandteil des
+        PHP-Standards mehr sind:
+      </p>
+
+      <ul>
+        <li><a href="http://php.net/manual/de/function.autoload.php" target="_blank" rel="noopener">__autoload()</a></li>
+        <li><a href="http://php.net/manual/de/reserved.variables.phperrormsg.php" target="_blank" rel="noopener">$php_errormsg</a></li>
+        <li><a href="http://php.net/manual/de/function.create-function.php" target="_blank" rel="noopener">create_function()</a></li>
+        <li><a href="http://php.net/manual/de/mbstring.overload.php" target="_blank" rel="noopener">mbstring.func_overload (Ini-Konfigurations-Option)</a></li>
+        <li><a href="http://php.net/manual/de/language.types.type-juggling.php" target="_blank" rel="noopener">(unset) Cast</a></li>
+        <li><a href="http://php.net/manual/de/function.parse-str.php" target="_blank" rel="noopener">parse_str()</a> ohne zweites Argument</li>
+        <li><a href="http://php.net/manual/de/function.gmp-random.php" target="_blank" rel="noopener">gmp_random()</a></li>
+        <li><a href="http://php.net/manual/de/function.each.php" target="_blank" rel="noopener">each()</a></li>
+        <li><a href="http://php.net/manual/de/function.assert.php" target="_blank" rel="noopener">assert()</a> mit einem String-Argument</li>
+        <li><a href="http://php.net/manual/de/function.set-error-handler.php" target="_blank" rel="noopener">$errcontext-Argument von Error Handlern</a></li>
+      </ul>
+
+      <p>
+        Falls ihr noch eine dieser Features einsetzt, sollte ihr euch dringend
+        nach einer Alternative umschauen.
+      </p>
+
+      <h3>Fazit</h3>
+
+      <p>
+        Zusammenfassend lässt sich sagen, dass <a href="http://php.net/archive/2017.php#id2017-11-30-1" target="_blank" rel="noopener">PHP 7.2</a> einige nette Änderungen
+        mit sich bringt. Besonders der <a href="https://wiki.php.net/rfc/object-typehint" target="_blank" rel="noopener">Object Typehint</a> sowie der neue
+        <a href="https://wiki.php.net/rfc/argon2_password_hash" target="_blank" rel="noopener">Hash-Algorithmus</a> sind doch Neuerungen, die man nur sehr begrüßen kann.
+        Ich werde diese mit Sicherheit bald in meine Anwendungen einbauen.
+      </p>
+
+      <p>
+        Ich hoffe, ihr konntet einen kleinen Überblick über <a href="http://php.net/archive/2017.php#id2017-11-30-1" target="_blank" rel="noopener">PHP 7.2</a> gewinnen
+        und freut euch, genauso wie ich, auf den Einsatz der neuen Features.
+      </p>
+
+      <h3>Weiterführende Links / Quellen</h3>
+
+      <ul>
+        <li><a href="https://de.wikipedia.org/wiki/PHP" target="_blank" rel="noopener">Wikipedia - PHP</a></li>
+        <li><a href="https://kinsta.com/blog/php-7-2/" target="_blank" rel="noopener">Kinsta Blog - What’s New in PHP 7.2</a></li>
+      </ul>
+    </section>
+
+    {% include tags.html %}
+  </article>
+</main>
+
+<footer class="footer footer--white">
+  <div class="footer-logo-nav-container">
+    <a href="/" class="logo" title="jr-cologne.de Logo"></a>
+
+    <nav class="nav nav--footer">
+      <ul>
+        <li><a href="/">Startseite</a></li>
+        <li><a href="/portfolio.html">Portfolio</a></li>
+        <li><a href="/blog.html" class="current">Blog</a></li>
+        <li><a href="/resources.html">Ressourcen</a></li>
+      </ul>
+    </nav>
+  </div>
+
+  <nav class="nav nav--legal">
+    <ul>
+      <li><a href="/impressum.html">Impressum</a></li>
+      <li><a href="/datenschutz.html">Datenschutz</a></li>
+    </ul>
+  </nav>
+</footer>
+
+{% include code-highlighter.html %}
