@@ -80,7 +80,7 @@ gulp.task('js', function () {
 });
 
 gulp.task('node_modules', function () {
-  gulp.src(['node_modules/rellax/**/*', 'node_modules/@gabriel-delepine/smooth-scroll/**/*', 'node_modules/normalize.css/**/*', 'node_modules/vanilla-lazyload/**/*'], { 'base': 'node_modules' })
+  gulp.src(['node_modules/normalize.css/**/*'], { 'base': 'node_modules' })
     .pipe(gulp.dest('_site/node_modules'));
 });
 
