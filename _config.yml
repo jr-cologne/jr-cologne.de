@@ -10,10 +10,6 @@ twitter_username: jrcologne
 github_username: jr-cologne
 codepen_username: jr-cologne
 
-cloudinary_article-image: https://res.cloudinary.com/jr-cologne-de/image/upload/t_article-image/
-cloudinary_content-image: https://res.cloudinary.com/jr-cologne-de/image/upload/t_content-image/
-cloudinary_content-image-large: https://res.cloudinary.com/jr-cologne-de/image/upload/t_content-image-large/
-
 markdown: kramdown
 
 exclude:

@@ -35,7 +35,7 @@ canonical: blog.html
     <article class="article-preview article-preview--all">
       <header>
         <noscript clas="loaded"><img src="{{ post.image.src }}" srcset="{{ post.image.srcset }}" alt="{{ post.image.alt }}"></noscript>
-        <img data-original="{{ post.image.src }}" data-original-set="{{ post.image.srcset }}" alt="{{ post.image.alt }}">
+        <img data-src="{{ post.image.src }}" data-srcset="{{ post.image.srcset }}" alt="{{ post.image.alt }}">
 
         <a href="{{ post.url }}" class="article-preview-overlay">
           {% if post.title != 'Zentrieren mit CSS' %}<h3 class="article-preview-heading">{{ post.title }}</h3>{% endif %}

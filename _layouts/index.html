@@ -9,7 +9,7 @@
     <meta property="og:url" content="{{ site.url }}/{{ page.canonical }}">
     <meta property="og:type" content="website">
   </head>
-  <body>
+  <body id="top">
     {% include js-deactivated-box.html %}
 
     {{ content }}
@@ -24,9 +24,6 @@
 
     <!-- parallax.js -->
     <script async src="_app/assets/js/parallax.js"></script>
-
-    <!-- smooth-scroll (https://github.com/GabrielDelepine/smooth-scroll) -->
-    <script async src="node_modules/@gabriel-delepine/smooth-scroll/smooth-scroll.min.js"></script>
 
     {% include foot.html %}
   </body>

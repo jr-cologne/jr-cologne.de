@@ -55,7 +55,7 @@ portfolio-cards:
 
       <a href="{{ portfolio-card.url }}" class="card card--all">
         <noscript class="loaded"><img src="{{ portfolio-card.image.src }}" srcset="{{ portfolio-card.image.srcset }}" alt="{{ portfolio-card.image.alt }}"></noscript>
-        <img data-original="{{ portfolio-card.image.src }}" data-original-set="{{ portfolio-card.image.srcset }}" alt="{{ portfolio-card.image.alt }}">
+        <img data-src="{{ portfolio-card.image.src }}" data-srcset="{{ portfolio-card.image.srcset }}" alt="{{ portfolio-card.image.alt }}">
 
         <div class="card-overlay">
           <h3 class="card-heading">{{ portfolio-card.title }}</h3>

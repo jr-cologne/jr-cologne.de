@@ -20,9 +20,7 @@
     "run-sequence": "^1.2.2"
   },
   "dependencies": {
-    "@gabriel-delepine/smooth-scroll": "^1.4.0",
     "normalize.css": "^7.0.0",
-    "rellax": "^1.1.0",
-    "vanilla-lazyload": "^8.0.3"
+    "rellax": "^1.1.0"
   }
 }

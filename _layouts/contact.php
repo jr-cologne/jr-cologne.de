@@ -12,7 +12,7 @@
   <head>
     {% include head.html stylesheet='contact' %}
   </head>
-  <body>
+  <body id="top">
     {% include js-deactivated-box.html %}
 
     {{ content }}

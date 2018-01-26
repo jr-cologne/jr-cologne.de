@@ -195,7 +195,7 @@ resources:
 
         <a href="{{ portfolio-card.url }}" class="card">
           <noscript class="loaded"><img src="{{ portfolio-card.image.src }}" srcset="{{ portfolio-card.image.srcset }}" alt="{{ portfolio-card.image.alt }}"></noscript>
-          <img data-original="{{ portfolio-card.image.src }}" data-original-set="{{ portfolio-card.image.srcset }}" alt="{{ portfolio-card.image.alt }}">
+          <img data-src="{{ portfolio-card.image.src }}" data-srcset="{{ portfolio-card.image.srcset }}" alt="{{ portfolio-card.image.alt }}">
 
           <div class="card-overlay">
             <h3 class="card-heading">{{ portfolio-card.title }}</h3>
@@ -223,7 +223,7 @@ resources:
         <article class="article-preview">
           <header>
             <noscript class="loaded"><img src="{{ article-preview.image.src }}" srcset="{{ article-preview.image.srcset }}" alt="{{ article-preview.image.alt }}"></noscript>
-            <img data-original="{{ article-preview.image.src }}" data-original-set="{{ article-preview.image.srcset }}" alt="{{ article-preview.image.alt }}">
+            <img data-src="{{ article-preview.image.src }}" data-srcset="{{ article-preview.image.srcset }}" alt="{{ article-preview.image.alt }}">
 
             <a href="{{ article-preview.url }}" class="article-preview-overlay">
               <h3 class="article-preview-heading">{{ article-preview.title }}</h3>
@@ -259,7 +259,7 @@ resources:
 
       <a href="{{ resource.url }}" class="resource">
         <noscript class="loaded"><img src="{{ resource.image.src }}" srcset="{{ resource.image.srcset }}" alt="{{ resource.image.alt }}"></noscript>
-        <img data-original="{{ resource.image.src }}" data-original-set="{{ resource.image.srcset }}" alt="{{ resource.image.alt }}">
+        <img data-src="{{ resource.image.src }}" data-srcset="{{ resource.image.srcset }}" alt="{{ resource.image.alt }}">
 
         <div class="resource-overlay">
           <h3 class="resource-heading">{{ resource.title }}</h3>
