@@ -1,0 +1,657 @@
+---
+layout: post
+title: CSS3 Filter - Filter-Effekte mit CSS
+canonical: blog/2017/12/03/css3-filter.html
+date: "2018-01-28 18:00:00 +0100"
+date_string: "Sonntag, 28.01.2018"
+article-image: "https://res.cloudinary.com/jr-cologne-de/image/upload/c_fit,f_auto,fl_lossy,q_auto,w_1920/css3-filter.jpg"
+image: { src: "https://res.cloudinary.com/jr-cologne-de/image/upload/ar_1.5,c_scale,f_auto,fl_lossy,q_auto,w_1280/css3-filter.jpg", srcset: "https://res.cloudinary.com/jr-cologne-de/image/upload/ar_1.5,c_scale,f_auto,fl_lossy,q_auto,w_1280/css3-filter.jpg 1280w, https://res.cloudinary.com/jr-cologne-de/image/upload/ar_1.5,c_scale,f_auto,fl_lossy,q_auto,w_1920/css3-filter.jpg 1920w", alt: "CSS3 Filter - Filter-Effekte mit CSS Vorschaubild" }
+preview-text: "Heute beschäftigen wir uns wieder mit einer Technologie, die ähnlich wie CSS Gradients eher unbekannt ist und dementsprechend kaum eingesetzt wird. Die Rede ist von CSS3 Filter-Effekten. Mit der filter-Eigenschaft lassen sich nämlich Bilder fast wie in Photoshop oder anderen Bildbearbeitungsprogrammen manipulieren. Zuerst werde ich einen kurzen Überblick über die Möglichkeiten mit CSS Filtern geben und anschließend schauen wir uns die einzelnen Effekte nach der Reihe an. Zuletzt werfen wir dann noch einen Blick auf den Browser-Support und beschäftigen uns mit möglichen Anwendungsfällen von CSS3 Filtern."
+categories: blog
+
+tags:
+  - { title: "CSS", url: "https://de.wikipedia.org/wiki/Cascading_Style_Sheets", target: "_blank" }
+  - { title: "Webdesign", url: "https://de.wikipedia.org/wiki/Webdesign", target: "_blank" }
+
+code1: |
+  filter: &lt;filter-function&gt; [&lt;filter-function&gt;]* | none
+
+code2: |
+  filter: blur(&lt;length&gt;)
+
+code3: |
+  .blur {
+    filter: blur(5px);
+  }
+
+code4: |
+  filter: brightness([ &lt;number&gt; | &lt;percentage&gt; ])
+
+code5: |
+  .brightness {
+    filter: brightness(2);
+  }
+
+code6: |
+  filter: contrast([ &lt;number&gt; | &lt;percentage&gt; ])
+
+code7: |
+  .contrast {
+    filter: contrast(2.5);
+  }
+
+code8: |
+  filter: drop-shadow(&lt;shadow&gt;)
+
+code9: |
+  .drop-shadow {
+    filter: drop-shadow(0px 3px 6px rgba(0,0,0,0.3));
+  }
+
+code10: |
+  filter: grayscale([ &lt;number&gt; | &lt;percentage&gt; ])
+
+code11: |
+  .grayscale {
+    filter: grayscale(1);
+  }
+
+code12: |
+  filter: hue-rotate(&lt;angle&gt;)
+
+code13: |
+  .hue-rotate {
+    filter: hue-rotate(80deg);
+  }
+
+code14: |
+  filter: invert([ &lt;number&gt; | &lt;percentage&gt; ])
+
+code15: |
+  .invert {
+    filter: invert(1);
+  }
+
+code16: |
+  filter: opacity([ &lt;number&gt; | &lt;percentage&gt; ])
+
+code17: |
+  .opacity {
+    filter: opacity(0.5);
+  }
+
+code18: |
+  filter: saturate([ &lt;number&gt; | &lt;percentage&gt; ])
+
+code19: |
+  .saturate {
+    filter: saturate(4);
+  }
+
+code20: |
+  filter: sepia([ &lt;number&gt; | &lt;percentage&gt; ])
+
+code21: |
+  .sepia {
+    filter: sepia(1);
+  }
+
+code22: |
+  filter: url(&lt;url&gt;)
+
+code23: |
+  .svg-filter {
+    filter: url(resources.svg#c1);
+  }
+
+code24: |
+  .hue-rotate-contrast {
+    filter: hue-rotate(180deg) contrast(1.8);
+  }
+
+code25: |
+  .grayscale {
+    animation: animateGrayscale 3s linear infinite alternate;
+  }
+
+  @keyframes animateGrayscale {
+    from {
+    filter: none;
+    }
+    to {
+    filter: grayscale(1);
+    }
+  }
+
+---
+
+<header class="header">
+  <a href="/" class="logo" title="jr-cologne.de Logo"></a>
+  
+  <nav id="nav" class="nav nav--main">
+    <div class="navbar">
+      <a href="#" id="hamburger-button" title="Navigation">
+        <span class="hamburger-icon_top"></span>
+        <span class="hamburger-icon"></span>
+        <span class="hamburger-icon_bottom"></span>
+      </a>
+    </div>
+
+    <ul>
+      <li><a href="/">Startseite</a></li>
+      <li><a href="/portfolio.html">Portfolio</a></li>
+      <li><a href="/blog.html" class="current">Blog</a></li>
+      <li><a href="/resources.html">Ressourcen</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+  {% include article-top-bar.html %}
+
+  <article class="article">
+    <header class="article-header">
+      <h1 class="article-heading">{{ page.title }}</h1>
+
+      <div id="article-image" class="article-image" style="background-image: url('{{ page.article-image }}')"></div>
+    </header>
+
+    <section class="article-text">
+      <p>
+        Heute beschäftigen wir uns wieder mit einer Technologie,
+        die ähnlich wie <a href="/blog/2017/12/03/css3-gradients.html">CSS Gradients</a> eher unbekannt ist und dementsprechend kaum eingesetzt wird.
+        Die Rede ist von CSS3 Filter-Effekten. Mit der <code>filter</code>-Eigenschaft lassen sich nämlich
+        Bilder fast wie in <a href="https://de.wikipedia.org/wiki/Adobe_Photoshop" target="_blank" rel="noopener">Photoshop</a> oder anderen Bildbearbeitungsprogrammen manipulieren.
+      </p>
+
+      <p>
+        Zuerst werde ich einen kurzen Überblick über die Möglichkeiten mit CSS Filtern
+        geben und anschließend schauen wir uns die einzelnen Effekte nach der Reihe an.
+        Zuletzt werfen wir dann noch einen Blick auf den Browser-Support und beschäftigen
+        uns mit möglichen Anwendungsfällen von CSS3 Filtern.
+      </p>
+      
+      <h3>CSS3 Filter: Effekte wie in Photoshop</h3>
+
+      <p>
+        Wie schon in der Einleitung erwähnt, handelt es sich bei den CSS3 Filtern
+        um die CSS-Eigenschaft <code>filter</code>. Diese erlaubt uns, eine Reihe von Effekten,
+        wie z.B. Unschärfe oder Farbverschiebungen, auf ein beliebiges Element anzuwenden,
+        sodass ein Bild beispielsweise unscharf dargestellt wird. Wichtig zu wissen ist dabei,
+        dass das Element noch vor der finalen Darstellung im Browser dem Filter entsprechend manipuliert wird.
+        Der Endnutzer merkt von dem CSS Filter also praktisch gar nichts, schließlich könnte das Bild
+        genauso vorher mit <a href="https://de.wikipedia.org/wiki/Adobe_Photoshop" target="_blank" rel="noopener">Photoshop</a> bearbeitet worden sein.
+      </p>
+
+      <p>
+        Ein üblicher Anwendungsfall für CSS Filter ist die Manipulierung der Darstellungsweise eines Bildes,
+        Hintergrundes oder Rahmens. Für das alles existieren verschiedene Funktionen, die zahlreiche vordefinierte
+        Effekte ermöglichen. Wem das nicht ausreicht, der kann sich auch seinen eigenen Filter zusammenbasteln.
+        Dies ist möglich, da die <code>filter</code>-Eigenschaft auch den Verweis auf einen Filter, der mit den sogenannten
+        <a href="https://developer.mozilla.org/de/docs/Web/SVG/Element/filter" target="_blank" rel="noopener">SVG Filter Elements</a> erstellt wurde, erlaubt.
+      </p>
+      
+      <p>
+        In 99.9% der Fälle sollte man dies aber eigentlich nicht benötigen,
+        schließlich sind die vordefinierten Filter-Funktionen schon relativ umfangreich einsetzbar.
+      </p>
+
+      <h3>Syntax</h3>
+
+      <p>
+        Bevor wir uns den verschiedenen Funktionen widmen, müssen wir aber erstmal einen kurzen
+        Blick auf die Syntax der <code>filter</code>-Eigenschaft werfen:
+      </p>
+      
+      <pre class="code"><code>{{ page.code1 }}</code></pre>
+      
+      <p>
+        Der Standardwert ist logischerweise <code>none</code> und sagt einfach aus, dass kein Filter auf
+        das Element angewendet werden soll. Möchte man nun einen Filter angeben,
+        erfolgt dies im üblichen Stil von CSS-Funktionen, wie es z.B. auch bei der Eigenschaft <code>transform</code> zum Einsatz kommt.
+        Des Weiteren ist es möglich, mehrere Filter gleichzeitig auf ein Element anzuwenden. Dazu trennt man die
+        Funktionen einfach mit einem Leerzeichen. Auch dies ist nichts Besonderes und sollte jedem bekannt sein,
+        der sich mit CSS ein wenig auskennt. Mehr dazu aber auch noch zu einem späteren Zeitpunkt,
+        wenn wir die verschiedenen CSS Filter anwenden.
+      </p>
+
+      <h3>CSS Filter-Funktionen</h3>
+
+      <p>
+        Folgende Filter-Funktionen stehen in CSS zur Verfügung:
+      </p>
+      
+      <ul>
+        <li><a href="#blur">blur()</a></li>
+        <li><a href="#brightness">brightness()</a></li>
+        <li><a href="#contrast">contrast()</a></li>
+        <li><a href="#drop-shadow">drop-shadow()</a></li>
+        <li><a href="#grayscale">grayscale()</a></li>
+        <li><a href="#hue-rotate">hue-rotate()</a></li>
+        <li><a href="#invert">invert()</a></li>
+        <li><a href="#opacity">opacity()</a></li>
+        <li><a href="#saturate">saturate()</a></li>
+        <li><a href="#sepia">sepia()</a></li>
+        <li><a href="#url">url()</a> - für Verweis auf SVG-Filter</li>
+        <li>custom() - kommt bald</li>
+      </ul>
+
+      <p>
+        Um nun die CSS <code>filter</code>-Eigenschaft einzusetzen, gibt man die jeweilige Funktion mit dem benötigten Parameter in Klammern an.
+        Sollte der übergebene Wert nicht dem standardisierten Format entsprechen, gibt die Funktion <code>none</code> zurück,
+        was dazu führt, dass wiederum keinerlei Filter angewendet wird. Ansonsten kann man noch allgemein sagen,
+        dass alle Filter-Funktionen, wenn sie denn Prozentwerte erwarten, genauso mit den passenden Dezimalzahlen nutzbar sind.
+        Statt <code>30%</code> könnte also z.B. auch <code>0.3</code> angegeben werden.
+      </p>
+      
+      <p>
+        Nun, gut. Lasst uns mit den einzelnen Filter-Funktionen beginnen.
+      </p>
+
+      <h4 id="blur">blur()</h4>
+
+      <p>
+        Die erste Filter-Funktion, die wir uns anschauen, ist <code>blur()</code> und ermöglicht es uns,
+        einen sogenannten <a href="https://de.wikipedia.org/wiki/Weichzeichnen#Gau%C3%9Fscher_Weichzeichner" target="_blank" rel="noopener">Gaußschen Weichzeichner</a> auf das Element anzuwenden, sprich das Element unscharf oder verwaschen darzustellen,
+        also Pixel zu verwischen.
+      </p>
+
+      <h5>Syntax</h5>
+
+      <pre class="code"><code>{{ page.code2 }}</code></pre>
+
+      <p>
+        Als einziger Parameter wird eine normale CSS-Längeneinheit übergeben. Prozentwerte sind nicht zulässig.
+        Die Längeneinheit gibt dabei an, wie viele Pixel miteinander vermischt werden, weshalb ein größerer Wert
+        selbstverständlich für eine stärkere Unschärfe sorgt.
+      </p>
+
+      <h5>Beispiel</h5>
+
+      <p>
+        Folgendes Beispiel erzeugt einen schon gar nicht mal so schwachen <code>blur</code>-Effekt:
+      </p>
+
+      <pre class="code"><code>{{ page.code3 }}</code></pre>
+
+      <h4 id="brightness">brightness()</h4>
+
+      <p>
+        Mit der Filter-Funktion <code>brightness()</code> lässt sich ein Element heller oder dunkler darstellen.
+        Anders gesagt: <code>brightness()</code> ermöglicht die Anpassung der Helligkeit.
+      </p>
+
+      <h5>Syntax</h5>
+
+      <pre class="code"><code>{{ page.code4 }}</code></pre>
+
+      <p>
+        Als Parameter wird ein Prozentwert übergeben, welcher, wie zuvor schon mal erwähnt,
+        auch als Dezimalzahl angegeben werden kann. Der Parameter beeinflusst anschließend die Helligkeit des Elements,
+        wobei <code>0</code> bzw. <code>0%</code> komplett schwarz ist und <code>1</code> oder <code>100%</code> der Ursprungswert ist. Möchte man die Helligkeit im Vergleich
+        zum Ausgangszustand also erhöhen, werden Werte größer als <code>100%</code> benötigt.
+      </p>
+
+      <h5>Beispiel</h5>
+
+      <pre class="code"><code>{{ page.code5 }}</code></pre>
+
+      <h4 id="contrast">contrast()</h4>
+
+      <p>
+        Die Filter-Funktion <code>contrast()</code> manipuliert den Kontrast eines Elements.
+      </p>
+
+      <h5>Syntax</h5>
+
+      <pre class="code"><code>{{ page.code6 }}</code></pre>
+      
+      <p>
+        Der Kontrast wird in Prozent angegeben. <code>100%</code> ergibt, wie zuvor, keine Änderung. Ein Wert niedriger als <code>100%</code> reduziert den Kontrast,
+        während ein Wert über <code>100%</code> für einen höheren Kontrast sorgt.
+      </p>
+
+      <p>
+        <strong>Achtung</strong>: Sowohl <a href="https://css-tricks.com/almanac/properties/f/filter/#article-header-id-8" target="_blank" rel="noopener">CSS-Tricks</a> als auch das <a href="https://developer.mozilla.org/de/docs/Web/CSS/filter" target="_blank" rel="noopener">MDN</a> scheinen hierbei einen kleinen Fehler eingebaut zu haben:
+        Diese schreiben nämlich, dass Werte größer als <code>100%</code> Ergebnisse mit weniger Kontrast erzeugen. Das stimmt nach meinen Informationen so nicht.
+      </p>
+
+      <h5>Beispiel</h5>
+
+      <pre class="code"><code>{{ page.code7 }}</code></pre>
+
+      <h4 id="drop-shadow">drop-shadow()</h4>
+
+      <p>
+        Auch ein Schlagschatten lässt sich mit der CSS <code>filter</code>-Eigenschaft und der Funktion <code>drop-shadow()</code> erzeugen.
+        Diese ähnelt der Eigenschaft <code>box-shadow</code> sehr, hat allerdings den Vorteil, dass manche Browser für CSS Filter
+        <a href="https://de.wikipedia.org/wiki/Hardwarebeschleunigung" target="_blank" rel="noopener">Hardwarebeschleunigung</a> unterstützen und ggf. einsetzen, sodass diese Funktion manchmal ein wenig schneller als <code>box-shadow</code> ist.
+      </p>
+
+      <h5>Syntax</h5>
+
+      <pre class="code"><code>{{ page.code8 }}</code></pre>
+
+      <p>
+        Die Funktion erwartet einen Parameter des Typs <code>&lt;shadow&gt;</code>, wobei das Keyword <code>inset</code> nicht erlaubt ist.
+        Für die Syntax kann man sich gut an der Eigenschaft <code>box-shadow</code> orientieren, da diese die gleiche Syntax besitzt.
+      </p>
+
+      <h5>Beispiel</h5>
+
+      <p>
+        Da die Filter-Funktion <code>drop-shadow()</code> der <code>box-shadow</code>-Eigenschaft so ähnelt, lässt sich erstmal auch kein Unterschied erkennen.
+        Es wird schlicht und ergreifend der übliche Schlagschatten erstellt, den man auch schon so kennt:
+      </p>
+
+      <pre class="code"><code>{{ page.code9 }}</code></pre>
+
+      <p>
+        Abgesehen von den potenziellen Performance-Vorteilen gibt es also keinen Grund, die Funktion statt <code>box-shadow</code> zu nutzen, richtig?
+        Na ja, nicht ganz. Der <code>drop-shadow()</code>-Filter hat noch ein Ass im Ärmel.
+      </p>
+
+      <p>
+        Der Schlagschatten passt sich an die Form eines Bildes an.
+        Das kann dann z.B. so aussehen:
+      </p>
+
+      <p data-height="265" data-theme-id="0" data-slug-hash="eVOjGp" data-default-tab="result" data-user="jr-cologne" data-embed-version="2" data-pen-title="Drop shadow for Logo with CSS Filter" class="codepen">See the Pen <a href="https://codepen.io/jr-cologne/pen/eVOjGp/">Drop shadow for Logo with CSS Filter</a> by JR Cologne (<a href="https://codepen.io/jr-cologne">@jr-cologne</a>) on <a href="https://codepen.io">CodePen</a>.</p>
+
+      <p>
+        Mit <code>box-shadow</code> würde es hingegen folgendermaßen aussehen:
+      </p>
+
+      <p data-height="265" data-theme-id="0" data-slug-hash="jZNpzg" data-default-tab="result" data-user="jr-cologne" data-embed-version="2" data-pen-title="Box shadow does not adapt to shape of image" class="codepen">See the Pen <a href="https://codepen.io/jr-cologne/pen/jZNpzg/">Box shadow does not adapt to shape of image</a> by JR Cologne (<a href="https://codepen.io/jr-cologne">@jr-cologne</a>) on <a href="https://codepen.io">CodePen</a>.</p>
+
+      <h4 id="grayscale">grayscale()</h4>
+
+      <p>
+        Die <code>grayscale()</code>-Filter-Funktion stellt das Element in Graustufen dar, wodurch sich beispielsweise perfekt ein schwarz-weißes Bild erzeugen lässt.
+      </p>
+
+      <h5>Syntax</h5>
+
+      <pre class="code"><code>{{ page.code10 }}</code></pre>
+
+      <p>
+        Die Syntax verhält sich wieder genauso, wie bei den meisten Filtern.
+        Durch einen Prozentwert wird angegeben, wie grau das Element praktisch wird.
+        <code>0%</code> entspricht dem Ausgangszustand und <code>100%</code> erzeugt ein komplett graues Ergebnis.
+        Ein Wert über <code>100%</code> ist nicht vorgesehen.
+      </p>
+
+      <h5>Beispiel</h5>
+
+      <p>
+        Ein Bild, das komplett in schwarz-weiß dargestellt wird:
+      </p>
+
+      <pre class="code"><code>{{ page.code11 }}</code></pre>
+
+      <h4 id="hue-rotate">hue-rotate()</h4>
+
+      <p>
+        Mit <code>hue-rotate()</code> lässt sich eine Rotation des Farbtons auf ein Element anwenden. Dabei werden die Farben eines Elements
+        anhand einer Gradzahl um den Farbkreis gedreht, sodass sich die Farben je nach Winkel stark ändern.
+      </p>
+
+      <h5>Syntax</h5>
+
+      <pre class="code"><code>{{ page.code12 }}</code></pre>
+
+      <p>
+        Wie schon angedeutet, erwartet die Funktion <code>hue-rotate()</code> eine Gradzahl, um die die Farben am Farbkreis verschoben werden sollen.
+        <code>0deg</code> steht dabei für keine Veränderung, während <code>360deg</code> den Maximalwert darstellt.
+      </p>
+
+      <h5>Beispiel</h5>
+
+      <pre class="code"><code>{{ page.code13 }}</code></pre>
+      
+      <h4 id="invert">invert()</h4>
+
+      <p>
+        Die CSS Filter-Funktion <code>invert()</code> sorgt dafür, dass die Ursprungsfarben eines Elements invertiert, also umgedreht werden.
+        Stellt man sich das Farbrad vor, würde also die entgegengesetzte Farbe genutzt werden.
+      </p>
+
+      <h5>Syntax</h5>
+
+      <pre class="code"><code>{{ page.code14 }}</code></pre>
+
+      <p>
+        Wie so häufig können wir mithilfe eines Prozentwertes wieder angeben, wie ausgeprägt der Effekt angewendet wird.
+        <code>0%</code> belässt alles beim Alten, <code>100%</code> dreht die Farben vollständig um.
+      </p>
+
+      <h5>Beispiel</h5>
+
+      <pre class="code"><code>{{ page.code15 }}</code></pre>
+
+      <h4 id="opacity">opacity()</h4>
+
+      <p>
+        Der <code>opacity()</code>-Filter funktioniert exakt wie die gleichnamige CSS-Eigenschaft <code>opacity</code> und fügt einem Element Transparenz hinzu.
+        Der Unterschied ist, genau wie bei <code>drop-shadow()</code> und <code>box-shadow</code>, dass der Filter in manchen Fällen performanter ist,
+        da dieser <a href="https://de.wikipedia.org/wiki/Hardwarebeschleunigung" target="_blank" rel="noopener">hardwarebeschleunigt</a> wird, während die normale CSS-Eigenschaft diesen Vorteil nicht vorweisen kann.
+        Ansonsten besteht keinerlei Unterschied.
+      </p>
+
+      <h5>Syntax</h5>
+
+      <pre class="code"><code>{{ page.code16 }}</code></pre>
+
+      <p>
+        Die Syntax stimmt mit einer kleinen Ausnahme mit der <code>opacity</code>-Eigenschaft überein: Die <code>opacity</code>-Eigenschaft erlaubt nur Dezimalzahlen,
+        während die CSS-Filter-Funktion auch Prozentwerte zulässt. <code>0%</code> sorgt für ein vollständig transparentes Element,
+        wohingegen <code>100%</code> für keinerlei Transparenz steht, was natürlich auch der Ausgangszustand ist.
+      </p>
+
+      <h5>Beispiel</h5>
+
+      <pre class="code"><code>{{ page.code17 }}</code></pre>
+
+      <h4 id="saturate">saturate()</h4>
+
+      <p>
+        Die Filter-Funktion <code>saturate()</code> ermöglicht die Sättigung eines Elements anzupassen.
+      </p>
+
+      <h5>Syntax</h5>
+
+      <pre class="code"><code>{{ page.code18 }}</code></pre>
+
+      <p>
+        Auch <code>saturate()</code> erwartet einen Prozentwert. Dieser gibt an, wie groß die Sättigung ist.
+        Werte unter <code>100%</code> verringern die Sättigung, Werte über <code>100%</code> sorgen für eine höhere Sättigung als vorher.
+        Der Ausgangswert ist <code>100%</code> und steht für die ursprüngliche Sättigung des Elements.
+      </p>
+
+      <h5>Beispiel</h5>
+
+      <pre class="code"><code>{{ page.code19 }}</code></pre>
+
+      <h4 id="sepia">sepia()</h4>
+
+      <p>
+        Der <code>sepia()</code>-Filter wandelt die Farben des Elements in Sepiafarben um.
+        Mit diesem Filter lässt sich dementsprechend die berühmte Sepia-Färbung anwenden.
+      </p>
+
+      <h5>Syntax</h5>
+
+      <pre class="code"><code>{{ page.code20 }}</code></pre>
+
+      <p>
+        Dreimal dürft ihr raten! Genau, die <code>sepia()</code>-Funktion erfordert einen Prozentwert, der die Stärke des Sepia-Effekts repräsentiert.
+        <code>0%</code> sorgt für keinerlei Veränderung und <code>100%</code> entspricht einer voll ausgeprägten Sepia-Färbung.
+      </p>
+
+      <h5>Beispiel</h5>
+
+      <pre class="code"><code>{{ page.code21 }}</code></pre>
+
+      <h4 id="url">url()</h4>
+
+      <p>
+        Die <code>url()</code>-Funktion ermöglicht den Verweis auf einen Filter, der mit den sogenannten <a href="https://developer.mozilla.org/de/docs/Web/SVG/Element/filter" target="_blank" rel="noopener">SVG Filter Elements</a> erstellt wurde.
+      </p>
+
+      <h5>Syntax</h5>
+
+      <pre class="code"><code>{{ page.code22 }}</code></pre>
+
+      <p>
+        Die Funktion erfordert die Angabe einer XML-Datei, welche einen SVG-Filter definiert, der dann auf das Element angewendet wird.
+        Es kann auch ein Anker zu einem bestimmten Element hinterlegt werden.
+      </p>
+
+      <h5>Beispiel</h5>
+
+      <pre class="code"><code>{{ page.code23 }}</code></pre>
+
+      <p>
+        Hinweis: Da ich selber nichts davon verstehe, habe ich diese Funktion nur der Vollständigkeit halber aufgeführt.
+        Wie das genau funktioniert, müsst ihr euch dementsprechend leider selber erarbeiten.
+      </p>
+
+      <h3>Mehrere Filter gleichzeitig anwenden: CSS-Filter-Funktionen kombinieren</h3>
+
+      <p>
+        Wie bereits zu Beginn mal erwähnt, können die Filter-Funktionen beliebig kombiniert werden, um den gewünschten Effekt zu erzielen.
+        Dies ist möglich, indem die Funktionen separiert durch ein Leerzeichen der <code>filter</code>-Eigenschaft zugewiesen werden.
+      </p>
+
+      <p>
+        Hier ist ein Beispiel, welches den Kontrast des Elements vergrößert und gleichzeitig die Farben um 180 Grad verschiebt:
+      </p>
+
+      <pre class="code"><code>{{ page.code24 }}</code></pre>
+
+      <h3>CSS Filter animieren</h3>
+
+      <p>
+        Ja, du liest richtig. CSS Filter lassen sich animieren, was uns die Türen für einige lustige Dinge öffnet.
+      </p>
+
+      <p>
+        Die Animationen sind ganz normal mit <a href="https://developer.mozilla.org/de/docs/Web/CSS/CSS_Transitions/Using_CSS_transitions" target="_blank" rel="noopener">Transitions</a> bzw. <a href="https://developer.mozilla.org/de/docs/Web/CSS/CSS_Animations/CSS_Animationen_nutzen" target="_blank" rel="noopener">Keyframe-Animationen</a> umsetzbar.
+        Dies ist eine simple Animation der Graustufen eines Elements:
+      </p>
+
+      <pre class="code"><code>{{ page.code25 }}</code></pre>
+
+      <h3>Mögliche Anwendungsfälle für CSS3 Filter</h3>
+
+      <p>
+        Nachdem wir uns nun die ganze Theorie angeeignet haben, stellt sich vor allen Dingen eine Frage: Was kann man nun damit anfangen?
+      </p>
+
+      <p>
+        Diese Frage ist meiner Meinung nach relativ leicht beantwortet: CSS Filter eignen sich hervorragend für jegliche Formen von Bildeffekten.
+        Möchte man beispielsweise ein Hintergrundbild einer Website ein wenig auffälliger gestalten, aber nicht auf ein Video zurückgreifen,
+        bieten sich CSS Filter an, um beispielsweise die Farben des Hintergrunds zu variieren.
+      </p>
+
+      <p>
+        Besonders gut kann dies dann auch mit Illustrationen aussehen.
+      </p>
+
+      <p>
+        Ebenfalls interessant sind Filter-Effekte als Hover-Effekt eines Bildes.
+        So könnte sich z.B. die Farbe eines Bildes, das sich anklicken lässt, ändern, wenn man mit der Maus über das Bild fährt.
+      </p>
+
+      <p>
+        Um diese Ideen ein wenig zu veranschaulichen, habe ich einfach mal einen Pen erstellt, der die verschiedenen Möglichkeiten zum Einsatz von
+        CSS3 Filtern ein wenig veranschaulicht. Seht selbst:
+      </p>
+
+      <p data-height="400" data-theme-id="0" data-slug-hash="VygVOm" data-default-tab="result" data-user="jr-cologne" data-embed-version="2" data-pen-title="Playing around with CSS3 Filters" class="codepen">See the Pen <a href="https://codepen.io/jr-cologne/pen/VygVOm/">Playing around with CSS3 Filters</a> by JR Cologne (<a href="https://codepen.io/jr-cologne">@jr-cologne</a>) on <a href="https://codepen.io">CodePen</a>.</p>
+      
+      <h3>Browser-Kompatibilität</h3>
+
+      <p>
+        Kommen wir nun zum immer wieder unschönen Thema Browser-Kompatibilität.
+        Dieser sieht nämlich laut <a href="https://caniuse.com/#feat=css-filters" target="_blank" rel="noopener">caniuse.com</a> bei CSS Filtern auch nicht sonderlich überzeugend aus.
+      </p>
+
+      <p>
+        Auch wenn Chrome, Firefox, Safari und Opera durchweg einen guten Support anbieten,
+        sieht das auf Mobilgeräten oder bei den Browsern von Microsoft schon deutlich schlechter aus.
+      </p>
+
+      <p>
+        Der Internet Explorer, der in den meisten Webprojekten zumindest noch in Version 11 unterstützt werden sollte,
+        kann überhaupt nicht mit CSS Filter-Effekten werben, da er sie einfach nicht unterstützt.
+        Besser sieht es dann schon mit dem Edge aus: Dieser unterstützt CSS Filter mit Ausnahme der <code>url()</code>-Filter-Funktion,
+        die sowieso so gut wie keiner braucht.
+      </p>
+
+      <p>
+        Wenn es darum geht, aufgrund des Performance-Vorteils, die Filter-Funktionen <code>opacity()</code> und <code>drop-shadow()</code> den Eigenschaften
+        <code>opacity</code> bzw. <code>box-/text-shadow</code> gegenüber vorzuziehen, kann ich nur eindeutig davon abraten.
+        Das ergibt auch wegen der schlechteren Unterstützung der Browser keinen Sinn.
+      </p>
+
+      <p>
+        <strong>Fazit</strong>: Man kann sich noch nicht komplett auf die Unterstützung von CSS Filtern in allen gängigen Browsern verlassen,
+        allerdings bedeutet dies nicht, dass CSS Filter noch nicht eingesetzt werden sollten.
+      </p>
+
+      <p>
+        In den meisten Fällen handelt es sich schließlich um keine kritischen Features, die einem Benutzer mit einem Browser
+        ohne den Support von CSS Filter-Effekten einen erheblichen Nachteil verschaffen würden.
+      </p>
+
+      <h3>Fazit</h3>
+
+      <p>
+        Abschließend kann man sagen, dass CSS3 Filter in einigen Fällen unterschätzt werden und ruhig mehr eingesetzt werden könnten.
+        Auch wenn der Browser-Support noch nicht ideal ist, kann man CSS Filter-Effekte ohne größere Bedenken verwenden.
+      </p>
+
+      <p>
+        Wer also das nächste Mal nach einem netten Hover-Effekt sucht oder ein Hintergrundbild hat, das noch ein wenig aufgepeppt werden soll,
+        kann den Einsatz von CSS Filtern durchaus in Erwägung ziehen.
+      </p>
+
+      <h3>Weiterführende Links / Quellen</h3>
+
+      <ul>
+        <li><a href="https://developer.mozilla.org/de/docs/Web/CSS/filter" target="_blank" rel="noopener">MDN - CSS filter</a></li>
+        <li><a href="https://css-tricks.com/almanac/properties/f/filter/" target="_blank" rel="noopener">css-tricks.com - filter</a></li>
+        <li><a href="https://blog.kulturbanause.de/2015/03/css-filter-effekte/" target="_blank" rel="noopener">kulturbanause.de - CSS Filter-Effekte</a></li>
+        <li>Titelbild: <a href="https://unsplash.com/photos/K1cRE_Kor5w" target="_blank" rel="noopener">unsplash.com</a></li>
+      </ul>
+    </section>
+
+    {% include tags.html %}
+  </article>
+</main>
+
+<footer class="footer footer--white">
+  <div class="footer-logo-nav-container">
+    <a href="/" class="logo" title="jr-cologne.de Logo"></a>
+
+    <nav class="nav nav--footer">
+      <ul>
+        <li><a href="/">Startseite</a></li>
+        <li><a href="/portfolio.html">Portfolio</a></li>
+        <li><a href="/blog.html" class="current">Blog</a></li>
+        <li><a href="/resources.html">Ressourcen</a></li>
+      </ul>
+    </nav>
+  </div>
+
+  <nav class="nav nav--legal">
+    <ul>
+      <li><a href="/impressum.html">Impressum</a></li>
+      <li><a href="/datenschutz.html">Datenschutz</a></li>
+    </ul>
+  </nav>
+</footer>
+
+{% include code-highlighter.html %}
+{% include pen-embed-code.html %}
