@@ -3,6 +3,61 @@
   <head>
     {% include head.html stylesheet='post' %}
 
+    <script type="application/ld+json">
+      [
+        {
+          "@context": "http://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "item": {
+                "@id": "{{ site.url }}/blog.html",
+                "name": "Blog"
+              }
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "item": {
+                "@id": "{{ site.url }}/{{ page.canonical }}",
+                "name": "{{ page.title }}"
+              }
+            }
+          ]
+        },
+        {
+          "@context": "http://schema.org",
+          "@type": "BlogPosting",
+          "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "{{ site.url }}/{{ page.canonical }}"
+          },
+          "headline": "{{ page.title }}",
+          "image": [
+            "{{ page.article-image }}",
+            "{{ page.article-image-small }}"
+           ],
+          "datePublished": "{{ page.date }}",
+          "dateModified": "{{ page.date }}",
+          "author": {
+            "@type": "Person",
+            "name": "JR Cologne"
+          },
+          "publisher": {
+            "@type": "Organization",
+            "name": "JR Cologne",
+            "logo": {
+              "@type": "ImageObject",
+              "url": "https://res.cloudinary.com/jr-cologne-de/image/upload/logo.png"
+            }
+          },
+          "description": "{{ page.preview-text }}"
+        }
+      ]
+    </script>
+
     <meta property="og:title" content="{{ site.title }} - {{ page.title }}">
     <meta property="og:description" content="{{ page.preview-text }}">
     <meta property="og:image" content="{{ page.article-image }}">

@@ -3,6 +3,31 @@
   <head>
     {% include head.html stylesheet='post' %}
 
+    <script type="application/ld+json">
+      {
+        "@context": "http://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "item": {
+              "@id": "{{ site.url }}/portfolio.html",
+              "name": "Portfolio"
+            }
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "item": {
+              "@id": "{{ site.url }}/{{ page.canonical }}",
+              "name": "{{ page.title }}"
+            }
+          }
+        ]
+      }
+    </script>
+
     <meta property="og:title" content="{{ site.title }} - {{ page.title }}">
     <meta property="og:description" content="{{ page.description }}">
     <meta property="og:image" content="{{ page.image }}">

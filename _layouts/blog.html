@@ -3,6 +3,38 @@
   <head>
     {% include head.html stylesheet='blog' %}
 
+    <script type="application/ld+json">
+      [
+        {
+          "@context": "http://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "item": {
+                "@id": "{{ site.url }}/{{ page.canonical }}",
+                "name": "{{ page.title }}"
+              }
+            }
+          ]
+        },
+        {
+          "@context": "http://schema.org",
+          "@type": "ItemList",
+          "itemListElement": [
+            {% for post in site.posts %}
+              {
+                "@type": "ListItem",
+                "position": {{ forloop.index }},
+                "url": "{{ site.url }}{{ post.url }}"
+              },
+            {% endfor %}
+          ]
+        }
+      ]
+    </script>
+
     <meta property="og:title" content="{{ site.title }} - {{ page.title }}">
     <meta property="og:description" content="{{ site.description }}">
     <meta property="og:image" content="https://res.cloudinary.com/jr-cologne-de/image/upload/c_fit,f_auto,fl_lossy,q_auto,w_1920/welcome-section-bg.jpg">
