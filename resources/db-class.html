@@ -5,7 +5,12 @@ description: Eine einfache Datenbank-Klasse mit PHP, PDO und einem Query Builder
 image: "https://res.cloudinary.com/jr-cologne-de/image/upload/c_fit,f_auto,fl_lossy,q_auto,w_1920/db-class.png"
 canonical: resources/db-class.html
 
-code: composer require jr-cologne/db-class
+code1: |
+  $username = $db->table('users')->select('username', [
+    'email' => 'kontakt@jr-cologne.de',
+  ])->retrieve('first');
+code2: composer require jr-cologne/db-class
+
 ---
 
 <header class="header">
@@ -46,7 +51,7 @@ code: composer require jr-cologne/db-class
       </p>
 
       <p>
-        Dann ist diese Datenbank-Klasse genau das richtige für dich!
+        Dann ist diese Datenbank-Klasse genau das Richtige für dich!
       </p>
 
       <p>
@@ -63,13 +68,20 @@ code: composer require jr-cologne/db-class
       </p>
 
       <p>
+        Und sind wir mal ganz ehrlich. Letztendlich hat es auch kosmetische Gründe, eine solche Datenbank-Klasse einzusetzen.
+        Der normale PDO-Code ist eben nicht ganz so hübsch. Da sieht sowas doch gleich viel eleganter aus:
+      </p>
+
+      <pre class="code"><code>{{ page.code1 }}</code></pre>
+
+      <p>
         Na, neugierig? Du findest die Datenbank-Klasse auf <a href="https://github.com/jr-cologne/db-class" target="_blank" rel="noopener">GitHub</a>
         und <a href="https://packagist.org/packages/jr-cologne/db-class" target="_blank" rel="noopener">Packagist</a>.
         Folglich kannst du sie dank Composer mit einem
         einzigen Befehl in dein Projekt einbinden:
       </p>
 
-      <pre class="code"><code class="shell">{{ page.code | xml_escape }}</code></pre>
+      <pre class="code"><code class="shell">{{ page.code2 | xml_escape }}</code></pre>
 
       <p>
         Die Dokumentation kannst du genauso dort einsehen,
