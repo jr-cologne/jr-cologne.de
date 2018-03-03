@@ -4,28 +4,56 @@
     {% include head.html stylesheet='post' %}
 
     <script type="application/ld+json">
-      {
-        "@context": "http://schema.org",
-        "@type": "BreadcrumbList",
-        "itemListElement": [
-          {
-            "@type": "ListItem",
-            "position": 1,
-            "item": {
-              "@id": "{{ site.url }}/resources.html",
-              "name": "Ressourcen"
+      [
+        {
+          "@context": "http://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "item": {
+                "@id": "{{ site.url }}/resources.html",
+                "name": "Ressourcen"
+              }
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "item": {
+                "@id": "{{ site.url }}/{{ page.canonical }}",
+                "name": "{{ page.title }}"
+              }
+            }
+          ]
+        },
+        {
+          "@context": "http://schema.org",
+          "@type": "Article",
+          "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "{{ site.url }}/{{ page.canonical }}"
+          },
+          "headline": "{{ page.title }}",
+          "image": [
+            "{{ page.image }}",
+            "{{ page.image-small }}"
+           ],
+          "author": {
+            "@type": "Person",
+            "name": "JR Cologne"
+          },
+          "publisher": {
+            "@type": "Organization",
+            "name": "JR Cologne",
+            "logo": {
+              "@type": "ImageObject",
+              "url": "https://res.cloudinary.com/jr-cologne-de/image/upload/logo.png"
             }
           },
-          {
-            "@type": "ListItem",
-            "position": 2,
-            "item": {
-              "@id": "{{ site.url }}/{{ page.canonical }}",
-              "name": "{{ page.title }}"
-            }
-          }
-        ]
-      }
+          "description": "{{ page.description }}"
+        }
+      ]
     </script>
 
     <meta property="og:title" content="{{ site.title }} - {{ page.title }}">
