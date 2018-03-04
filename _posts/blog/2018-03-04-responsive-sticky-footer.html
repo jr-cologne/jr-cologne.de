@@ -1,0 +1,592 @@
+---
+layout: post
+title: Responsive Sticky Footer
+canonical: blog/2018/03/04/responsive-sticky-footer.html
+date: "2018-03-04 17:00:00 +0100"
+date_string: "Sonntag, 04.03.2018"
+article-image: "https://res.cloudinary.com/jr-cologne-de/image/upload/c_fit,f_auto,fl_lossy,q_auto,w_1920/sticky.jpg"
+article-image-small: "https://res.cloudinary.com/jr-cologne-de/image/upload/c_fit,f_auto,fl_lossy,q_auto,w_1280/sticky.jpg"
+image: { src: "https://res.cloudinary.com/jr-cologne-de/image/upload/ar_1.5,c_scale,f_auto,fl_lossy,q_auto,w_1280/sticky.jpg", srcset: "https://res.cloudinary.com/jr-cologne-de/image/upload/ar_1.5,c_scale,f_auto,fl_lossy,q_auto,w_1280/sticky.jpg 1280w, https://res.cloudinary.com/jr-cologne-de/image/upload/ar_1.5,c_scale,f_auto,fl_lossy,q_auto,w_1920/sticky.jpg 1920w", alt: "Responsive Sticky Footer Vorschaubild" }
+preview-text: "Wenn es um die Erstellung eines Footers geht, besteht fast immer der Wunsch, dass sich der Footer stets am unteren Rand der Website befinden soll. Wie man den sogenannten “Sticky Footer” in Zeiten von Responsive Webdesign umsetzen kann, werde ich euch heute zeigen. Dabei werden wir uns insgesamt 5 verschiedene Varianten anschauen, diese vergleichen und jeweils die Vor- und Nachteile der einzelnen Vorgehensweisen untersuchen, sodass du für das nächste Mal gut gerüstet bist, wenn es um die Umsetzung eines Sticky Footers geht. Zuletzt ziehe ich noch ein kurzes Fazit und spreche eine Empfehlung aus."
+categories: blog
+
+tags:
+  - { title: "CSS", url: "https://de.wikipedia.org/wiki/Cascading_Style_Sheets", target: "_blank" }
+  - { title: "Webdesign", url: "https://de.wikipedia.org/wiki/Webdesign", target: "_blank" }
+  - { title: "Responsive Webdesign", url: "https://de.wikipedia.org/wiki/Responsive_Webdesign", target: "_blank" }
+
+code1: |
+  <div class="wrapper">
+    <header class="header"></header>
+    <div class="content">
+      <main class="inner-content">
+        <!-- Content -->
+      </main>
+    </div>
+  </div>
+
+  <footer class="footer"></footer>
+
+code2: |
+  .wrapper {
+    min-height: 100%;
+  }
+
+  .inner-content {
+    padding-bottom: 50px;
+  }
+
+  .footer {
+    height: 50px;
+    margin-top: -50px;
+  }
+
+code3: |
+  <div class="wrapper">
+    <header class="header"></header>
+    <main class="content">
+      <!-- Content -->
+    </main>
+  </div>
+
+  <footer class="footer"></footer>
+
+code4: |
+  .wrapper {
+    min-height: calc(100% - 50px);
+  }
+
+  .footer {
+    height: 50px;
+  }
+
+code5: |
+  <div class="wrapper">
+    <header class="header"></header>
+    <div class="content">
+      <main class="inner-content">
+        <!-- Content -->
+      </main>
+    </div>
+    <footer class="footer"></footer>
+  </div>
+
+code6: |
+  .wrapper {
+    height: 100%;
+    width: 100%;
+    display: table;
+    table-layout: fixed;
+  }
+
+  .header, .content, .footer {
+    display: table-row;
+  }
+
+  .content {
+    height: 100%;
+  }
+
+code7: |
+  <div class="wrapper">
+    <header class="header"></header>
+    <main class="content">
+      <!-- Content -->
+    </main>
+    <footer class="footer"></footer>
+  </div>
+
+code8: |
+  .wrapper {
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .content {
+    flex: 1 0 auto;
+  }
+
+code9: |
+  .wrapper {
+    min-height: 100%;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+  }
+
+---
+
+<header class="header">
+  <a href="/" class="logo" title="jr-cologne.de Logo"></a>
+  
+  <nav id="nav" class="nav nav--main">
+    <div class="navbar">
+      <a href="#" id="hamburger-button" title="Navigation">
+        <span class="hamburger-icon_top"></span>
+        <span class="hamburger-icon"></span>
+        <span class="hamburger-icon_bottom"></span>
+      </a>
+    </div>
+
+    <ul>
+      <li><a href="/">Startseite</a></li>
+      <li><a href="/portfolio.html">Portfolio</a></li>
+      <li><a href="/blog.html" class="current">Blog</a></li>
+      <li><a href="/resources.html">Ressourcen</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+  {% include article-top-bar.html %}
+
+  <article class="article">
+    <header class="article-header">
+      <h1 class="article-heading">{{ page.title }}</h1>
+
+      <div id="article-image" class="article-image" data-bg-pos-x="start" style="background-image: url('{{ page.article-image }}')"></div>
+    </header>
+
+    <section class="article-text">
+      <p>
+        Wenn es um die Erstellung eines Footers geht, besteht fast immer der Wunsch,
+        dass sich der Footer stets am unteren Rand der Website befinden soll.
+        Wie man den sogenannten “Sticky Footer” in Zeiten von Responsive Webdesign umsetzen kann,
+        werde ich euch heute zeigen. Dabei werden wir uns insgesamt 5 verschiedene Varianten anschauen,
+        diese vergleichen und jeweils die Vor- und Nachteile der einzelnen Vorgehensweisen untersuchen,
+        sodass du für das nächste Mal gut gerüstet bist, wenn es um die Umsetzung eines Sticky Footers geht.
+        Zuletzt ziehe ich noch ein kurzes Fazit und spreche eine Empfehlung aus.
+      </p>
+
+      <h3>Was versteht man unter einem Sticky Footer?</h3>
+
+      <p>
+        Bevor wir beginnen, möchte ich aber noch kurz das Konzept eines Sticky Footers etwas genauer erläutern.
+        Im Grunde ist der Sticky Footer dafür konzipiert, das Problem zu beheben, dass bei einer Seite
+        mit nur sehr wenig Inhalt unterhalb des Footers Whitespace entsteht, der Footer also nicht am unteren Viewportrand sitzt.
+      </p>
+
+      <p>
+        Dieses Problem wird behoben, indem der Footer bei zu wenig Content praktisch an den unteren Viewportrand gedrückt
+        wird und sich der Whitespace dann oberhalb des Footers befindet. Ist hingegen genug Content vorhanden,
+        wird der Footer einfach vom Content weiter nach unten geschoben und befindet sich damit stets ganz am Ende der Website.
+      </p>
+
+      {% include article-content-image.html src="https://res.cloudinary.com/jr-cologne-de/image/upload/c_fit,f_auto,fl_lossy,q_auto,w_1280/sticky-footer.png" srcset="https://res.cloudinary.com/jr-cologne-de/image/upload/c_fit,f_auto,fl_lossy,q_auto,w_1280/sticky-footer.png 1280w, https://res.cloudinary.com/jr-cologne-de/image/upload/c_fit,f_auto,fl_lossy,q_auto,w_1920/sticky-footer.png 1920w" alt="Visualisierung eines Sticky Footers" description="Ein Sticky Footer befindet sich stets am Ende der Seite, auch wenn nicht genügend Content vorhanden ist." source='Bild: <a href="/">jr-cologne.de</a>' %}
+
+      <h3>Sticky Footer: 5 unterschiedliche Wege nach Rom</h3>
+
+      <p>
+        Soweit alles klar? Gut, dann schauen wir uns jetzt nach und nach die einzelnen Varianten an.
+        Wie jedes Kind weiß, führen viele Wege nach Rom. Genauso ist es beim Thema Sticky Footer auch.
+        Im Folgenden werde ich 5 verschiedene Ansätze vorstellen. Das sind mit Sicherheit zwar nicht
+        alle Möglichkeiten für die Umsetzung eines Sticky Footers, aber zumindest diejenigen,
+        welche du am ehesten in Betracht ziehen solltest, sind auf alle Fälle in meiner Zusammenstellung dabei.
+      </p>
+
+      <p>
+        In diesem Sinne: Los geht’s!
+      </p>
+
+      <h4>Sticky Footer mit fester Höhe und negativem Margin</h4>
+      
+      <h5>Umsetzung</h5>
+
+      <p>
+        Wie immer beginnen wir mit einer relativ einfachen Variante: Einem Sticky Footer mit fester Höhe,
+        der um die Höhe des Footers mit negativem <code>margin</code> nach oben verschoben wird.
+        Gleichzeitig sorgt dasselbe <code>padding</code> dafür, dass der Footer auf Abstand gehalten wird und
+        es nicht zu komischen Verschiebungen kommt.
+      </p>
+
+      <p>
+        Das grundlegende HTML sieht im Prinzip so aus:
+      </p>
+
+      <pre class="code"><code>{{ page.code1 | xml_escape }}</code></pre>
+
+      <p>
+        Besonders wichtig ist dabei, dass der Footer sich außerhalb des Wrappers befindet,
+        da dieser letztendlich dafür sorgt, dass der Footer runtergedrückt wird, indem wir ihm eine
+        minimale Höhe von <code>100%</code> zuweisen.
+      </p>
+
+      <p>
+        Des Weiteren nutzen wir in dem Fall einen weiteren Container für unseren Content.
+        Dies ermöglicht uns, einen gewissen Abstand zum Footer zu erhalten, auch wenn genügend Content
+        auf der Seite vorhanden ist. Wer möchte seinen Content schließlich direkt am Footer kleben haben?
+      </p>
+
+      <p>
+        Hier ist nun das benötigte CSS, natürlich wieder aufs Wesentliche gekürzt:
+      </p>
+
+      <pre class="code"><code>{{ page.code2 }}</code></pre>
+
+      <p>
+        Wie schon angesprochen, geben wir dem Wrapper eine <code>min-height</code> von <code>100%</code>.
+        Dadurch wird der Footer erstmal aus dem sichtbaren Bereich geschoben. Um den Footer anschließend wieder
+        ins Bild zu bekommen und keine unnötige Scrollbar zu produzieren, ziehen wir den Footer durch das negative <code>margin</code>
+        wieder nach oben. Dieser Wert muss natürlich mit der Höhe des Footers übereinstimmen. Ansonsten funktioniert es nicht wie erwartet.
+      </p>
+
+      <p>
+        Hier ist nun ein komplettes Beispiel für unsere erste Variante, dem Sticky Footer mit fester Höhe und negativem <code>margin</code>:
+      </p>
+
+      <p data-height="400" data-theme-id="0" data-slug-hash="yvrxrg" data-default-tab="result" data-user="jr-cologne" data-embed-version="2" data-pen-title="Responsive Sticky Footer with fixed height and negative margin" class="codepen">See the Pen <a href="https://codepen.io/jr-cologne/pen/yvrxrg/">Responsive Sticky Footer with fixed height and negative margin</a> by JR Cologne (<a href="https://codepen.io/jr-cologne">@jr-cologne</a>) on <a href="https://codepen.io">CodePen</a>.</p>
+      
+      <h5>Vorteile/Nachteile</h5>
+
+      <p>
+        Zu den Vor- und Nachteilen dieser Variante muss ich nicht viel sagen:
+        Im Grunde eignet sich diese Lösung ganz gut, allerdings kommt sie relativ schnell an ihre Grenzen.
+        Die Beschränkung auf eine feste Höhe ist nicht die einzige Einschränkung.
+        Spätestens, wenn man mit vielen Abständen arbeitet und diese möglichst auch noch unten und oben gleich sein sollen,
+        wird diese Variante des Sticky Footers ein wenig unkomfortabel und komplizierter. Das muss nicht sein, schließlich geht es auch einfacher.
+      </p>
+
+      <h4>Sticky Footer mit fester Höhe und Wrapper mit reduzierter Höhe durch <code>calc()</code></h4>
+
+      <h5>Umsetzung</h5>
+
+      <p>
+        Kommen wir von einer eher uneleganten Art und Weise zu einer schon deutlich eleganteren Lösung:
+        Wir nutzen die CSS-Funktion <code>calc()</code>, um die feste Höhe unseres Footers von der Höhe
+        des Wrappers abzuziehen, sodass der Footer noch so gerade ins Bild passt.
+      </p>
+
+      <p>
+        Diesmal ist unser HTML ein wenig kürzer:
+      </p>
+
+      <pre class="code"><code>{{ page.code3 | xml_escape }}</code></pre>
+
+      <p>
+        Der Grund für die Änderung im HTML ist schlicht, dass wir nun keinen zweiten Container
+        für den Content benötigen, da wir nicht auf <code>padding</code> bzw. <code>margin</code>
+        für die korrekte Platzierung des Footers setzen. Somit können wir dem einen Content-Container
+        ohne Probleme Abstände hinzufügen.
+      </p>
+
+      <p>
+        Ansonsten gilt es wieder zu beachten, den Footer außerhalb des Wrappers zu platzieren, aber das war es dann eigentlich auch.
+      </p>
+
+      <p>
+        Das CSS ist analog zum HTML übrigens auch geschrumpft:
+      </p>
+
+      <pre class="code"><code>{{ page.code4 }}</code></pre>
+
+      <p>
+        Alles, was wir brauchen, sind wirklich diese beiden Höhenangaben.
+        Der Footer bekommt weiterhin seine feste Höhe zugewiesen, während wir dem Wrapper sagen,
+        er solle doch gefälligst <code>50px</code> für den Footer Platz schaffen.
+        Anders gesagt: Wir ziehen der minimalen Höhe des Wrappers einfach die Höhe des Footers ab.
+      </p>
+
+      <p>
+        Hier ist nun wieder das dazu passende Beispiel, der Sticky Footer mit fester Höhe und Wrapper mit reduzierter Höhe dank der CSS-Funktion <code>calc()</code>:
+      </p>
+
+      <p data-height="400" data-theme-id="0" data-slug-hash="wyZYmg" data-default-tab="result" data-user="jr-cologne" data-embed-version="2" data-pen-title="Responsive Sticky Footer with fixed height and wrapper with reduced height by calc()" class="codepen">See the Pen <a href="https://codepen.io/jr-cologne/pen/wyZYmg/">Responsive Sticky Footer with fixed height and wrapper with reduced height by calc()</a> by JR Cologne (<a href="https://codepen.io/jr-cologne">@jr-cologne</a>) on <a href="https://codepen.io">CodePen</a>.</p>
+
+      <h5>Vorteile/Nachteile</h5>
+
+      <p>
+        Der Vorteil dieser Variante ist vor allen Dingen die Tatsache,
+        dass wir einfach nur die Höhe von einem Element ändern und nicht auf negatives <code>margin</code> zurückgreifen,
+        was das Ganze natürlich gleich viel sauberer und eleganter macht. Des Weiteren sparen wir ein paar Zeilen Code.
+      </p>
+
+      <p>
+        Auf der Contra-Seite gibt es hingegen eher wenige Argumente, abgesehen von der festen Höhe des Footers.
+        Lediglich bei der Browserkompatibilität kann <code>calc()</code> natürlich nicht ganz mit der vorherigen Variante mithalten.
+        So unterstützt Opera Mini beispielsweise die <code>calc()</code>-Funktion nicht. In Deutschland ist dies allerdings auch kein wirkliches Argument,
+        da die Verbreitung des mobilen Browsers bei uns unter 0.3% liegt. Lediglich die globalen Nutzungszahlen liegen noch deutlich darüber, nämlich knapp unter 3%.
+      </p>
+
+      <p>
+        Alles in allem gibt es also keinen wirklichen Grund, nicht auf diese Ausführung eines Sticky Footers zurückzugreifen,
+        vorausgesetzt die feste Höhe des Footers stellt kein Problem dar.
+      </p>
+
+      <h4>Sticky Footer mit dem CSS Table Layout</h4>
+
+      <h5>Umsetzung</h5>
+
+      <p>
+        Nun kommen wir zu einer Variante, um die wohl die meisten aufgrund des schlechten Beigeschmacks der Worte “Table” und “Layout”
+        einen großen Bogen machen oder sich der Möglichkeit gar nicht bewusst sind. Auch mit dem CSS Table Layout lässt sich ein Sticky Footer
+        erreichen und das Beste ist, dass wir nun keine feste Höhe mehr angeben müssen.
+      </p>
+
+      <p>
+        Alles, was wir dafür machen müssen, ist, unseren Wrapper in eine Tabelle zu verwandeln und seine Kindelemente als Tabellenzeilen zu behandeln.
+        Diese teilen sich den verfügbaren Platz dann brav untereinander auf. Sobald wir anschließend unserem Content sagen,
+        dass er sich ruhig ein wenig ausbreiten darf und den maximalen verfügbaren Platz einnehmen soll, haben wir schon unseren Effekt des Sticky Footers,
+        wie wir ihn kennen. Neu ist dabei übrigens, dass der Footer sich nun innerhalb des Wrappers befindet:
+      </p>
+
+      <pre class="code"><code>{{ page.code5 | xml_escape }}</code></pre>
+
+      <p>
+        Als Ausgleich zu den neuen Möglichkeiten kehrt leider der extra Container für den Content zurück.
+        Dies liegt daran, dass wir einer Tabellenzeile kein <code>margin</code> und <code>padding</code> zuweisen können.
+        Die Abständen müssen also in irgendeiner Form über die Kindelemente der Tabellenzeilen festgelegt werden.
+      </p>
+
+      <p>
+        Unser CSS-Code hat sich darüber hinaus im Vergleich zu den anderen Versionen auch deutlich geändert:
+      </p>
+
+      <pre class="code"><code>{{ page.code6 }}</code></pre>
+
+      <p>
+        Nun besitzt der Wrapper nicht mehr den <code>display</code>-Typ <code>block</code>, sondern <code>table</code>
+        und wird außerdem über die gesamte Höhe und Breite gezogen. Anschließend sorgen wir mit <code>table-layout: fixed</code> dafür,
+        dass das horizontale Layout der Tabelle sich nicht mehr am Content der Tabellenzellen, sondern an der Breite der Tabelle bzw. Spalten orientiert.
+      </p>
+
+      <p>
+        Sobald wir unseren Header, den Footer und den Content-Container dann anweisen, sich wie eine Tabellenzeile zu verhalten,
+        teilen diese sich über die gesamte Höhe des Viewports gleichmäßig auf. Des Weiteren nehmen sie natürlich die gesamte Breite ein.
+      </p>
+
+      <p>
+        Das, was letztendlich dafür sorgt, dass der Content stets den maximal verfügbaren Platz einnimmt,
+        ist die <code>height</code>-Angabe für den Container mit der Klasse <code>content</code>.
+        Dieser macht nämlich genau das, wenn wir ihm als Wert für die <code>height</code>-Eigenschaft <code>100%</code> zuweisen.
+      </p>
+
+      <p>
+        Das Ergebnis des Sticky Footers mit dem CSS Table Layout sieht letztendlich so aus:
+      </p>
+
+      <p data-height="400" data-theme-id="0" data-slug-hash="KQYrwe" data-default-tab="result" data-user="jr-cologne" data-embed-version="2" data-pen-title="Responsive Sticky Footer with CSS Table Layout" class="codepen">See the Pen <a href="https://codepen.io/jr-cologne/pen/KQYrwe/">Responsive Sticky Footer with CSS Table Layout</a> by JR Cologne (<a href="https://codepen.io/jr-cologne">@jr-cologne</a>) on <a href="https://codepen.io">CodePen</a>.</p>
+
+      <h5>Vorteile/Nachteile</h5>
+
+      <p>
+        Diese Variante hat zum einen den großen Vorteil einer guten Unterstützung in so ziemlich allen Browsern.
+        Abgesehen von dem Internet Explorer unter Version 8 unterstützen eigentlich alle bekannten Browser das CSS Table Layout.
+        Hier muss man sich also keinerlei sorgen machen. Des Weiteren können wir endlich auf die feste Höhe verzichten.
+      </p>
+
+      <p>
+        Ein Nachteil hingegen ist die Tatsache, dass sich die Tabellenzeilen nicht mit einem <code>margin</code> bzw. <code>padding</code>
+        ausstatten lassen und wir dementsprechend den Umweg über Kindelemente für die Deklarierung von Abständen gehen müssen.
+        Das macht alles ein wenig umständlicher.
+      </p>
+
+      <p>
+        Insgesamt eignet sich das CSS Table Layout dann aber doch ganz gut, um einen responsiven Sticky Footer
+        ohne feste Höhe umzusetzen. Besonders diejenigen, die sehr auf eine gute Browserkompatibilität achten,
+        sind hier an der richtigen Stelle.
+      </p>
+
+      <h4>Sticky Footer mit Flexbox</h4>
+
+      <h5>Umsetzung</h5>
+
+      <p>
+        Nun kommen wir zu den modernen Möglichkeiten von CSS3. Dadurch, dass diese Technologien speziell mit
+        Responsive Webdesign im Hinterkopf entwickelt wurden, geht ein responsiver Sticky Footer damit auch dementsprechend gut von der Hand.
+      </p>
+
+      <p>
+        Genau wie bei der vorherigen Version mit dem Table-Layout befindet sich der Footer innerhalb des Wrappers.
+        Der Wrapper wird anschließend mit <code>display: flex</code> zum Flex-Container gemacht und die Kindelemente werden
+        durch <code>flex-direction: column</code> untereinander angeordnet.
+        Anschließend können wir mit der CSS-Eigenschaft <code>flex</code> dafür sorgen, dass der Content sich auf den maximal verfügbaren Platz ausdehnt.
+      </p>
+
+      <p>
+        So sieht dabei das HTML aus:
+      </p>
+
+      <pre class="code"><code>{{ page.code7 | xml_escape }}</code></pre>
+
+      <p>
+        Und dies ist das wesentliche CSS:
+      </p>
+
+      <pre class="code"><code>{{ page.code8 }}</code></pre>
+
+      <p>
+        Mit der <code>min-height</code>-Angabe wird der Wrapper angewiesen, sich stets über die ganze Höhe der Seite zu erstrecken.
+        Des Weiteren fungiert er als Flex-Container, sodass wir die Möglichkeiten des Flex-Layouts überhaupt nutzen können und die Kindelemente,
+        Header, Footer und der Content sich untereinander anordnen, indem wir die Ausrichtung auf <code>column</code> stellen.
+      </p>
+
+      <p>
+        Nach diesen Angaben befindet sich der Footer schlicht und ergreifend unmittelbar unter dem Content. Nun möchten wir allerdings erreichen,
+        dass unser Footer bei zu wenig Content am unteren Viewportrand klebt. Dies ist möglich, indem wir dem Content die Eigenschaft <code>flex</code>
+        mit den Werten <code>1</code>, <code>0</code> und <code>auto</code> übergeben.
+      </p>
+
+      <p>
+        Anschließend breitet sich der Content stets auf den gesamten verfügbaren Platz aus und schiebt den Footer nach unten,
+        sodass wir unseren gewünschten Effekt erreichen. Zur Erklärung: Die <code>flex</code>-Eigenschaft stellt eine Abkürzung für die
+        Eigenschaften <code>flex-grow</code>, <code>flex-shrink</code> und <code>flex-basis</code> dar.
+        Im Grunde weisen wir <code>flex-grow</code> also den Wert <code>1</code>, <code>flex-shrink</code> <code>0</code> und <code>flex-basis</code> <code>auto</code> zu.
+      </p>
+
+      <p>
+        Letztendlich sieht ein Sticky Footer mit Flexbox dann folgendermaßen aus:
+      </p>
+
+      <p data-height="400" data-theme-id="0" data-slug-hash="xYevYX" data-default-tab="result" data-user="jr-cologne" data-embed-version="2" data-pen-title="Responsive Sticky Footer with Flexbox" class="codepen">See the Pen <a href="https://codepen.io/jr-cologne/pen/xYevYX/">Responsive Sticky Footer with Flexbox</a> by JR Cologne (<a href="https://codepen.io/jr-cologne">@jr-cologne</a>) on <a href="https://codepen.io">CodePen</a>.</p>
+
+      <h5>Vorteile/Nachteile</h5>
+
+      <p>
+        Der Vorteil beim Sticky Footer mit Flexbox ist vor allen Dingen, dass Flexbox zum einen relativ wenig Code benötigt
+        und es auch eine deutlich elegantere Lösung im Vergleich zu der Variante mit dem CSS Table Layout darstellt.
+        Des Weiteren ist es möglich, den Kindelementen, den sogenannten Flex-Items, des Wrappers <code>margin</code> und <code>padding</code> zuzuweisen.
+        Wir müssen also beispielsweise nicht auf Kindelemente von Header und Footer ausweichen, um Abstände anzugeben.
+      </p>
+
+      <p>
+        Als ein Nachteil kann mittlerweile eigentlich nur noch die mangelnde Unterstützung im Internet Explorer angeführt werden.
+        So unterstützen IE 11 und IE 10 Flexbox nur teilweise und ab IE 9 muss leider komplett darauf verzichtet werden.
+        Wer also noch dringend eine gute Unterstützung für den IE benötigt, sollte eher auf das Table Layout umsteigen.
+        Wer auf den IE zumindest teilweise verzichten kann, darf hingegen ruhig ohne Bedenken zur Flexbox greifen.
+        Nicht nur im Punkto Sticky Footer hat Flexbox einiges zu bieten.
+      </p>
+
+      <h4>Sticky Footer mit CSS Grid</h4>
+
+      <h5>Umsetzung</h5>
+
+      <p>
+        Zu aller Letzt beschäftigen wir uns nun noch mit der neuesten Variante von allen 5 Lösungswegen: CSS Grid.
+        Mit dem neuen CSS Grid Layout lässt sich nämlich auch sehr gut ein Sticky Footer umsetzen und das Ganze ist noch einfacher als mit Flexbox.
+      </p>
+
+      <p>
+        Hierfür machen wir unseren Wrapper zum Grid-Container und erstellen anschließend ein Template für die Reihen bzw. Zeilen unseres Grids.
+        Header sowie Footer werden dabei angewiesen, ihre Größe selbstständig anhand des eigenen Inhalts zu berechnen.
+        Der Content hingegen soll stets den gesamten freien Raum einnehmen.
+      </p>
+
+      <p>
+        Beim HTML bleibt wieder alles beim Alten:
+      </p>
+
+      <pre class="code"><code>{{ page.code7 | xml_escape }}</code></pre>
+
+      <p>
+        Das CSS hingegen wird im Vergleich zur Lösung mit dem CSS Flex Layout nochmals gekürzt:
+      </p>
+
+      <pre class="code"><code>{{ page.code9 }}</code></pre>
+
+      <p>
+        Die <code>min-height</code>-Angabe bleibt bestehen und der <code>display</code>-Typ wird zu <code>grid</code> geändert.
+        Ansonsten müssen wir nur noch die Grid-Zeilen aufteilen. Dies erfolgt durch die Eigenschaft <code>grid-template-rows</code>.
+        Diese bekommt für jede Zeile (Header, Content und Footer) eine entsprechende Höhe zugewiesen. In unserem Beispiel weisen wir dem Header
+        sowie dem Footer den Wert <code>auto</code> zu, was bedeutet, dass die Höhe anhand des jeweiligen Inhalts der beiden Elemente bestimmt wird.
+        Der Content-Container hingegen bekommt den Wert <code>1fr</code> zugewiesen. Dies stellt eine neue Einheit in CSS (fraction unit) dar
+        und beschreibt einen Anteil am freiem Platz des Grid-Containers.
+      </p>
+
+      <p>
+        Da Header und Footer nur ihre natürliche Größe einnehmen, steht <code>1fr</code> in diesem Fall für den gesamten Freiraum.
+        Folglich nimmt der Content also den gesamten Platz ein und schiebt den Footer an unsere gewünschte Position.
+      </p>
+
+      <p>
+        So sieht das Ganze dann letztendlich aus:
+      </p>
+
+      <p data-height="400" data-theme-id="0" data-slug-hash="VQOZgw" data-default-tab="result" data-user="jr-cologne" data-embed-version="2" data-pen-title="Responsive Sticky Footer with CSS Grid" class="codepen">See the Pen <a href="https://codepen.io/jr-cologne/pen/VQOZgw/">Responsive Sticky Footer with CSS Grid</a> by JR Cologne (<a href="https://codepen.io/jr-cologne">@jr-cologne</a>) on <a href="https://codepen.io">CodePen</a>.</p>
+
+      <h5>Vorteile/Nachteile</h5>
+
+      <p>
+        Bei den Vorteilen von CSS Grid lässt sich anführen, dass eine Umsetzung des Sticky Footers
+        damit nochmals weniger Code als Flexbox benötigt. Kürzer geht’s eigentlich nicht mehr.
+      </p>
+
+      <p>
+        Ansonsten handelt es sich um die modernste Variante, einen responsiven Sticky Footer umzusetzen.
+        Auf der einen Seite ist es natürlich schön und gut auf moderne Technologien zu setzen,
+        leider bringt dies aber auch wieder das Thema Browserkompatibilität ins Spiel.
+        Im direkten Vergleich mit Flexbox oder anderen Versionen kann CSS Grid bei der Browserunterstützung
+        natürlich nicht ganz mithalten, auch wenn diese nicht ganz so schlecht ist.
+      </p>
+
+      <p>
+        Von allen modernen Browsern wird CSS Grid eigentlich schon unterstützt. Lediglich der Internet Explorer
+        sowie Edge und manche kleineren Browser bzw. etwas ältere Browserversionen sind stellenweise noch ein Problem.
+      </p>
+
+      <p>
+        Bis auf wenige Ausnahmen lässt sich CSS Grid dementsprechend schon mehr oder weniger bedenkenlos einsetzen.
+        Bei CSS Grid würde ich tendenziell dazu raten, noch ein paar Monate abzuwarten. Spätestens 2019 wird man CSS Grid dann aber sicher ohne Probleme einsetzen können.
+      </p>
+
+      <h3>Fazit</h3>
+
+      <p>
+        So, das waren alle 5 Varianten. Nun möchte ich noch kurz ein Fazit ziehen und eine Empfehlung geben,
+        auf welche Variante man im Idealfall setzen sollte.
+        Im Grunde ist es relativ einfach:
+        Wer einen Footer mit einer festen Höhe haben möchte, greift am Besten zur Variante mit der CSS-Funktion <code>calc()</code>.
+        Im Segment der Sticky Footer mit fester Höhe ist diese Version schlicht und ergreifend die effektivste und sauberste Variante.
+      </p>
+
+      <p>
+        Wird stattdessen eine Lösung mit einer variablen Höhe des Footers benötigt, empfehle ich für alle,
+        die von der Browserunterstützung auf der sicheren Seite sein möchten, die Nutzung des CSS Table Layouts.
+        Die Tatsache, dass das Ganze ein wenig umständlich ist, wenn es z.B. um die Deklarierung von Abständen geht,
+        muss man leider hinnehmen. Dies ist dann sozusagen der Preis, den man für die gute Browserkompatibilität zahlt.
+      </p>
+
+      <p>
+        Wer hingegen auf eine lückenlose Unterstützung vom Internet Explorer verzichten kann,
+        sollte zur Flexbox greifen und hat es dementsprechend ein bisschen einfacher.
+        Den Einsatz vom CSS Grid Layout kann ich bisher nur eingeschränkt empfehlen,
+        da die Vorteile im Vergleich zur Flexbox-Variante nur minimal sind und dafür die Browserunterstützung
+        doch noch ein paar Lücken aufweist, was zumindest in professionellen Projekten problematisch sein kann.
+        Ich persönlich setze daher noch auf Flexbox.
+      </p>
+
+      <h3>Weiterführende Links / Quellen</h3>
+
+      <ul>
+        <li><a href="https://css-tricks.com/couple-takes-sticky-footer/" target="_blank" rel="noopener">css-tricks.com - Sticky Footer, Five Ways</a></li>
+        <li><a href="https://blog.kulturbanause.de/2017/05/responsive-sticky-footer/" target="_blank" rel="noopener">kulturbanause.de - Responsive Sticky Footer</a></li>
+      </ul>
+    </section>
+
+    {% include tags.html %}
+  </article>
+</main>
+
+<footer class="footer footer--white">
+  <div class="footer-logo-nav-container">
+    <a href="/" class="logo" title="jr-cologne.de Logo"></a>
+
+    <nav class="nav nav--footer">
+      <ul>
+        <li><a href="/">Startseite</a></li>
+        <li><a href="/portfolio.html">Portfolio</a></li>
+        <li><a href="/blog.html" class="current">Blog</a></li>
+        <li><a href="/resources.html">Ressourcen</a></li>
+      </ul>
+    </nav>
+  </div>
+
+  <nav class="nav nav--legal">
+    <ul>
+      <li><a href="/impressum.html">Impressum</a></li>
+      <li><a href="/datenschutz.html">Datenschutz</a></li>
+    </ul>
+  </nav>
+</footer>
+
+{% include code-highlighter.html %}
+{% include pen-embed-code.html %}
