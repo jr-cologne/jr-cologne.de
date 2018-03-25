@@ -9,7 +9,7 @@ url: "https://jr-cologne.de"
 twitter_username: jrcologne
 github_username: jr-cologne
 codepen_username: jr-cologne
-
+theme-color: "#29353b"
 markdown: kramdown
 
 exclude:

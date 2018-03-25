@@ -20,7 +20,7 @@ var jekyllDir = '';
 gulp.task('watch', function () {
   gulp.watch([sass_path + '/*.sass', sass_path + '/pages/*.sass', sass_path + '/partials/*.sass', sass_path + '/modules/*.sass', sass_path + '/media/*.sass', sass_path + '/helpers/*.sass', sass_path + '/base/*.sass'], ['sass-watch']);
 
-  gulp.watch(['_config.yml', '_posts/**/*.+(md|markdown|MD)', '*.html', '*.php', '_app/php/*.php', '_app/php/**/*.php', '_layouts/*.html', '_includes/*.html', 'portfolio/*.html', 'tags/*.html', '_posts/blog/*.html', 'resources/*.html', 'errors/*.html', '!_site/**/*.*', 'favicon.ico', '.htaccess'], ['jekyll-watch']);
+  gulp.watch([ '_config.yml', '_posts/**/*.+(md|markdown|MD)', '*.html', '*.php', '_app/php/*.php', '_app/php/**/*.php', '_layouts/*.html', '_includes/*.html', 'portfolio/*.html', 'tags/*.html', '_posts/blog/*.html', 'resources/*.html', 'errors/*.html', '!_site/**/*.*', '.htaccess', 'manifest.json', 'browserconfig.xml' ], ['jekyll-watch']);
 
   if (config.drafts) {
     gulp.watch('_drafts/*.+(md|markdown|MD)', ['jekyll-watch']);
