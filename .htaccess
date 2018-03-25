@@ -159,7 +159,7 @@ AddDefaultCharset utf-8
   </IfModule>
 </FilesMatch>
 
-<FilesMatch "sitemap.xml|robots.txt$">
+<FilesMatch "sitemap.xml|robots.txt|manifest.json|browserconfig.xml$">
   # Apache < 2.3
   <IfModule !mod_authz_core.c>
       Order allow,deny
