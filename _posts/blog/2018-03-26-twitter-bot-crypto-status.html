@@ -1,0 +1,1484 @@
+---
+layout: post
+title: Darf ich vorstellen? Mein Twitter-Bot "Crypto Status"
+canonical: blog/2018/03/26/twitter-bot-crypto-status.html
+date: "2018-03-26 23:55:00 +0200"
+date_string: "Montag, 26.03.2018"
+article-image: "https://res.cloudinary.com/jr-cologne-de/image/upload/c_fit,f_auto,fl_lossy,q_auto,w_1920/crypto-status.png"
+article-image-small: "https://res.cloudinary.com/jr-cologne-de/image/upload/c_fit,f_auto,fl_lossy,q_auto,w_1280/crypto-status.png"
+image: { src: "https://res.cloudinary.com/jr-cologne-de/image/upload/ar_1.5,c_scale,f_auto,fl_lossy,q_auto,w_1280/crypto-status.png", srcset: "https://res.cloudinary.com/jr-cologne-de/image/upload/ar_1.5,c_scale,f_auto,fl_lossy,q_auto,w_1280/crypto-status.png 1280w, https://res.cloudinary.com/jr-cologne-de/image/upload/ar_1.5,c_scale,f_auto,fl_lossy,q_auto,w_1920/crypto-status.png 1920w", alt: "Darf ich vorstellen? Mein Twitter-Bot \"Crypto Status\" Vorschaubild" }
+preview-text: "Darf ich vorstellen? Mein Twitter-Bot \"Crypto Status\": Heute gebe ich mal einen ausführlichen Einblick hinter die Kulissen meines Bots, der auf Twitter unter @status_crypto unterwegs ist. Dabei handelt es sich um einen Twitter-Account, welcher automatisiert die aktuellen Kurse von Kryptowährungen postet. In diesem Artikel werde ich zunächst ein wenig allgemeiner an das Thema herantreten und erläutern, was man überhaupt unter einem Twitter-Bot verstehen kann und was dieser für nützliche Funktionen aber auch Probleme mit sich bringt. Anschließend erzähle ich euch Näheres zu meinem Projekt \"Crypto Status\" und beleuchte die Hintergründe hinter der Entwicklung des gleichnamigen Twitter-Bots. Da ich ja eigentlich hauptsächlich über technische Sachverhalte schreibe, darf eine genaue Erläuterung der Technik, auf der der Bot beruht, natürlich auch nicht fehlen. Einen besonderen Fokus legen wir dabei auf OOP sowie Deployment mit einem Service namens Heroku. Zuletzt gibt es, wie immer, noch ein kurzes Fazit, indem ich nochmal zusammenfassend auf das Projekt zurückblicke."
+categories: blog
+
+tags:
+  - { title: "PHP", url: "https://de.wikipedia.org/wiki/PHP", target: "_blank" }
+  - { title: "Webentwicklung", url: "https://de.wikipedia.org/wiki/Webentwicklung", target: "_blank" }
+  - { title: "Heroku", url: "https://en.wikipedia.org/wiki/Heroku", target: "_blank" }
+  - { title: "Twitter", url: "https://de.wikipedia.org/wiki/Twitter", target: "_blank" }
+  - { title: "Bot", url: "https://de.wikipedia.org/wiki/Bot", target: "_blank" }
+
+code1: |
+  <?php
+
+  /**
+   * A simple Twitter bot application which posts hourly status updates for the top 10 cryptocurrencies.
+   *
+   * PHP version >= 7.0
+   *
+   * LICENSE: MIT, see LICENSE file for more information
+   *
+   * @author JR Cologne <kontakt@jr-cologne.de>
+   * @copyright 2018 JR Cologne
+   * @license https://github.com/jr-cologne/CryptoStatus/blob/master/LICENSE MIT
+   * @version v0.2.1
+   * @link https://github.com/jr-cologne/CryptoStatus GitHub Repository
+   *
+   * ________________________________________________________________________________
+   *
+   * app.php
+   *
+   * The main application file
+   * 
+   */
+
+  require_once 'vendor/autoload.php';
+
+  use CryptoStatus\BugsnagClient;
+  use CryptoStatus\CryptoStatus;
+
+  // initialize error handling
+  $bugsnag_client = new BugsnagClient;
+
+  $app = new CryptoStatus;
+
+  // initialize app
+  $app->init();
+
+  // run app
+  $app->run();
+
+code2: |
+  /**
+   * Initialize application
+   */
+  public function init() {
+    $this->twitter_client = new TwitterClient(Codebird::getInstance());
+
+    $this->crypto_client = new CryptoClient(new CurlClient, [
+      'api' => CRYPTO_API,
+      'endpoint' => CRYPTO_API_ENDPOINT,
+      'params' => [
+        'limit' => CRYPTO_API_LIMIT
+      ]
+    ]);
+  }
+
+code3: |
+  /**
+   * Run the application
+   */
+  public function run() {
+    $this->dataset = $this->getDataset();
+
+    $this->formatData();
+
+    $tweets = $this->createTweets();
+
+    if (!$this->postTweets($tweets)) {
+      $this->deleteTweets($this->failed_tweets);
+    }
+  }
+
+code4: |
+  /**
+   * Get the Crypto data
+   * 
+   * @return array
+   */
+  protected function getDataset() : array {
+    return $this->crypto_client->getData();
+  }
+
+code5: |
+  /**
+   * Format the Crypto data to an array of strings
+   * 
+   * @throws CryptoStatusException if Crypto data is missing
+   */
+  protected function formatData() {
+    $this->dataset = array_map(function (array $data) {
+      if (isset($data['rank'], $data['symbol'], $data['name'], $data['price_usd'], $data['price_btc'], $data['percent_change_1h'])) {
+        $data['name'] = $this->camelCase($data['name']);
+        $data['price_usd'] = $this->removeTrailingZeros(number_format($data['price_usd'], 2));
+        $data['price_btc'] = $this->removeTrailingZeros(number_format($data['price_btc'], 6));
+        
+        return "#{$data['rank']} #{$data['symbol']} (#{$data['name']}): {$data['price_usd']} USD | {$data['price_btc']} BTC | {$data['percent_change_1h']}% 1h";
+      }
+
+      throw new CryptoStatusException('Crypto data is missing', 1);
+    }, $this->dataset);
+  }
+
+code6: |
+  /**
+   * Create the Tweets with Crypto data and return them as an array
+   * 
+   * @return array
+   */
+  protected function createTweets() : array {
+    $tweets = [];
+    $start_rank = 1;
+    $end_rank = 3;
+    $length = 3;
+
+    for ($i = 0; $i < 3; $i++) {
+      $tweets[$i] = "#HourlyCryptoStatus (#{$start_rank} to #{$end_rank}):\n\n";
+      $tweets[$i] .= implode("\n\n", array_slice($this->dataset, $start_rank - 1, $length));
+
+      $start_rank += 3;
+      $end_rank += 3;
+
+      if ($i == 1) {
+        $end_rank++;
+        $length++;
+      }
+    }
+
+    return $tweets;
+  }
+
+code7: |
+  if (!$this->postTweets($tweets)) {
+    $this->deleteTweets($this->failed_tweets);
+  }
+
+code8: |
+  /**
+   * Post the specified Tweets
+   * 
+   * @param array $tweets The Tweets to post
+   * @return bool
+   */
+  protected function postTweets(array $tweets) : bool {
+    $last_tweet_id = null;
+
+    for ($i = 0; $i < 3; $i++) {
+      if ($last_tweet_id) {
+        $tweet = $this->twitter_client->postTweet([
+          'status' => '@' . TWITTER_SCREENNAME . ' ' . $tweets[$i],
+          'in_reply_to_status_id' => $last_tweet_id
+        ], [ 'id' ]);
+      } else {
+        $tweet = $this->twitter_client->postTweet([
+          'status' => $tweets[$i]
+        ], [ 'id' ]);
+      }
+
+      if (isset($tweet['id'])) {
+        $tweet_ids[] = $last_tweet_id = $tweet['id'];
+      } else {
+        break;
+      }
+    }
+
+    if (count($tweet_ids) == 3) {
+      return true;
+    } else {
+      $this->failed_tweets = $tweet_ids;
+
+      return false;
+    }
+  }
+
+code9: |
+  /**
+   * Delete the specified Tweets
+   * 
+   * @param array $tweet_ids The IDs of the Tweets to delete
+   * @throws CryptoStatusException if Tweets could not be deleted
+   */
+  protected function deleteTweets(array $tweet_ids) {
+    $deleted_counter = 0;
+
+    foreach ($tweet_ids as $tweet_id) {
+      $deleted = $this->twitter_client->deleteTweet($tweet_id);
+
+      if ($deleted) {
+        $deleted_counter++;
+      }
+    }
+
+    if ($deleted_counter != count($tweet_ids)) {
+      throw new CryptoStatusException('Deleting Tweets failed', 2);
+    }
+  }
+
+code10: |
+  <?php
+
+  /**
+   * A simple Twitter bot application which posts hourly status updates for the top 10 cryptocurrencies.
+   *
+   * PHP version >= 7.0
+   *
+   * LICENSE: MIT, see LICENSE file for more information
+   *
+   * @author JR Cologne <kontakt@jr-cologne.de>
+   * @copyright 2018 JR Cologne
+   * @license https://github.com/jr-cologne/CryptoStatus/blob/master/LICENSE MIT
+   * @version v0.2.1
+   * @link https://github.com/jr-cologne/CryptoStatus GitHub Repository
+   *
+   * ________________________________________________________________________________
+   *
+   * CryptoClient.php
+   *
+   * The client for retrieving the Crypto data from an API.
+   * 
+   */
+
+  namespace CryptoStatus;
+
+  use CryptoStatus\CurlClient;
+  use CryptoStatus\Exceptions\CryptoClientException;
+
+  class CryptoClient {
+
+    /**
+     * The cURL client instance
+     * 
+     * @var CurlClient $curl_client
+     */
+    protected $curl_client;
+
+    /**
+     * The Crypto client options
+     * 
+     * @var array $options
+     */
+    protected $options = [
+      'api' => null,
+      'endpoint' => null,
+      'params' => []
+    ];
+
+    /**
+     * Constructor, initialization
+     * 
+     * @param CurlClient $curl_client
+     * @param array $options
+     * @throws CryptoClientException if no API and/or API Endpoint is specified in options
+     */
+    public function __construct(CurlClient $curl_client, array $options = []) {
+      $this->curl_client = $curl_client;
+
+      $this->options = array_merge($this->options, $options);
+
+      if (empty($this->options['api']) || !isset($this->options['endpoint'])) {
+        throw new CryptoClientException('No API and/or API Endpoint specified', 1);
+      }
+    }
+
+    /**
+     * Get Crypto data
+     * 
+     * @return array
+     */
+    public function getData() : array {
+      return $this->curl_client->get($this->getRequestUrl())->json();
+    }
+
+    /**
+     * Get request URL for Crypto API call
+     * 
+     * @return string
+     * @throws CryptoClientException if no API and/or API Endpoint is specified
+     */
+    protected function getRequestUrl() : string {
+      if (empty($this->options['api']) || !isset($this->options['endpoint'])) {
+        throw new CryptoClientException('No API and/or API Endpoint specified', 1);
+      }
+
+      $url = $this->options['api'] . $this->options['endpoint'];
+
+      if (empty($this->options['params'])) {
+        return $url;
+      }
+
+      $first_param = true;
+
+      foreach ($this->options['params'] as $key => $value) {
+        if (isset($this->options['params'][$key])) {
+          if ($first_param) {
+            $first_param = false;
+          } else {
+            $url .= urlencode('&');
+          }
+
+          $url .= "?{$key}={$value}";
+        }
+      }
+
+      return $url;
+    }
+
+  }
+
+code11: |
+  return $this->curl_client->get($this->getRequestUrl())->json();
+
+code12: |
+  class CurlClient {
+
+    /**
+     * The cURL handle of the current cURL session
+     * 
+     * @var resource $ch
+     */
+    protected $ch;
+
+    /**
+     * The result of a performed cURL request
+     * 
+     * @var mixed $result
+     */
+    protected $result;
+
+    /**
+     * Constructor, initialize cURL
+     */
+    public function __construct() {
+      $this->ch = curl_init();
+    }
+
+    /**
+     * Perform a cURL request and retrieve the result
+     * 
+     * @param string $url The URL for the cURL request
+     * @return self
+     * @throws CurlClientException if cURL request failed
+     */
+    public function get(string $url) : self {
+      curl_setopt($this->ch, CURLOPT_RETURNTRANSFER, true);
+      curl_setopt($this->ch, CURLOPT_URL, $this->sanitizeUrl($url));
+
+      $this->result = curl_exec($this->ch);
+      curl_close($this->ch);
+
+      if ($this->result === false) {
+        throw new CurlClientException('cURL request failed', 1);
+      }
+
+      return $this;
+    }
+
+    /**
+     * Json-decode result/return data of cURL request
+     * 
+     * @param bool $array = true Return json-decoded data as array
+     * @return array (default) or object
+     * @throws CurlClientException if cURL return data could not be json-decoded
+     */
+    public function json(bool $array = true) {
+      $json = json_decode($this->result, $array);
+
+      if ($json === null) {
+        throw new CurlClientException('cURL return data could not be json-decoded', 3);
+      }
+
+      return $json;
+    }
+
+    /**
+     * Sanitize and validate URL for cURL request
+     * 
+     * @param string $url The URL for the cURL request
+     * @return string
+     * @throws CurlClientException if an invalid URL is given
+     */
+    protected function sanitizeUrl(string $url) : string {
+      $url = filter_var($url, FILTER_SANITIZE_URL);
+
+      if (!filter_var($url, FILTER_VALIDATE_URL)) {
+        throw new CurlClientException('Invalid URL', 2);
+      }
+
+      return $url;
+    }
+    
+  }
+
+code13: |
+  <?php
+
+  /**
+   * A simple Twitter bot application which posts hourly status updates for the top 10 cryptocurrencies.
+   *
+   * PHP version >= 7.0
+   *
+   * LICENSE: MIT, see LICENSE file for more information
+   *
+   * @author JR Cologne <kontakt@jr-cologne.de>
+   * @copyright 2018 JR Cologne
+   * @license https://github.com/jr-cologne/CryptoStatus/blob/master/LICENSE MIT
+   * @version v0.2.1
+   * @link https://github.com/jr-cologne/CryptoStatus GitHub Repository
+   *
+   * ________________________________________________________________________________
+   *
+   * TwitterClient.php
+   *
+   * The client for interacting with the Twitter API.
+   * 
+   */
+
+  namespace CryptoStatus;
+
+  use CryptoStatus\Exceptions\TwitterClientException;
+
+  use Codebird\Codebird;
+
+  class TwitterClient {
+
+    /**
+     * A Codebird instance (a Twitter client library for PHP)
+     * 
+     * @var Codebird $client
+     */
+    protected $client;
+
+    /**
+     * The Twitter API keys
+     * 
+     * @var array $api_keys
+     */
+    protected $api_keys;
+
+    /**
+     * Constructor, initialization and authentication with Twitter API
+     * 
+     * @param Codebird $twitter_client A Cordbird instance
+     * @throws TwitterClientException if authentication with Twitter API failed
+     */
+    public function __construct(Codebird $twitter_client) {
+      $this->client = $twitter_client;
+
+      $this->api_keys = $this->getApiKeys();
+
+      if (!$this->authenticate()) {
+        throw new TwitterClientException("Authentication with Twitter API failed", 2);
+      }
+    }
+
+    /**
+     * Post a Tweet
+     * 
+     * @param  array $params Parameters for Twitter API method statuses/update
+     * @param  array $return Data to return from Twitter API reply
+     * @return boolean (default) or array (when $return is specified)
+     */
+    public function postTweet(array $params, array $return = []) {
+      $reply = $this->client->statuses_update($params);
+      
+      if ($reply->httpstatus == 200) {
+        if (!empty($return)) {
+          foreach ($return as $value) {
+            $return_data[$value] = $reply->{$value};
+          }
+
+          return $return_data;
+        } else {
+          return true;
+        }
+      }
+
+      return false;
+    }
+
+    /**
+     * Delete a Tweet
+     * 
+     * @param string $id ID of the Tweet to delete
+     * @return bool
+     */
+    public function deleteTweet(string $id) : bool {
+      $reply = $this->client->statuses_destroy_ID([ 'id' => $id ]);
+
+      if ($reply->httpstatus == 200) {
+        return true;
+      }
+
+      return false;
+    }
+
+    /**
+     * Get API keys from environment variables
+     * 
+     * @return array
+     * @throws TwitterClientException if Twitter API keys could not be retrieved
+     */
+    protected function getApiKeys() : array {
+      $api_keys = [
+        'consumer_key' => getenv(TWITTER_API_CONSUMER_KEY),
+        'consumer_secret' => getenv(TWITTER_API_CONSUMER_SECRET),
+        'access_token' => getenv(TWITTER_API_ACCESS_TOKEN),
+        'access_token_secret' => getenv(TWITTER_API_ACCESS_TOKEN_SECRET)
+      ];
+      
+      if ( empty($api_keys['consumer_key']) || empty($api_keys['consumer_secret']) || empty($api_keys['access_token']) || empty($api_keys['access_token_secret']) ) {
+        throw new TwitterClientException("Could not get Twitter API Keys", 1);
+      }
+
+      return $api_keys;
+    }
+
+    /**
+     * Authenticate with Twitter API
+     * 
+     * @return bool
+     */
+    protected function authenticate() : bool {
+      $this->client::setConsumerKey($this->api_keys['consumer_key'], $this->api_keys['consumer_secret']);
+
+      $this->client->setToken($this->api_keys['access_token'], $this->api_keys['access_token_secret']);
+
+      return true;
+    }
+    
+  }
+
+code14: |
+  <?php
+
+  /**
+   * A simple Twitter bot application which posts hourly status updates for the top 10 cryptocurrencies.
+   *
+   * PHP version >= 7.0
+   *
+   * LICENSE: MIT, see LICENSE file for more information
+   *
+   * @author JR Cologne <kontakt@jr-cologne.de>
+   * @copyright 2018 JR Cologne
+   * @license https://github.com/jr-cologne/CryptoStatus/blob/master/LICENSE MIT
+   * @version v0.2.1
+   * @link https://github.com/jr-cologne/CryptoStatus GitHub Repository
+   *
+   * ________________________________________________________________________________
+   *
+   * CryptoStatusException.php
+   *
+   * The Exception of the CryptoStatus class
+   * 
+   */
+
+  namespace CryptoStatus\Exceptions;
+
+  use \Exception;
+
+  class CryptoStatusException extends Exception {
+    
+  }
+
+code15: |
+  throw new CryptoStatusException('Crypto data is missing', 1);
+
+---
+
+<header class="header">
+  <a href="/" class="logo" title="jr-cologne.de Logo"></a>
+  
+  <nav id="nav" class="nav nav--main">
+    <div class="navbar">
+      <a href="#" id="hamburger-button" title="Navigation">
+        <span class="hamburger-icon_top"></span>
+        <span class="hamburger-icon"></span>
+        <span class="hamburger-icon_bottom"></span>
+      </a>
+    </div>
+
+    <ul>
+      <li><a href="/">Startseite</a></li>
+      <li><a href="/portfolio.html">Portfolio</a></li>
+      <li><a href="/blog.html" class="current">Blog</a></li>
+      <li><a href="/resources.html">Ressourcen</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+  {% include article-top-bar.html %}
+
+  <article class="article">
+    <header class="article-header">
+      <h1 class="article-heading">{{ page.title }}</h1>
+
+      <div id="article-image" class="article-image" style="background-image: url('{{ page.article-image }}')"></div>
+    </header>
+
+    <section class="article-text">
+      <p>
+        Darf ich vorstellen? Mein Twitter-Bot “Crypto Status”:
+        Heute gebe ich mal einen ausführlichen Einblick hinter die Kulissen meines Bots,
+        der auf Twitter unter <a href="https://twitter.com/status_crypto" target="_blank" rel="noopener">@status_crypto</a> unterwegs ist.
+        Wie sich schon aufgrund des Namens vermuten lässt, handelt es sich dabei um einen Twitter-Account,
+        welcher automatisiert die aktuellen Kurse von Kryptowährungen postet.
+      </p>
+
+      <p>
+        In diesem Artikel werde ich zunächst ein wenig allgemeiner an das Thema herantreten und erläutern,
+        was man überhaupt unter einem Twitter-Bot verstehen kann und was dieser für nützliche Funktionen
+        aber auch Probleme mit sich bringt. Anschließend erzähle ich euch Näheres zu meinem Projekt “Crypto Status”
+        und beleuchte die Hintergründe hinter der Entwicklung des gleichnamigen Twitter-Bots.
+        Da ich ja eigentlich hauptsächlich über technische Sachverhalte schreibe, darf eine genaue Erläuterung der Technik,
+        auf der der Bot beruht, natürlich auch nicht fehlen. Einen besonderen Fokus legen wir dabei auf OOP sowie Deployment
+        mit einem Service namens Heroku. Zuletzt gibt es, wie immer, noch ein kurzes Fazit,
+        indem ich nochmal zusammenfassend auf das Projekt zurückblicke. Ich wünsche euch viel Spaß!
+      </p>
+
+      <h3>Was ist ein Twitter-Bot?</h3>
+
+      <p>
+        Auf <a href="https://de.wikipedia.org/wiki/Bot" target="_blank" rel="noopener">Wikipedia</a> findet man folgende Definition für den Begriff “Bot”:
+      </p>
+
+      <blockquote cite="https://de.wikipedia.org/wiki/Bot">
+        <p>
+          Unter einem Bot (von englisch robot ‚Roboter‘) versteht man ein Computerprogramm,
+          das weitgehend automatisch sich wiederholende Aufgaben abarbeitet,
+          ohne dabei auf eine Interaktion mit einem menschlichen Benutzer angewiesen zu sein.
+        </p>
+
+        <cite><a href="https://de.wikipedia.org/wiki/Bot" target="_blank" rel="noopener">Wikipedia - Bot</a></cite>
+      </blockquote>
+        
+      <p>
+        Dies ist natürlich noch sehr allgemein formuliert und lässt sich weiter eingrenzen,
+        schließlich handelt es sich bei dem Kurznachrichtendienst <a href="https://de.wikipedia.org/wiki/Twitter" target="_blank" rel="noopener">Twitter</a>
+        um ein soziales Netzwerk. Ein Twitter-Bot ist demnach ein sogenannter “Social Bot”,
+        welcher komplett neutral betrachtet erstmal einfach für die automatische Absetzung von Nachrichten
+        in den sozialen Medien eingesetzt wird, in unserem Fall auf der Plattform <a href="https://de.wikipedia.org/wiki/Twitter" target="_blank" rel="noopener">Twitter</a>.
+      </p>
+
+      <h4>Social Bots und ihre vielfältigen (negativen) Einsatzmöglichkeiten</h4>
+
+      <p>
+        Leider beschränkt sich die Nutzung von <a href="https://de.wikipedia.org/wiki/Bot" target="_blank" rel="noopener">Bots</a> allgemein,
+        und damit auch die von Social Bots, aber nicht auf stets positive Anwendungsfälle.
+        Stattdessen existieren besonders auf <a href="https://de.wikipedia.org/wiki/Twitter" target="_blank" rel="noopener">Twitter</a>
+        zahlreiche <a href="https://de.wikipedia.org/wiki/Bot" target="_blank" rel="noopener">Bots</a>,
+        welche auf bestimmte Hashtags reagieren und damit verbundene Informationen bzw. Nachrichten verbreiten.
+        Hierfür werden beispielsweise besonders realistisch aussehende Accounts inkl. Profilbild, Beiträgen und Followern erschaffen,
+        diese selbst auch anderen Nutzern folgen. Das Ziel dieser <a href="https://de.wikipedia.org/wiki/Bot" target="_blank" rel="noopener">Bots</a>
+        ist meist die Verbreitung von Werbung sowie das Vortäuschen von Mehrheiten.
+        Ebenso beliebt sind sie bei der Stimmungsmache für oder gegen jemanden bzw. etwas. So werden Social Bots letztendlich häufig eingesetzt,
+        um politische Propaganda im Sinne ihrer Auftraggeber zu verbreiten.
+      </p>
+
+      <p>
+        In die Öffentlichkeit rückte das Thema vor allen Dingen ab dem Jahr 2016.
+        So wurden z.B. während des Wahlkampfs für das <a href="https://de.wikipedia.org/wiki/EU-Mitgliedschaftsreferendum_im_Vereinigten_K%C3%B6nigreich_2016" target="_blank" rel="noopener">EU-Mitgliedschaftsreferendum im Vereinigten Königreich</a>
+        im umfangreichen Ausmaß Social Bots eingesetzt, um für den sogenannten “Brexit” zu werben.
+        Das Gleiche gilt für den Wahlkampf der <a href="https://de.wikipedia.org/wiki/Pr%C3%A4sidentschaftswahl_in_den_Vereinigten_Staaten_2016" target="_blank" rel="noopener">US-Präsidentschaftswahl zwischen Donald Trump und Hillary Clinton</a>.
+      </p>
+
+      <h4>Bot oder Mensch? Gar nicht so einfach!</h4>
+
+      <p>
+        Das große Problem an dieser Geschichte ist auch, dass sich <a href="https://de.wikipedia.org/wiki/Bot" target="_blank" rel="noopener">Bots</a>
+        kaum noch von regulären Accounts unterscheiden lassen. So erweist es sich für den Ottonormalverbraucher als äußerst schwierig zu erkennen,
+        ob ein Beitrag in sozialen Medien wie <a href="https://de.wikipedia.org/wiki/Twitter" target="_blank" rel="noopener">Twitter</a> von einem tatsächlichen Mensch
+        oder doch einer Maschine stammt. Aus diesem Grund werden soziale Bots auch von einigen als Gefährdung für den freien Meinungsbildungsprozess
+        in einer Demokratie eingestuft, wobei manche Experten diese Einschätzung auch für überzogen halten.
+      </p>
+
+      <h4>Wie immer gibt es zwei Seiten der Medaille</h4>
+
+      <p>
+        Letztlich ist es aber wie mit so ziemlich allem: Alles hat seine Vor- und Nachteile,
+        sodass man nie Schwarz-Weiß-Malerei betreiben, sondern stets beide Seiten der Medaille genauestens unter die Lupe nehmen sollte.
+      </p>
+
+      <p>
+        Folgendes Zitat bringt diese Situation ganz gut auf den Punkt:
+      </p>
+
+      <blockquote cite="http://www.oeffentliche-it.de/-/social-bots">
+        <p>
+          Bei allen Risiken und Herausforderungen dürfen die vielfältigen Potenziale und Anwendungsmöglichkeiten
+          der zu Grunde liegende Bot-Technologie nicht unberücksichtigt bleiben. In der Medien- und Verlagsbranche
+          erlauben die Algorithmen das automatisierte Verfassen von Beiträgen und die Übernahme lästiger Routineaufgaben. [...]
+          Auch kann automatisierte Kommunikation zur Förderung von gesellschaftlich wünschenswerten Verhaltensweisen [...]
+          oder zur Information der Öffentlichkeit beitragen. [...]
+          Durch die Integration der Technologien in smarte Assistenten und neue Interfaces werden Bots zum täglichen Begleiter.
+        </p>
+
+        <cite>Jan Dennis Gumz und Resa Mohabbat Kar vom Kompetenzzentrum Öffentliche IT in der <a href="http://www.oeffentliche-it.de/-/social-bots" target="_blank" rel="noopener">Trendschau "Social Bots"</a></cite>
+      </blockquote>
+
+      <h4>Nun nochmal konkret: Das ist ein Twitter-Bot</h4>
+
+      <p>
+        Für diejenigen, welche meine Erläuterungen rund um den Begriff “Twitter-Bot” nun noch zu unkonkret fanden
+        bzw. gerne eine kurze Definition hätten, welche ein wenig mehr die technische Seite beleuchtet, kann ich noch Folgendes anbieten:
+      </p>
+
+      <blockquote cite="https://en.wikipedia.org/wiki/Twitter_bot">
+        <p lang="en">
+          A Twitter bot is a type of bot software that controls a Twitter account via the Twitter API.
+          The bot software may autonomously perform actions such as tweeting, retweeting, liking, following, unfollowing, or direct messaging other accounts.
+        </p>
+
+        <cite><a href="https://en.wikipedia.org/wiki/Twitter_bot" target="_blank" rel="noopener">Wikipedia - Twitter bot</a></cite>
+      </blockquote>
+
+      <h3>Mein Twitter-Bot “Crypto Status”</h3>
+
+      <p>
+        Kommen wir nun zu meinem Twitter-Bot “Crypto Status”: Die Idee zu diesem Projekt kam mir im Januar dieses Jahres
+        und war eher spontaner Natur. So entstand die Idee mehr oder weniger an einem freien Tag, an dem ich relativ viel Zeit hatte
+        und nicht wirklich wusste, was ich mit dieser Zeit anfangen sollte. Da ich mich rund um die Weihnachtstage und den Jahreswechsel
+        relativ stark mit dem Thema <a href="https://de.wikipedia.org/wiki/Kryptow%C3%A4hrung" target="_blank" rel="noopener">Kryptowährungen</a> auseinandergesetzt hatte
+        und mich immer wieder dabei ertappen konnte, wie ich die Kurse von Bitcoin und Co. beobachtete, kam mir die Idee, dass es doch eigentlich sehr praktisch wäre,
+        die aktuellen Entwicklungen stets in der Timeline auf <a href="https://de.wikipedia.org/wiki/Twitter" target="_blank" rel="noopener">Twitter</a> verfolgen zu können.
+      </p>
+
+      <p>
+        Ich überlegte nicht lange, sondern machte mich sofort auf die Suche nach einer vernünftigen
+        <a href="https://de.wikipedia.org/wiki/Programmierschnittstelle" target="_blank" rel="noopener">API</a>.
+        Die Suche dauerte nicht lange an und ich landete bei der <a href="https://coinmarketcap.com/api/" target="_blank" rel="noopener">API</a>
+        der im Crypto-Geschäft sehr populären Website <a href="https://coinmarketcap.com/" target="_blank" rel="noopener">coinmarketcap.com</a>.
+        Die <a href="https://de.wikipedia.org/wiki/Programmierschnittstelle" target="_blank" rel="noopener">API</a> dort erwies sich als nahezu perfekt
+        für meinen Anwendungsfall und ich setzte mich noch am selben Tag hin,
+        eröffnete also einen entsprechenden Twitter-Account inkl. <a href="https://apps.twitter.com/" target="_blank" rel="noopener">Twitter-App</a>.
+      </p>
+
+      <p>
+        Das Ziel war es somit, einen Twitter-Bot zu schaffen, welcher stündlich den aktuellen Preis in US-Dollar sowie
+        die neuesten Tendenzen in Prozent der Top-Zehn-Kryptowährungen veröffentlicht.
+      </p>
+
+      <p>
+        Damit man sich das besser vorstellen kann, ist hier nun ein Beispiel-Tweet, welcher von meinem Bot abgesetzt wurde:
+      </p>
+
+      <div class="tweet">
+          <blockquote class="twitter-tweet" data-lang="de"><p lang="vi" dir="ltr"><a href="https://twitter.com/hashtag/HourlyCryptoStatus?src=hash&amp;ref_src=twsrc%5Etfw">#HourlyCryptoStatus</a> (#1 to #3):<br><br>#1 <a href="https://twitter.com/hashtag/BTC?src=hash&amp;ref_src=twsrc%5Etfw">#BTC</a> (<a href="https://twitter.com/hashtag/Bitcoin?src=hash&amp;ref_src=twsrc%5Etfw">#Bitcoin</a>): 7,955.11 USD | 1 BTC | -0.12% 1h<br><br>#2 <a href="https://twitter.com/hashtag/ETH?src=hash&amp;ref_src=twsrc%5Etfw">#ETH</a> (<a href="https://twitter.com/hashtag/Ethereum?src=hash&amp;ref_src=twsrc%5Etfw">#Ethereum</a>): 471.53 USD | 0.059627 BTC | -0.4% 1h<br><br>#3 <a href="https://twitter.com/hashtag/XRP?src=hash&amp;ref_src=twsrc%5Etfw">#XRP</a> (<a href="https://twitter.com/hashtag/Ripple?src=hash&amp;ref_src=twsrc%5Etfw">#Ripple</a>): 0.59 USD | 0.000075 BTC | -0.01% 1h</p>&mdash; Crypto Status (@status_crypto) <a href="https://twitter.com/status_crypto/status/978346566720393216?ref_src=twsrc%5Etfw">26. März 2018</a></blockquote>
+      </div>
+
+      <p>
+        Zu Beginn sah dies natürlich noch ein wenig anders aus. Ich habe also nach dem Release noch ein paar Änderungen unternommen.
+        Das Prinzip hinter meinem Bot sollte aber klar werden: Aufgeteilt in 3 Tweets wird ungefähr zu jeder vollen Stunde
+        ein neues Update in diesem Format abgesendet, sodass die Follower meines Bots stets auf dem Laufenden sind, was die aktuellen Kursentwicklungen angeht.
+      </p>
+
+      <h3>So bin ich bei der Entwicklung meines Bots vorgegangen</h3>
+
+      <p>
+        Kommen wir nun zur Entwicklung meines Bots. Aufgrund der Tatsache, dass es sich dabei um ein sehr spontanes Projekt von mir handelte,
+        könnte man vermuten, dass der Bot schlicht aus einer Datei besteht, in der alles im prozeduralen Stil runtergeschrieben wurde.
+        Dies ist allerdings nicht der Fall, da es mir wichtig war, eine gut strukturierte Anwendung zu entwickeln. Somit lag es also auf der Hand,
+        auf objektorientiertes PHP zurückzugreifen.
+      </p>
+
+      <p>
+        Für die Versendung der Tweets, also der Interaktion mit der <a href="https://developer.twitter.com/en/docs" target="_blank" rel="noopener">Twitter API</a>,
+        habe ich mich für die Library <a href="https://github.com/jublonet/codebird-php" target="_blank" rel="noopener">Codebird</a> entschieden
+        und die Bereitstellung der Anwendung übernimmt bei mir <a href="https://en.wikipedia.org/wiki/Heroku" target="_blank" rel="noopener">Heroku</a>
+        in der kostenlosen Version. Dazu aber später noch mehr.
+      </p>
+
+      <p>
+        Ansonsten darf man natürlich nicht vergessen, sich unter <a href="https://apps.twitter.com/" target="_blank" rel="noopener">apps.twitter.com</a>
+        eine Twitter App zu erstellen, mit der man dann auf die <a href="https://developer.twitter.com/en/docs" target="_blank" rel="noopener">Twitter API</a>
+        zugreifen kann, schließlich hat man sonst keine Zugangsdaten.
+      </p>
+
+      <h3>Das ist der Code: Dank OOP gut strukturiert</h3>
+
+      <p>
+        Nun schauen wir uns erstmal den Aufbau meines Bots inkl. den Code an:
+        Von der Struktur habe ich meinen Bot im Grunde so aufgebaut, dass ich innerhalb der Datei (app.php),
+        welche letztendlich ausgeführt wird, um ein neues Crypto-Status-Update zu posten,
+        nur alle Abhängigkeiten einbinde und eine neue Instanz meiner Hauptklasse <code>CryptoStatus</code> erstelle.
+      </p>
+
+      <p>
+        Anschließend wird die Methode <code>init()</code> dieser Klasse ausgeführt. Wie der Name schon vermuten lässt,
+        sorgt diese für die Initialisierung der Anwendung. Konkret werden dort Instanzen der anderen Klassen,
+        welche die unterschiedlichen Aufgabenbereiche abdecken, erzeugt. In diesem Teil wird meine App also praktisch “hochgefahren”.
+      </p>
+
+      <p>
+        Darauf ist dann alles bereit und ich führe nur noch die <code>run()</code>-Methode der <code>CryptoStatus</code>-Klasse aus.
+        Diese sorgt letztendlich dafür, dass die nötigen Daten von der <a href="https://coinmarketcap.com/api/" target="_blank" rel="noopener">CoinMarketCap-API</a>
+        eingeholt werden, diese Daten dann verarbeitet werden und die Tweets über die <a href="https://developer.twitter.com/en/docs" target="_blank" rel="noopener">Twitter API</a>
+        abgesetzt werden.
+      </p>
+
+      <p>
+        So sieht der Code der Datei <code>app.php</code> aktuell aus:
+      </p>
+
+      <pre class="code"><code>{{ page.code1 | xml_escape }}</code></pre>
+
+      <p>
+        Mithilfe des üblichen Autoloaders von <a href="https://getcomposer.org/" target="_blank" rel="noopener">Composer</a>
+        werden alle Dependencies eingebunden. Anschließend werden die richtigen
+        <a href="http://php.net/manual/de/language.namespaces.rationale.php" target="_blank" rel="noopener">Namespaces</a> angegeben.
+      </p>
+
+      <p>
+        Die Klasse <code>BugsnagClient</code> ist dabei für das Error Handling mithilfe des Services <a href="https://www.bugsnag.com/" target="_blank" rel="noopener">Bugsnag</a>
+        zuständig. Näher darauf eingehen werde ich in diesem Fall jetzt nicht, da die Fehlerbehandlung mit <a href="https://www.bugsnag.com/" target="_blank" rel="noopener">Bugsnag</a>
+        keine wesentliche Funktionalität meines Twitter-Bots darstellt, sondern nur für eine leichtere Verfolgung und Verwaltung möglicher Fehler,
+        die mit der Zeit auftreten könnten, sorgt.
+      </p>
+
+      <p>
+        Im Anschluss wird dann auch schon ein Objekt der <code>CryptoStatus</code>-Klasse erzeugt, wovon erst die Methode <code>init()</code>
+        und darauf die Methode <code>run()</code> ausgeführt wird.
+      </p>
+
+      <p>
+        Damit ist bereits alles abgeschlossen. Die tatsächliche Funktionalität versteckt sich also hauptsächlich in den entsprechenden Klassen,
+        während die Datei <code>app.php</code> letztendlich nur für den nötigen Anstupser sorgt, damit alles wie gewünscht abläuft.
+      </p>
+
+      <p>
+        Nun schauen wir uns genau diese Klassen an. Wir beginnen mit der Hauptklasse <code>CryptoStatus</code>.
+      </p>
+
+      <h4>Die Hauptklasse <code>CryptoStatus</code></h4>
+
+      <p>
+        Die Klasse <code>CryptoStatus</code> stellt praktisch den Kern der Anwendung dar,
+        schließlich wird von dort aus auf die anderen Klassen zugegriffen, sodass die einzelnen Prozesse ins Rollen kommen.
+      </p>
+
+      <p>
+        Innerhalb der öffentlichen <code>init()</code>-Methode werden die benötigten Klassen instanziiert.
+      </p>
+
+      <p>
+        Hier ist der Code der Methode:
+      </p>
+
+      <pre class="code"><code>{{ page.code2 | xml_escape }}</code></pre>
+
+      <p>
+        Wie im Code erkennbar ist, wird zuerst ein Objekt vom <code>TwitterClient</code> erzeugt und in einer Property gespeichert.
+        Der Konstruktor bekommt dabei eine <code>Codebird</code>-Instanz übergeben.
+      </p>
+
+      <p>
+        Darauf passiert dann dasselbe mit dem <code>CryptoClient</code>, nur dass dieser meinen <code>CurlClient</code>
+        inkl. ein Array mit ein paar Einstellungen für die API eingereicht bekommt.
+        Mithilfe des <a href="https://de.wikipedia.org/wiki/CURL" target="_blank" rel="noopener">cURL</a>-Clients wird also letztendlich ein Request
+        an die API geschickt, welche uns die Daten der Kryptowährungen bereitstellt.
+        Entgegengenommen werden diese Daten vom <code>CryptoClient</code>.
+      </p>
+
+      <p>
+        Auch dazu aber später mehr, wenn wir uns die entsprechenden Klassen anschauen.
+      </p>
+
+      <p>
+        Gehen wir nun zur <code>run()</code>-Methode über. Diese sorgt im Prinzip dafür, dass die Funktionalitäten unserer App auch ausgeführt werden.
+      </p>
+
+      <p>
+        Dies ist der Code:
+      </p>
+
+      <pre class="code"><code>{{ page.code3 | xml_escape }}</code></pre>
+
+      <p>
+        Als Erstes rufen wir die Methode <code>getDataset()</code> unser <code>CryptoStatus</code>-Klasse auf.
+        Wie der Name schon vermuten lässt, werden dadurch alle Daten in Empfang genommen und in der Property <code>$dataset</code> gespeichert.
+        Hier ist die Methode <code>getDataset()</code>:
+      </p>
+
+      <pre class="code"><code>{{ page.code4 | xml_escape }}</code></pre>
+
+      <p>
+        Im Grunde macht diese nichts anderes, als einfach nur den Rückgabewert der Methode <code>getData()</code> des <code>CryptoClient</code>’s zurückzugeben.
+      </p>
+
+      <p>
+        Im Anschluss werden die Daten dann innerhalb der <code>run()</code>-Methode nach unseren Wünschen formatiert.
+        Ausgeführt wird dies durch den Aufruf der Methode <code>formatData()</code>, welche auch Teil der Hauptklasse ist:
+      </p>
+
+      <pre class="code"><code>{{ page.code5 | xml_escape }}</code></pre>
+    
+      <p>
+        Das Ergebnis wird einfach direkt in der Property <code>$dataset</code> gespeichert, damit keine unnötigen Parameter und Zuweisungen nötig sind.
+        In dem speziellen Fall ist dies völlig in Ordnung, da es sich um eine Methode handelt, die sicher nicht für andere Anwendungsfälle verwendet wird,
+        sondern nur in diesem bestimmten Fall.
+      </p>
+
+      <p>
+        Allgemein sollte man ansonsten aber eher darauf verzichten, innerhalb einer Methode, welche Daten manipuliert,
+        direkt auf die Properties einer Klasse zuzugreifen. Stattdessen würde man die Daten als Parameter erwarten und anschließend,
+        nach der Manipulation, einfach zurückgeben. Das macht das Ganze deutlich flexibler.
+      </p>
+
+      <p>
+        Zur Erläuterung der Verarbeitung der Daten sollte ich noch erwähnen, wie die Funktion <a href="http://php.net/manual/de/function.array-map.php" target="_blank" rel="noopener"><code>array_map()</code></a> funktioniert.
+        Im Grunde ermöglicht diese, die Anwendung einer Callback-Funktion auf jedes Element eines Arrays.
+        So erwartet die Funktion als ersten Parameter eine Funktion. Diese kann beispielsweise einfach direkt innerhalb
+        des Funktionsaufrufs als anonyme Funktion deklariert werden. Alternativ lässt sich auch der Name einer Funktion als String übergeben,
+        oder eine Variable, welche eine anonyme Funktion beinhaltet, ist ebenfalls zulässig.
+        Der zweite Parameter ist dann das Array, welches manipuliert werden soll.
+      </p>
+
+      <p>
+        Innerhalb der Callback-Funktion wird dann das jeweilige Element des Arrays bearbeitet, indem dieses von der Funktion
+        <a href="http://php.net/manual/de/function.array-map.php" target="_blank" rel="noopener"><code>array_map()</code></a> praktisch
+        als Argument in die Callback-Funktion eingepflegt wird, und nach der gewünschten Bearbeitung aus der
+        Callback-Funktion wieder zurückgegeben wird.
+      </p>
+
+      <p>
+        In unserem Fall ist das jeweilige Element des Arrays die Variable <code>$data</code>.
+        Als neues Element wird dann der String, welcher letztendlich auch im Tweet erscheint, aus der Callback-Funktion zurückgegeben.
+        Dieser Rückgabewert wird dann von der Funktion <a href="http://php.net/manual/de/function.array-map.php" target="_blank" rel="noopener"><code>array_map()</code></a>
+        entgegengenommen und in dem angegebenen Array (z.B. die Property <code>$dataset</code>) abgelegt.
+        Anders ausgedrückt werden die alten Daten an dieser Stelle mit dem Rückgabewert der Callback-Funktion überschrieben.
+      </p>
+
+      <p>
+        Soweit so gut, nun sind unsere Daten formatiert und wir müssen nur noch die drei Tweets versenden.
+      </p>
+
+      <p>
+        Ich erinnere nochmal an unsere <code>run()</code>-Methode:
+      </p>
+
+      <pre class="code"><code>{{ page.code3 | xml_escape }}</code></pre>
+
+      <p>
+        Während die ersten beiden Schritte bereits abgeschlossen sind, kommen wir jetzt zur Methode <code>createTweets()</code>,
+        dessen Rückgabewert in der Variable <code>$tweets</code> gespeichert wird.
+      </p>
+
+      <p>
+        Die Methode <code>createTweets()</code> sieht folgendermaßen aus:
+      </p>
+
+      <pre class="code"><code>{{ page.code6 | xml_escape }}</code></pre>
+
+      <p>
+        In der Methode passiert noch nicht viel mehr, als dass die Daten zu den Kryptowährungen nun endgültig in das Format der drei Tweets arrangiert werden.
+        Das Ergebnis ist ein Array mit drei Strings. Jeder String ist der Text eines Tweets.
+      </p>
+
+      <p>
+        Dies alles wird zurückgegeben und in unserer Variable <code>$tweets</code> in der <code>run()</code>-Methode abgespeichert.
+      </p>
+
+      <p>
+        Nun fehlt uns noch folgender Teil:
+      </p>
+
+      <pre class="code"><code>{{ page.code7 | xml_escape }}</code></pre>
+
+      <p>
+        Zuallererst wird die Methode <code>postTweets()</code> mit unserem Array der Tweets ausgestattet und ausgeführt. Diese sieht so aus:
+      </p>
+
+      <pre class="code"><code>{{ page.code8 | xml_escape }}</code></pre>
+
+      <p>
+        Mithilfe des <code>TwitterClient</code>’s werden dadurch die drei Tweets versendet, wobei der zweite und dritte Tweet
+        als Antwort auf den vorherigen Tweet abgesetzt wird, damit ein Thread entsteht und die Tweets eindeutig als zusammengehörig gekennzeichnet sind.
+        Zusätzlich wird der <code>TwitterClient</code> aufgefordert, die Tweet-ID zurückzugeben.
+        Dies machen wir, damit wir überprüfen können, ob der Tweet auch tatsächlich erstellt wurde und alles gut gegangen ist.
+        Wurden alle drei Tweets erfolgreich versendet, wird also <code>true</code> von der Methode <code>postTweets()</code> zurückgegeben.
+        Ist dies nicht der Fall, werden die, in einem Array abgelegten, IDs der Tweets an die Property <code>$failed_tweets</code> übergeben
+        und die Methode gibt den Boolean-Wert <code>false</code> zurück.
+      </p>
+
+      <p>
+        Dies führt dazu, dass der Code innerhalb der <code>if</code>-Abfrage unserer <code>run()</code>-Methode ausgeführt wird
+        und alle Tweets gelöscht werden, sodass zu keinem Zeitpunkt ein unvollständiges bzw. fehlerhaftes Status-Update herausgegeben wird.
+      </p>
+
+      <p>
+        Die dafür zuständige Methode sieht folgendermaßen aus:
+      </p>
+
+      <pre class="code"><code>{{ page.code9 | xml_escape }}</code></pre>
+      
+      <h4>Die Klasse <code>CryptoClient</code></h4>
+
+      <p>
+        Fahren wir nun fort mit dem <code>CryptoClient</code>, welcher dafür verantwortlich ist,
+        die Crypto-Daten von einer API zu empfangen.
+      </p>
+
+      <p>
+        Dies ist der komplette Code:
+      </p>
+
+      <pre class="code"><code>{{ page.code10 | xml_escape }}</code></pre>
+
+      <p>
+        Im Grunde ist diese Klasse relativ übersichtlich. Zunächst haben wir den Konstruktor,
+        welcher als erstes Argument eine Instanz der Klasse <code>CurlClient</code> erwartet,
+        womit dann der Request an die API ausgeführt wird.
+        Der zweite Parameter des Konstruktors ist ein Array mit Optionen.
+      </p>
+
+      <p>
+        Im Konstruktor werden dann das <code>CurlClient</code>-Objekt und die Optionen jeweils in einer Property
+        hinterlegt. Für den Fall, dass keine API und kein Endpoint angegeben wurde, wird eine Exception geworfen.
+      </p>
+
+      <p>
+        Als Nächstes wäre da die öffentliche Methode <code>getData()</code>, welche, wie wir bereits wissen,
+        in der <code>run()</code>-Methode der Hauptklasse <code>CryptoStatus</code> aufgerufen wird,
+        um die Crypto-Daten zu bekommen.
+      </p>
+
+      <p>
+        In dieser Methode <code>getData()</code> wird einfach nur die <code>get()</code>-Methode des cURL-Clients
+        ausgeführt, wobei als einziges Argument der Rückgabewert der Methode <code>getRequestUrl()</code> übergeben wird.
+      </p>
+
+      <p>
+        Diese stellt einfach nur die URL für den API-Call zusammen und gibt diese zurück.
+        Letztendlich wird also in die <code>get()</code>-Methode schlicht und ergreifend eine URL,
+        die mithilfe von cURL aufgerufen werden soll, eingeführt.
+      </p>
+
+      <p>
+        Unmittelbar im Anschluss wird die Methode <code>json()</code> der Klasse <code>CurlClient</code> auf den
+        Rückgabewert der <code>get()</code>-Methode aus derselben Klasse ausgeführt.
+        Dies erfolgt über die direkte Aneinanderkettung von den Methoden, was natürlich sehr platzsparend ist
+        und elegant aussieht:
+      </p>
+
+      <pre class="code"><code>{{ page.code11 | xml_escape }}</code></pre>
+
+      <p>
+        Der Sinn hinter dieser Methode ist, das <code>JSON</code> zu dekodieren und ein Array der Daten zurückzugeben,
+        damit das Ganze dann gut weiterverarbeitet werden kann.
+      </p>
+
+      <p>
+        Einen näheren Blick darauf werfen wir jetzt, wenn wir uns die Klasse <code>CurlClient</code> anschauen.
+      </p>
+
+      <h4>Die Klasse <code>CurlClient</code></h4>
+
+      <p>
+        Wie jetzt mittlerweile klar sein sollte, ist die Klasse <code>CurlClient</code> für die Tätigung des
+        cURL-Requests zuständig und wird für das Einholen der Daten in der Klasse <code>CryptoClient</code> benötigt.
+      </p>
+
+      <p>
+        Hier ist der komplette Code der Klasse:
+      </p>
+
+      <pre class="code"><code>{{ page.code12 | xml_escape }}</code></pre>
+
+      <p>
+        Der Konstruktor ist dabei lediglich dafür zuständig, eine cURL-Session zu initialisieren und den cURL-Handler
+        in der Property <code>$ch</code> abzulegen.
+      </p>
+
+      <p>
+        Den tatsächlichen Request führt hingegen die Methode <code>get()</code> durch.
+      </p>
+
+      <p>
+        In dieser müssen erst noch ein paar Optionen gesetzt werden. Hierzu gehört vor allen Dingen die URL,
+        welche als Argument in die Methode gegeben wurde und zuerst noch mit der Methode <code>sanitizeUrl()</code>
+        gesäubert und auf Validität überprüft wird, bevor sie dann mittels der Funktion
+        <a href="http://php.net/manual/de/function.curl-setopt.php" target="_blank" rel="noopener"><code>curl_setopt()</code></a>
+        als URL für den Request festgelegt wird.
+      </p>
+
+      <p>
+        Im Anschluss wird dann in der <code>get()</code>-Methode letztlich der cURL-Request ausgeführt
+        und das Ergebnis in der Property <code>$result</code> hinterlegt.
+        Darauf kann die cURL-Session geschlossen werden und die Anfrage wird nur noch auf Erfolg überprüft.
+      </p>
+
+      <p>
+        Sollte die Anfrage gescheitert sein, wird eine Exception geschmissen.
+        Ist dies nicht der Fall, wird die aktuelle Instanz des cURL-Clients zurückgegeben.
+      </p>
+
+      <p>
+        Dies ermöglicht das sogenannte “Method chaining”, bei dem mehrere Methode einfach
+        hintereinander gehängt werden können.
+      </p>
+
+      <p>
+        Die Methode, welche angehangen werden soll, ist in diesem Fall die <code>json()</code>-Methode,
+        welche das <code>JSON</code>, das von der API zurückgegeben wurde, in ein Array umwandelt.
+        Dies funktioniert ganz einfach mit der Funktion <code>json_decode()</code>.
+      </p>
+
+      <h4>Die Klasse <code>TwitterClient</code></h4>
+
+      <p>
+        Kommen wir nun zur letzten Klasse, dem Twitter-Client.
+        Zuständig ist dieser für die Interaktion mit der Twitter-API-Client-Library <a href="https://github.com/jublonet/codebird-php" target="_blank" rel="noopener">Codebird</a>
+        und damit letztendlich auch der <a href="https://developer.twitter.com/en/docs" target="_blank" rel="noopener">Twitter API</a> selber.
+      </p>
+
+      <p>
+        Hier ist wieder der Code:
+      </p>
+
+      <pre class="code"><code>{{ page.code13 | xml_escape }}</code></pre>
+
+      <p>
+        Als Erstes hätten wir da den Konstruktor. Dieser erwartet eine <code>Codebird</code>-Instanz als Argument,
+        welche dann wieder in einer Property abgelegt wird.
+        Eine andere Property wird durch die Methode <code>getApiKeys()</code> gefüllt.
+        Diese holt sich die gesamten API Keys aus den
+        <a href="https://de.wikipedia.org/wiki/Umgebungsvariable" target="_blank" rel="noopener">Umgebungsvariablen</a>
+        mithilfe der Funktion
+        <a href="http://php.net/manual/de/function.getenv.php" target="_blank" rel="noopener"><code>getenv()</code></a>
+        und gibt ein damit gefülltes Array zurück.
+      </p>
+
+      <p>
+        Im Anschluss wird die Verbindung mit der Twitter API über <code>Codebird</code> in der Methode
+        <code>authenticate()</code> aufgebaut.
+      </p>
+
+      <p>
+        Das Posten eines Tweets läuft hingegen über die Methode <code>postTweet()</code> ab.
+        Diese Methode hat zwei Parameter: Ein Array mit Parametern für die Twitter API Methode
+        <a href="https://developer.twitter.com/en/docs/tweets/post-and-engage/api-reference/post-statuses-update" target="_blank" rel="noopener"><code>statuses/update</code></a>
+        und ein Array, womit sich angeben lässt, was von dem geposteten Tweet an Daten zurückgegeben werden soll,
+        wie z.B. die ID. Letzteres ist optional, da bei Erfolg ansonsten einfach <code>true</code> zurückgegeben wird.
+      </p>
+
+      <p>
+        Die Methode <code>deleteTweet()</code> ist hingegen ein bisschen einfacher strukturiert.
+        Es wird schlicht und ergreifend nur ein Argument erwartet und das ist die ID des zu löschenden Tweets.
+        Für die Interaktion mit der Twitter API wird dann wieder <code>Codebird</code> eingesetzt
+        und je nach Erfolg oder Misserfolg gibt die Methode <code>deleteTweet()</code> einen booleschen Wert zurück.
+        Das ist alles.
+      </p>
+
+      <h4>Die Exception-Klassen</h4>
+
+      <p>
+        Neben den ganzen Klassen, die ich nun vorgestellt habe,
+        existiert stets auch eine dazu passende Exception-Klasse.
+      </p>
+
+      <p>
+        Da diese eigentlich immer gleich aussehen, zeige ich hier nur kurz beispielhaft
+        die Klasse <code>CryptoStatusException</code>
+      </p>
+
+      <pre class="code"><code>{{ page.code14 | xml_escape }}</code></pre>
+
+      <p>
+        Alles, was diese machen, ist die
+        <a href="http://php.net/manual/de/class.exception.php" target="_blank" rel="noopener"><code>Exception</code>-Klasse von PHP</a>
+        zu erweitern.
+      </p>
+
+      <p>
+        Die Erzeugung einer Exception sieht dann beispielsweise so aus:
+      </p>
+
+      <pre class="code"><code>{{ page.code15 | xml_escape }}</code></pre>
+
+      <h3>Zuhause in der Cloud: Deployment mit Heroku</h3>
+
+      <p>
+        Nachdem wir uns nun ausführlich den Code meines Twitter-Bots “Status Crypto” angeschaut haben,
+        verliere ich jetzt noch ein paar Worte über das Deployment der Anwendung mit
+        <a href="https://en.wikipedia.org/wiki/Heroku" target="_blank" rel="noopener">Heroku</a>.
+      </p>
+
+      <h4>Was ist Heroku?</h4>
+
+      <p>
+        <a href="https://en.wikipedia.org/wiki/Heroku" target="_blank" rel="noopener">Heroku</a> ist eine
+        Cloud-Plattform nach dem Prinzip
+        <a href="https://de.wikipedia.org/wiki/Platform_as_a_Service" target="_blank" rel="noopener">PaaS (Platform as a service)</a>
+        und bietet Services an, die es ermöglichen, eine Webapplikation sehr leicht in der Cloud zu hosten,
+        sodass man sich um nichts kümmern muss, außer die Entwicklung der App.
+      </p>
+
+      <p>
+        So übernimmt <a href="https://en.wikipedia.org/wiki/Heroku" target="_blank" rel="noopener">Heroku</a>
+        die komplette Bereitstellung und Verwaltung der Server und bietet Unterstützung für einige Programmiersprachen
+        bzw. Technologien wie
+        <a href="https://de.wikipedia.org/wiki/Java_(Programmiersprache)" target="_blank" rel="noopener">Java</a>,
+        <a href="https://de.wikipedia.org/wiki/Node.js" target="_blank" rel="noopener">Node.js</a>,
+        <a href="https://de.wikipedia.org/wiki/Python_(Programmiersprache)" target="_blank" rel="noopener">Python</a>,
+        <a href="https://de.wikipedia.org/wiki/Ruby_(Programmiersprache)" target="_blank" rel="noopener">Ruby</a>,
+        <a href="https://de.wikipedia.org/wiki/Go_(Programmiersprache)" target="_blank" rel="noopener">Go</a>
+        und natürlich <a href="https://de.wikipedia.org/wiki/PHP" target="_blank" rel="noopener">PHP</a>.
+      </p>
+
+      <p>
+        Dadurch, dass das Ganze auf der Cloud basiert, ist man sehr flexibel und kann theoretisch beliebig
+        skalieren, vorausgesetzt man besitzt den entsprechenden Tarif.
+      </p>
+
+      <h4>Deployment mit Heroku: So schnell und einfach</h4>
+
+      <p>
+        Das Schöne an <a href="https://en.wikipedia.org/wiki/Heroku" target="_blank" rel="noopener">Heroku</a>
+        ist, dass wirklich nicht viel benötigt wird, um loszulegen und mit der eigenen Webanwendung an den Start zu gehen.
+      </p>
+
+      <p>
+        Eine Voraussetzung, um <a href="https://en.wikipedia.org/wiki/Heroku" target="_blank" rel="noopener">Heroku</a>
+        mit PHP zu nutzen, ist die Verwendung von
+        <a href="https://getcomposer.org/" target="_bank" rel="noopener">Composer</a>,
+        da <a href="https://en.wikipedia.org/wiki/Heroku" target="_blank" rel="noopener">Heroku</a>
+        über <a href="https://getcomposer.org/" target="_bank" rel="noopener">Composer</a>
+        die Dependencies verwaltet und daran ebenfalls erkennt, dass es sich um eine PHP-Anwendung handelt.
+      </p>
+      
+      <p>
+        Als allererstes erstellt man sich also einen kostenlosen Account bei
+        <a href="https://www.heroku.com/home" target="_blank" rel="noopener">Heroku</a>
+        und lädt das
+        <a href="https://devcenter.heroku.com/articles/heroku-cli" target="_blank" rel="noopener">Heroku Command Line Interface (Heroku CLI)</a>
+        herunter.
+      </p>
+
+      <p>
+        Sobald dies erledigt ist, sollte man erst noch sicherstellen,
+        dass <a href="http://www.php.net/" target="_blank" rel="noopener">PHP</a>,
+        <a href="https://getcomposer.org/" target="_bank" rel="noopener">Composer</a>
+        und <a href="https://git-scm.com/" target="_blank" rel="noopener">Git</a>
+        lokal auf dem Computer installiert sind und aus dem Terminal darauf zugegriffen werden kann.
+      </p>
+
+      <p>
+        Sobald alles installiert ist, öffnet man das Terminalprogramm der Wahl, wie z.B. PowerShell auf Windows,
+        und gibt den Befehl <code>heroku login</code> ein.
+        Darauf wird man nach seinen Login-Daten gefragt und meldet sich an.
+      </p>
+
+      <p>
+        Im Anschluss ist es dann wichtig, dass man sich im entsprechenden Projektordner der App befindet,
+        welche man online stellen möchte und Git für sein Projekt im Einsatz hat.
+      </p>
+
+      <p>
+        Nun kann man nämlich mit dem Befehl <code>heroku create</code> eine App erstellen.
+        Des Weiteren wird ein Git-Repository im System von Heroku erstellt, welches mit dem lokalen Git-Repository
+        des eigenen Projektes verknüpft wird. Möchte man seiner App einen bestimmten Namen geben,
+        kann man diesen mit einem Leerzeichen getrennt hinter <code>heroku create</code> angeben.
+      </p>
+
+      <p>
+        Nun sollte alles bereit sein und in eurem
+        <a href="https://dashboard.heroku.com/apps" target="_blank" rel="noopener">Heroku Dashboard</a>
+        sollte bereits eure App aufgetaucht sein.
+        Dort könnt ihr diese auch noch verwalten und verschiedene Einstellungen treffen.
+      </p>
+
+      <p>
+        Darauf gehen wir aber später ein. Erstmal gilt es, den Code zu deployen,
+        also hochzuladen und für die App bereitzustellen.
+        Dies erfolgt mithilfe von Git und dem Befehl <code>git push heroku master</code>.
+        Nun wird automatisch alles von Heroku eingerichtet.
+      </p>
+
+      <p>
+        Hätten wir nun eine normale Web App müssten wir nur noch den Befehl <code>heroku ps:scale web=1</code> eingeben.
+        Dies sorgt dafür, dass eine Instanz der App läuft und online verfügbar ist.
+        Gibt ihr <code>heroku open</code> ein, wird eurer Standardbrowser mit eurer App geöffnet,
+        welche nun unter einer Domain nach dem Format <code>your-app-name.herokuapp.com</code> verfügbar sein sollte.
+      </p>
+
+      <p>
+        Schon habt ihr eure Web App erfolgreich deployed.
+      </p>
+
+      <p>
+        In unserem Fall macht dies aber wenig Sinn. Wir brauchen keine Web-Instanz,
+        schließlich soll unserer App nur im Hintergrund ablaufen und von nirgendwo öffentlich zugänglich sein.
+      </p>
+
+      <p>
+        Aus diesem Grund stoppen wir die Web-Instanz, auch Dyno genannt,
+        wieder mit dem Befehl <code>heroku ps:scale web=0</code> und wechseln ins <a href="https://dashboard.heroku.com/apps" target="_blank" rel="noopener">Heroku Dashboard</a>,
+        klicken dort auf unsere App und befinden uns nun auf der Übersichtsseite der App.
+      </p>
+
+      <p>
+        Im Idealfall startet ihr die Web-Instanz also gar nicht, sondern geht nach dem Hochladen des Codes
+        direkt ins <a href="https://dashboard.heroku.com/apps" target="_blank" rel="noopener">Dashboard</a>.
+      </p>
+
+      <h4>Umgebungsvariablen setzen</h4>
+
+      <p>
+        Nun müssen wir erstmal unsere API Keys für die Twitter API in den
+        <a href="https://de.wikipedia.org/wiki/Umgebungsvariable" target="_blank" rel="noopener">Umgebungsvariablen (Environment Variables)</a>
+        hinterlegen.
+      </p>
+
+      <p>
+        Hierfür gehen wir in die “Settings” unserer App bei Heroku und klicken auf “Reveal Config Vars”
+        unter dem Punkt “Config Variables”. Es tauchen nun Felder auf, in denen wir Key-Value-Paare hinterlegen können.
+      </p>
+
+      <p>
+        Der Key muss dabei mit dem String übereinstimmen, den wir letztendlich in die Funktion
+        <a href="http://php.net/manual/de/function.getenv.php" target="_blank" rel="noopener"><code>getenv()</code></a>
+        einführen, um unsere API Keys aus den
+        <a href="https://de.wikipedia.org/wiki/Umgebungsvariable" target="_blank" rel="noopener">Umgebungsvariablen</a>
+        zu lesen.
+      </p>
+
+      <p>
+        Das Value-Feld hingegen wird mit dem jeweiligen API Key ausgefüllt, den man von Twitter bekommt.
+      </p>
+
+      <p>
+        Ist das erledigt, sollten auch die API Keys verfügbar sein.
+      </p>
+
+      <h4>Regelmäßige Aufgaben mit Heroku Scheduler ausführen</h4>
+
+      <p>
+        Jetzt navigieren wir auf die Seite “Resources”. Hier findet ihr nicht nur nochmal eine
+        Übersicht über eure Dynos, sondern auch die Add-ons.
+        Letzteres ist genau das, wonach wir suchen, schließlich möchten wir ja, dass unsere App jede Stunde
+        ausgeführt wird, um die aktuellen Crypto-Status-Updates auf Twitter zu veröffentlichen.
+      </p>
+
+      <p>
+        Diese Funktionalität bietet uns ein Add-on namens
+        <a href="https://devcenter.heroku.com/articles/scheduler" target="_blank" rel="noopener">Heroku Scheduler</a>.
+        Dies gibt ihr am besten ins Suchfeld ein und klickt dann auf das entsprechende Add-on, sobald es auftaucht.
+      </p>
+
+      <p>
+        Ihr klickt euch durch die Menüführung durch und aktiviert das Add-on
+        <a href="https://devcenter.heroku.com/articles/scheduler" target="_blank" rel="noopener">Heroku Scheduler</a>.
+        Anschließend sollte es euch dann auf der Seite Resources angezeigt werden und ihr könnt von dort aus ins
+        Dashboard des Add-ons gelangen, indem ihr auf das Add-on klickt.
+      </p>
+
+      <p>
+        Nun klickt ihr auf “Add new job” und erstellt eine Aufgabe. In das erste Formularfeld gehört der Befehl,
+        der ausgeführt werden soll. In unserem Fall ist das <code>php app/app.php</code>.
+        Dies sorgt dafür, dass die Datei <code>app.php</code>, welche sich im Ordner <code>app</code> befindet,
+        mit PHP ausgeführt wird.
+      </p>
+
+      <p>
+        Die Einstellung bei “Dyno Size” belässt ihr bei “Free”, “Frequency” stellen wir auf “Hourly”,
+        schließlich soll unsere Anwendung stündlich ausgeführt werden, und bei dem Feld “Next Due”
+        könnt ihr grob im 10-Minuten-Takt auswählen, wann die erste Ausführung eures Jobs erfolgt bzw.
+        zu welcher Zeit einer Stunde die Aufgabe immer ausgeführt werden soll.
+        Die Einstellung “:00” sorgt dementsprechend dafür, dass euer Script immer zu jeder vollen Stunde bzw.
+        in den ersten 10 Minuten nach einer vollen Stunde ausgeführt wird.
+        “:30” würde die Ausführung ungefähr auf die Minuten 30-39 einer Stunde ansetzen usw.
+        In unserem Fall ergibt die Einstellung “:00” am meisten Sinn, schließlich würde man bei einer Anwendung,
+        welche stündliche Updates gibt, am ehesten erwarten, dass diese rund um die volle Stunde erfolgen.
+      </p>
+
+      <p>
+        Nun müsst ihr nur noch auf “Save” klicken und alles sollte funktionieren.
+        Der oben angegebene Befehl sollte grob zur gewünschten Zeit ausgeführt werden.
+      </p>
+
+      <p>
+        Ein wichtiger Zusatz ist dabei das Wort “grob”, da der Heroku Scheduler leider nicht zu 100 Prozent
+        genau und zuverlässig ist. Dafür ist er aber auch komplett kostenlos,
+        vorausgesetzt man bleibt unter dem Limit der Ausführungszeit eines kostenlosen Accounts.
+        Für den Anwendungsfall meines Twitter-Bots reicht es bisher auf jeden Fall völlig aus.
+      </p>
+
+      <h4>Automatische Deploys von GitHub</h4>
+
+      <p>
+        Zuletzt noch ein kleiner “Profi-Tipp” für diejenigen,
+        die es sich noch einfacher machen wollen:
+      </p>
+
+      <p>
+        Es gibt die Möglichkeit unter dem Reiter bzw. Tab “Deploy” der App die Deployment-Methode auf GitHub
+        umzustellen, die Heroku-App mit dem GitHub-Account und Repository zu verbinden und so dann automatische
+        Deploys von einem bestimmten Branch aus durchzuführen.
+        Dies bedeutet, dass jede Änderung z.B. auf dem Master-Branch automatisch auch bei Heroku hochgeladen
+        und deployed wird. Das ist wirklich praktisch und eröffnet einen ganz neuen Workflow.
+      </p>
+
+      <h3>Fazit</h3>
+
+      <p>
+        So, was kann man abschließend sagen? Nun, ja. Ich muss sagen, ich bin wirklich froh,
+        dass ich dieses Projekt, meinen eigenen Twitter-Bot zu entwickeln, angegangen bin.
+        Es hat wirklich Spaß gemacht, daran zu arbeiten und mich beispielsweise auch mit
+        Heroku ein wenig zu beschäftigen.
+      </p>
+
+      <p>
+        Ich hoffe, dass dieser Artikel trotz der Tatsache, dass ich stellenweise Themen nur
+        leicht gestreift habe und an anderer Stelle dafür ein wenig zu viel geschrieben habe,
+        dem einen oder anderen weiterhilft bzw. zumindest ein paar interessante Einblicke mit sich bringt.
+      </p>
+
+      <p>
+        Falls noch Fragen bestehen oder etwas unklar ist und ich gewisse Stellen nochmal überarbeiten sollte,
+        könnt ihr mich gerne über Twitter oder per Mail kontaktieren. Bin da für vieles bereit.
+      </p>
+
+      <p>
+        Auch wird dieser Artikel wahrscheinlich in einer stark abgewandelten Form in wenigen Tagen auf
+        <a href="https://medium.com/@jrcologne" target="_blank" rel="noopener">Medium</a>
+        in englischer Sprache erscheinen. Ich plane nämlich neben meinem Blog hier auf <a href="/">jr-cologne.de</a>,
+        wo ich auf Deutsch schreibe, auch auf <a href="https://medium.com/@jrcologne" target="_blank" rel="noopener">Medium</a>
+        ab und zu einen Artikel auf Englisch zu veröffentlichen.
+      </p>
+
+      <h3>Weiterführende Links / Quellen</h3>
+
+      <ul>
+        <li><a href="https://github.com/jr-cologne/CryptoStatus" target="_blank" rel="noopener">GitHub-Repository jr-cologne/CryptoStatus</a></li>
+        <li><a href="https://devcenter.heroku.com/articles/getting-started-with-php#introduction" target="_blank" rel="noopener">Heroku - Getting Started on Heroku with PHP</a></li>
+        <li>Titelbild: Screenshot vom <a href="https://twitter.com/status_crypto" target="_blank" rel="noopener">Twitter-Profil von @status_crypto</a></li>
+      </ul>
+    </section>
+
+    {% include tags.html %}
+  </article>
+</main>
+
+<footer class="footer footer--white">
+  <div class="footer-logo-nav-container">
+    <a href="/" class="logo" title="jr-cologne.de Logo"></a>
+
+    <nav class="nav nav--footer">
+      <ul>
+        <li><a href="/">Startseite</a></li>
+        <li><a href="/portfolio.html">Portfolio</a></li>
+        <li><a href="/blog.html" class="current">Blog</a></li>
+        <li><a href="/resources.html">Ressourcen</a></li>
+      </ul>
+    </nav>
+  </div>
+
+  <nav class="nav nav--legal">
+    <ul>
+      <li><a href="/impressum.html">Impressum</a></li>
+      <li><a href="/datenschutz.html">Datenschutz</a></li>
+    </ul>
+  </nav>
+</footer>
+
+{% include code-highlighter.html %}
+{% include tweet-embed-code.html %}
