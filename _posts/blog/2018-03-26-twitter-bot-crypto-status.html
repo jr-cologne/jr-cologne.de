@@ -7,7 +7,7 @@ date_string: "Montag, 26.03.2018"
 article-image: "https://res.cloudinary.com/jr-cologne-de/image/upload/c_fit,f_auto,fl_lossy,q_auto,w_1920/crypto-status.png"
 article-image-small: "https://res.cloudinary.com/jr-cologne-de/image/upload/c_fit,f_auto,fl_lossy,q_auto,w_1280/crypto-status.png"
 image: { src: "https://res.cloudinary.com/jr-cologne-de/image/upload/ar_1.5,c_scale,f_auto,fl_lossy,q_auto,w_1280/crypto-status.png", srcset: "https://res.cloudinary.com/jr-cologne-de/image/upload/ar_1.5,c_scale,f_auto,fl_lossy,q_auto,w_1280/crypto-status.png 1280w, https://res.cloudinary.com/jr-cologne-de/image/upload/ar_1.5,c_scale,f_auto,fl_lossy,q_auto,w_1920/crypto-status.png 1920w", alt: "Darf ich vorstellen? Mein Twitter-Bot \"Crypto Status\" Vorschaubild" }
-description: "Darf ich vorstellen? Mein Twitter-Bot Crypto Status: Heute gebe ich mal einen ausführlichen Einblick hinter die Kulissen meines Bots, der auf Twitter unter @status_crypto unterwegs ist. Dabei handelt es sich um einen Twitter-Account, welcher automatisiert die aktuellen Kurse von Kryptowährungen postet. In diesem Artikel werde ich zunächst ein wenig allgemeiner an das Thema herantreten und erläutern, was man überhaupt unter einem Twitter-Bot verstehen kann und was dieser für nützliche Funktionen aber auch Probleme mit sich bringt. Anschließend erzähle ich euch Näheres zu meinem Projekt Crypto Status und beleuchte die Hintergründe hinter der Entwicklung des gleichnamigen Twitter-Bots. Da ich ja eigentlich hauptsächlich über technische Sachverhalte schreibe, darf eine genaue Erläuterung der Technik, auf der der Bot beruht, natürlich auch nicht fehlen. Einen besonderen Fokus legen wir dabei auf OOP sowie Deployment mit einem Service namens Heroku. Zuletzt gibt es, wie immer, noch ein kurzes Fazit, indem ich nochmal zusammenfassend auf das Projekt zurückblicke."
+description: "Darf ich vorstellen? Mein Twitter-Bot Crypto Status: Heute gebe ich mal einen ausführlichen Einblick hinter die Kulissen meines Bots, der auf Twitter unter @status_crypto unterwegs ist. Dabei handelt es sich um einen Twitter-Account, welcher automatisiert die aktuellen Kurse von Kryptowährungen postet. In diesem Artikel werde ich zunächst ein wenig allgemeiner an das Thema herantreten und erläutern, was man überhaupt unter einem Twitter-Bot verstehen kann und was dieser für nützliche Funktionen aber auch Probleme mit sich bringt. Anschließend erzähle ich euch Näheres zu meinem Projekt Crypto Status und beleuchte die Hintergründe hinter der Entwicklung des gleichnamigen Twitter-Bots. Eine genaue Erläuterung der Technik, auf der der Bot beruht, darf natürlich auch nicht fehlen. Einen besonderen Fokus legen wir dabei auf OOP sowie Deployment mit einem Service namens Heroku. Zuletzt gibt es, wie immer, noch ein kurzes Fazit, indem ich nochmal zusammenfassend auf das Projekt zurückblicke."
 categories: blog
 
 tags:
@@ -631,8 +631,9 @@ code15: |
         und beleuchte die Hintergründe hinter der Entwicklung des gleichnamigen Twitter-Bots.
         Da ich ja eigentlich hauptsächlich über technische Sachverhalte schreibe, darf eine genaue Erläuterung der Technik,
         auf der der Bot beruht, natürlich auch nicht fehlen. Einen besonderen Fokus legen wir dabei auf OOP sowie Deployment
-        mit einem Service namens Heroku. Zuletzt gibt es, wie immer, noch ein kurzes Fazit,
-        indem ich nochmal zusammenfassend auf das Projekt zurückblicke. Ich wünsche euch viel Spaß!
+        mit einem Service namens <a href="https://en.wikipedia.org/wiki/Heroku" target="_blank" rel="noopener">Heroku</a>.
+        Zuletzt gibt es, wie immer, noch ein kurzes Fazit, indem ich nochmal zusammenfassend auf das Projekt zurückblicke.
+        Ich wünsche euch viel Spaß!
       </p>
 
       <h3>Was ist ein Twitter-Bot?</h3>
@@ -1315,6 +1316,8 @@ code15: |
         klicken dort auf unsere App und befinden uns nun auf der Übersichtsseite der App.
       </p>
 
+      {% include article-content-image.html src="https://res.cloudinary.com/jr-cologne-de/image/upload/c_fit,f_auto,fl_lossy,q_auto,w_1280/heroku-app-uebersicht.png" srcset="https://res.cloudinary.com/jr-cologne-de/image/upload/c_fit,f_auto,fl_lossy,q_auto,w_1280/heroku-app-uebersicht.png 1280w, https://res.cloudinary.com/jr-cologne-de/image/upload/c_fit,f_auto,fl_lossy,q_auto,w_1920/heroku-app-uebersicht.png 1920w" alt="Screenshot der Heroku-App-Übersichtsseite" description="Die Heroku-App-Übersichtsseite" source='Screenshot: <a href="https://www.heroku.com/home" target="_blank" rel="noopener">heroku.com</a>' %}
+
       <p>
         Im Idealfall startet ihr die Web-Instanz also gar nicht, sondern geht nach dem Hochladen des Codes
         direkt ins <a href="https://dashboard.heroku.com/apps" target="_blank" rel="noopener">Dashboard</a>.
@@ -1345,6 +1348,8 @@ code15: |
         Das Value-Feld hingegen wird mit dem jeweiligen API Key ausgefüllt, den man von Twitter bekommt.
       </p>
 
+      {% include article-content-image.html src="https://res.cloudinary.com/jr-cologne-de/image/upload/c_fit,f_auto,fl_lossy,q_auto,w_1280/heroku-settings-config-vars.png" srcset="https://res.cloudinary.com/jr-cologne-de/image/upload/c_fit,f_auto,fl_lossy,q_auto,w_1280/heroku-settings-config-vars.png 1280w, https://res.cloudinary.com/jr-cologne-de/image/upload/c_fit,f_auto,fl_lossy,q_auto,w_1920/heroku-settings-config-vars.png 1920w" alt="Screenshot der Heroku-App-Settings mit den Umgebungsvariablen" description="So sieht es ungefähr aus, wenn alle API Keys in die Umgebungsvariablen eingetragen wurden." source='Screenshot: <a href="https://www.heroku.com/home" target="_blank" rel="noopener">heroku.com</a>' %}
+
       <p>
         Ist das erledigt, sollten auch die API Keys verfügbar sein.
       </p>
@@ -1370,6 +1375,8 @@ code15: |
         Anschließend sollte es euch dann auf der Seite Resources angezeigt werden und ihr könnt von dort aus ins
         Dashboard des Add-ons gelangen, indem ihr auf das Add-on klickt.
       </p>
+
+      {% include article-content-image.html src="https://res.cloudinary.com/jr-cologne-de/image/upload/c_fit,f_auto,fl_lossy,q_auto,w_1280/heroku-scheduler-dashboard.png" srcset="https://res.cloudinary.com/jr-cologne-de/image/upload/c_fit,f_auto,fl_lossy,q_auto,w_1280/heroku-scheduler-dashboard.png 1280w, https://res.cloudinary.com/jr-cologne-de/image/upload/c_fit,f_auto,fl_lossy,q_auto,w_1920/heroku-scheduler-dashboard.png 1920w" alt="Screenshot des Heroku-Scheduler-Dashboards" description="Das Dashboard des Add-ons Heroku Scheduler" source='Screenshot: <a href="https://www.heroku.com/home" target="_blank" rel="noopener">heroku.com</a>' %}
 
       <p>
         Nun klickt ihr auf “Add new job” und erstellt eine Aufgabe. In das erste Formularfeld gehört der Befehl,
