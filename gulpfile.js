@@ -37,7 +37,7 @@ gulp.task('vendor', function () {
   gulp.src(['_app/assets/vendor/highlightjs/**/*.js'], { 'base': '_app/assets/vendor' })
     .pipe(uglify())
     .pipe(gulp.dest('_site/_app/assets/vendor'));
-  gulp.src(['_app/assets/vendor/highlightjs/**/*'], { 'base': '_app/assets/vendor' })
+  gulp.src([ '_app/assets/vendor/highlightjs/**/*', '_app/assets/vendor/outdated-browser/**/*', '_app/assets/vendor/vanilla-lazyload/**/*' ], { 'base': '_app/assets/vendor' })
     .pipe(gulp.dest('_site/_app/assets/vendor'));
 });
 
@@ -80,12 +80,12 @@ gulp.task('js', function () {
 });
 
 gulp.task('node_modules', function () {
-  gulp.src(['node_modules/normalize.css/**/*'], { 'base': 'node_modules' })
+  gulp.src([ 'node_modules/normalize.css/**/*', 'node_modules/jquery/**/*', 'node_modules/cookieconsent/**/*' ], { 'base': 'node_modules' })
     .pipe(gulp.dest('_site/node_modules'));
 });
 
 gulp.task('images', function () {
-  return gulp.src(['_app/assets/img/min/**/*.+(png|jpg|gif|svg)'])
+  return gulp.src(['_app/assets/img/min/**/*.+(png|jpg|gif|svg|ico)'])
     .pipe(gulp.dest('_site/_app/assets/img'));
 });
 

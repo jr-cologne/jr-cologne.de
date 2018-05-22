@@ -35,6 +35,12 @@ canonical: kontakt.php
     Kontaktformular. Ich würde mich sehr über eine nette Nachricht freuen!
   </p>
 
+  <p>
+    Hinweis: Zwecks der Bearbeitung deiner Anfrage werden die oben angegebenen Daten verarbeitet und gespeichert.
+    Nimmst du mit mir Kontakt auf, erklärst du dich damit einverstanden.
+    Mehr Informationen findest du in der <a href="datenschutz.html">Datenschutzerklärung</a>.
+  </p>
+
   <?php echo !empty($response) ? $response : ''; ?>
 
   <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">

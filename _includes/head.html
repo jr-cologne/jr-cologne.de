@@ -74,12 +74,31 @@
 </script>
 <!-- End Piwik Code -->
 
-<!-- Begin Cookie Consent plugin by Silktide - http://silktide.com/cookieconsent -->
+<!-- Cookie Consent plugin by Insites - https://cookieconsent.insites.com/ -->
+<link rel="stylesheet" href="/node_modules/cookieconsent/build/cookieconsent.min.css">
+<script async src="/node_modules/cookieconsent/build/cookieconsent.min.js"></script>
 <script>
-  window.cookieconsent_options = {"message":"Diese Website benutzt Cookies. Wenn Sie die Website weiter nutzen, stimmen Sie der Verwendung von Cookies zu.","dismiss":"Ok","learnMore":"Mehr Infos","link":"/datenschutz.html","theme":"dark-top"};
+window.addEventListener("load", function(){
+window.cookieconsent.initialise({
+  "palette": {
+    "popup": {
+      "background": "#000"
+    },
+    "button": {
+      "background": "#f1d600"
+    }
+  },
+  "theme": "classic",
+  "position": "top",
+  "static": true,
+  "content": {
+    "message": "Diese Website benutzt Cookies. Wenn Sie die Website weiter nutzen, stimmen Sie der Verwendung von Cookies zu.",
+    "dismiss": "Ok",
+    "link": "Mehr Infos",
+    "href": "/datenschutz.html"
+  }
+})});
 </script>
-<script async src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/1.0.10/cookieconsent.min.js"></script>
-<!-- End Cookie Consent plugin -->
 
 <script type="application/ld+json">
   {
