@@ -36,8 +36,9 @@ canonical: kontakt.php
   </p>
 
   <p>
-    Hinweis: Zwecks der Bearbeitung deiner Anfrage werden die oben angegebenen Daten verarbeitet und gespeichert.
+    Hinweis: Zwecks der Bearbeitung deiner Anfrage werden die oben angegebenen Daten elektronisch verarbeitet und gespeichert.
     Nimmst du mit mir Kontakt auf, erklärst du dich damit einverstanden.
+    Deine Einwilligung kannst du jederzeit für die Zukunft per E-Mail an <a href="mailto:{{ site.email }}">{{ site.email }}</a> widerrufen.
     Mehr Informationen findest du in der <a href="datenschutz.html">Datenschutzerklärung</a>.
   </p>
 
