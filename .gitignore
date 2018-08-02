@@ -7,4 +7,4 @@ _site
 vendor
 package-lock.json
 composer.lock
-!_app/assets/vendor
+_app/assets/vendor
