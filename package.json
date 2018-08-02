@@ -1,14 +1,12 @@
 {
   "name": "jr-cologne.de",
   "private": true,
-  "version": "",
   "description": "My personal website",
-  "main": "",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "author": "JR Cologne",
   "license": "MIT",
+  "scripts": {
+    "start": "gulp"
+  },
   "devDependencies": {
     "browser-sync": "^2.18.8",
     "gulp": "^3.9.1",
