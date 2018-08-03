@@ -1,28 +1,27 @@
 {
   "name": "jr-cologne.de",
   "private": true,
-  "version": "",
   "description": "My personal website",
-  "main": "",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "author": "JR Cologne",
   "license": "MIT",
+  "scripts": {
+    "start": "gulp"
+  },
   "devDependencies": {
-    "browser-sync": "^2.18.8",
+    "browser-sync": "^2.24.6",
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "^3.1.1",
-    "gulp-cssnano": "^2.1.2",
+    "gulp-cssnano": "^2.1.3",
     "gulp-run": "^1.7.1",
-    "gulp-sass": "^3.1.0",
+    "gulp-sass": "^3.2.1",
     "gulp-uglify": "^2.1.2",
     "gulp-util": "^3.0.8",
     "run-sequence": "^1.2.2"
   },
   "dependencies": {
-    "cookieconsent": "^3.0.6",
+    "cookieconsent": "^3.1.0",
     "jquery": "^3.3.1",
-    "normalize.css": "^7.0.0"
+    "normalize.css": "^8.0.0",
+    "outdatedbrowser": "^1.1.5"
   }
 }
