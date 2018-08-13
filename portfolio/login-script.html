@@ -1,7 +1,7 @@
 ---
 layout: portfolio-single
 title: Login-Script
-description: Dieses Projekt stellt ein relativ einfach gehaltenes datenbankbasiertes Login-Script dar, das mit PHP umgesetzt wurde. So ist es ein ideales Beispiel für einen gesperrten Mitgliederbereich auf einer Website und unterstützt sogar die Anmeldung mit Google und Twitter.
+description: Dieses Projekt stellt ein relativ einfach gehaltenes objektorientiertes und datenbankbasiertes Login-Script dar, das mit PHP umgesetzt wurde. So ist es ein ideales Beispiel für einen gesperrten Mitgliederbereich auf einer Website und unterstützt sogar die Anmeldung mit Google und Twitter.
 image: "https://res.cloudinary.com/jr-cologne-de/image/upload/c_fit,f_auto,fl_lossy,q_auto,w_1920/login-script.png"
 image-small: "https://res.cloudinary.com/jr-cologne-de/image/upload/c_fit,f_auto,fl_lossy,q_auto,w_1280/login-script.png"
 canonical: portfolio/login-script.html
@@ -35,12 +35,12 @@ canonical: portfolio/login-script.html
     <header class="article-header">
       <h1 class="article-heading">{{ page.title }}</h1>
 
-      <div id="article-image" class="article-image" style="background-image: url('{{ page.image }}')"></div>
+      <div id="article-image" class="article-image" data-bg-pos-x="start" style="background-image: url('{{ page.image }}')"></div>
     </header>
 
     <section class="article-text">
       <p>
-        Dieses Projekt stellt ein relativ einfach gehaltenes datenbankbasiertes
+        Dieses Projekt stellt ein relativ einfach gehaltenes objektorientiertes und datenbankbasiertes
         Login-Script dar, das mit PHP umgesetzt wurde.
       </p>
 
@@ -51,6 +51,7 @@ canonical: portfolio/login-script.html
         <li>kostenlose Registrierung sowie Login</li>
         <li>Zugang zu einem gesperrten/geheimen Bereich</li>
         <li>Verwaltung der eigenen Profilinformationen, wie z.B. Benutzername, E-Mail und Passwort</li>
+        <li>Zurücksetzen des Passworts, z.B. wenn man es vergessen hat (seit v2.0)</li>
         <li>Registrierung und Login mit Google und Twitter als Alternative zur klassischen Variante (Google seit v1.5, Twitter seit v1.6)</li>
       </ul>
 
@@ -62,8 +63,10 @@ canonical: portfolio/login-script.html
 
       <p>
         Wichtig zu wissen ist dabei, dass das Login-Script auf keinerlei
-        Framework basiert. Es wird lediglich die <a href="https://github.com/google/google-api-php-client" target="_blank" rel="noopener">Google API Client Library
-        for PHP</a> sowie die <a href="https://github.com/jublonet/codebird-php" target="_blank" rel="noopener">PHP Library Codebird</a> verwendet, um eben die Registrierung und den Login mit Google bzw. Twitter
+        Framework im Backend basiert. Es wird lediglich die
+        <a href="https://github.com/google/google-api-php-client" target="_blank" rel="noopener">Google API Client Library
+        for PHP</a> sowie die <a href="https://github.com/jublonet/codebird-php" target="_blank" rel="noopener">PHP Library Codebird</a>
+        verwendet, um eben die Registrierung und den Login mit Google bzw. Twitter
         zu ermöglichen. Für die Datenbankanbindung wird dann wieder auf Marke
         Eigenbau zurückgegriffen, um genau zu sein auf <a href="https://github.com/jr-cologne/db-class" target="_blank" rel="noopener">diese Datenbank-Klasse</a>.
         Nähere Informationen zu dieser Datenbank-Klasse könnt ihr auch <a href="/resources/db-class.html">hier auf meiner Website finden</a>.
@@ -81,29 +84,24 @@ canonical: portfolio/login-script.html
       </p>
 
       <p>
-        Alles in allem bietet das Login-Script also schon jetzt im Herbst 2017
-        eine gute Basis-Funktionalität, wird allerdings auch noch
-        weiterentwickelt und ist somit noch lange nicht
-        auf diese Features begrenzt.
-      </p>
-
-      <p>
-        Was auf jeden Fall noch fehlt, ist eine Möglichkeit, das Passwort
-        zurückzusetzen, falls man dieses mal vergessen haben sollte.
-        Des Weiteren wird der Code nochmal komplett überarbeitet. Zuvor wird aber noch
-        eine Demo-Seite eingerichtet sowie die Nutzung des neuen Password-Hashing-Algorithmus Argon2 ermöglicht.
+        Mit Version 2 des Login-Scripts wurde der komplette Code umgeschrieben und
+        ist nun objektorientiert organisiert. Des Weiteren wurde ein Feature zum Zurücksetzen des
+        Passworts hinzugefügt, sollte man sein Passwort mal vergessen haben und sozusagen in dringende Not geraten.
+        Ebenso neu in Version 2 ist das Design, was ein wenig überarbeitet wurde und jetzt
+        auf dem Framework <a href="https://getbootstrap.com/" target="_blank" rel="noopener">Bootstrap</a> in Version 4 basiert.
+        Darüber hinaus wurde das Login-Script auch um den Support von dem neuen Passwort-Hashing-Algorithmus Argon2 erweitert.
         Über diesen habe ich im Rahmen meines <a href="/blog/2017/12/23/php-7_2-das-ist-neu.html">Artikels über die Neuerungen von PHP 7.2</a> bereits schon mal geschrieben.
         Wer also noch nichts davon gehört hat, sollte dort dringend mal vorbeischauen.
+        Eine kleine Änderung, was die Abhängigkeiten betrifft, hat sich auch beim E-Mail-Versand eingeschlichen.
+        So setzt das Login-Script ab Version 2 auf den <a href="https://github.com/swiftmailer/swiftmailer" target="_blank" rel="noopener">SwiftMailer</a>.
       </p>
 
       <p>
-        Das alles wird vermutlich noch Anfang 2018 erscheinen,
-        während im Sommer oder Herbst dann mit Version 2 ein komplettes Redesign ansteht.
-        Dies bedeutet, eine komplette Überarbeitung des Codes inkl. Umstieg
-        auf OOP. Eventuell dann sogar mit Framework im Hintergrund.
-        Da steht die Entscheidung noch aus. Wirklich größere Änderungen
-        an der Funktionalität des Login-Scripts wird es dann allerdings
-        nicht geben, da es sonst den Rahmen sprengen würde.
+        Für die Zukunft kann ich mir vorstellen, dass ich noch die Architektur des ganzen Projekts überarbeite,
+        und dementsprechend vor allem noch Änderungen am Backend vornehmen werde.
+        Hingegen sichtbare Änderungen wird es eher weniger geben. An neuen Features, die eben für den Enduser erkennbar sind,
+        könnte zukünftig höchstens noch eine 2-Faktor-Authentifizierung erscheinen.
+        Damit wäre das Login-Script dann aber auch mehr oder weniger vollständig.
       </p>
 
       <p>
