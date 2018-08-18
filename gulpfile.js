@@ -44,7 +44,14 @@ const gulp                      = require('gulp'),
       ];
 
 gulp.task('jekyll', () => {
-  return exec('jekyll build');
+  return exec('jekyll build', {}, (err, stdout, stderr) => {
+    if (err) {
+      console.error(`exec error: ${err}`);
+      return;
+    }
+    console.log(`stdout: ${stdout}`);
+    console.log(`stderr: ${stderr}`);
+  });
 });
 
 gulp.task('php', () => {
@@ -88,6 +95,18 @@ gulp.task('js', () => {
     .pipe(browserSync.stream());
 });
 
+gulp.task('vendor-assets', () => {
+  gulp.src([ src_assets_folder + 'vendor/highlightjs/**/*.css' ], { 'base': src_assets_folder + 'vendor' })
+    .pipe(autoprefixer({ browsers: ['last 3 versions', '> 0.5%'] }))
+    .pipe(cssnano())
+    .pipe(gulp.dest(dist_assets_folder + 'vendor'));
+  gulp.src([ src_assets_folder + 'vendor/highlightjs/**/*.js' ], { 'base': src_assets_folder + 'vendor' })
+    .pipe(uglify())
+    .pipe(gulp.dest(dist_assets_folder + 'vendor'));
+  return gulp.src([ src_assets_folder + 'vendor/highlightjs/**/*', src_assets_folder + 'vendor/vanilla-lazyload/**/*' ], { 'base': src_assets_folder + 'vendor' })
+    .pipe(gulp.dest(dist_assets_folder + 'vendor'));
+});
+
 gulp.task('vendor', () => {
   if (node_dependencies.length === 0) {
     return new Promise((resolve) => {
@@ -101,7 +120,7 @@ gulp.task('vendor', () => {
     .pipe(browserSync.stream());
 });
 
-gulp.task('build', gulp.series('jekyll', 'php', 'images', 'sass', 'css', 'js', 'vendor'));
+gulp.task('build', gulp.series('jekyll', 'php', 'images', 'sass', 'css', 'js', 'vendor-assets', 'vendor'));
 
 gulp.task('serve', () => {
   return browserSync.init({
@@ -115,26 +134,25 @@ gulp.task('serve', () => {
 
 gulp.task('watch', () => {
   let watch = [
-    [
-      src_folder + '_config.yml',
-      src_folder + '_posts/**/*.+(md|markdown|MD)',
-      src_folder + '*.html',
-      src_folder + '*.php',
-      src_folder + '_app/php/**/*.php',
-      src_folder + '_layouts/*.html',
-      src_folder + '_includes/*.html',
-      src_folder + 'portfolio/*.html',
-      src_folder + 'tags/*.html',
-      src_folder + '_posts/blog/*.html',
-      src_folder + 'resources/*.html',
-      src_folder + 'errors/*.html',
-      '!' + dist_folder + '/**/*.*',
-      src_folder + '.htaccess',
-      src_folder + 'manifest.json',
-      src_folder + 'browserconfig.xml'
-    ],
+    src_folder + '_config.yml',
+    src_folder + '_posts/**/*.+(md|markdown|MD)',
+    src_folder + '*.html',
+    src_folder + '*.php',
+    src_folder + '_app/php/**/*.php',
+    src_folder + '_layouts/*.html',
+    src_folder + '_includes/*.html',
+    src_folder + 'portfolio/*.html',
+    src_folder + 'tags/*.html',
+    src_folder + '_posts/blog/*.html',
+    src_folder + 'resources/*.html',
+    src_folder + 'errors/*.html',
+    src_folder + '.htaccess',
+    src_folder + 'manifest.json',
+    src_folder + 'browserconfig.xml',
     src_assets_folder + 'sass/**/*.sass',
-    src_assets_folder + 'js/**/*.js'
+    src_assets_folder + 'js/**/*.js',
+    '!' + dist_folder + '**/*.*',
+    '!' + node_modules_folder + '**/*.*'
   ];
 
   node_dependencies.forEach(dependency => {
