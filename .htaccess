@@ -266,6 +266,10 @@ AddDefaultCharset utf-8
     <FilesMatch "(^#.*#|\.(bak|conf|dist|fla|in[ci]|log|orig|psd|sh|sql|sw[op]|json|txt|xml)|~)$">
         Require all denied
     </FilesMatch>
+    
+    <FilesMatch "sitemap.xml|robots.txt|manifest.json|browserconfig.xml$">
+        Require all granted
+    </FilesMatch>
 </IfModule>
 
 # ----------------------------------------------------------------------
