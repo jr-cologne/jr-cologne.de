@@ -87,6 +87,9 @@ resources:
 
 ---
 
+
+  <link rel="manifest" href="manifest.json">
+
 <header class="header">
   <a href="/" class="logo" title="jr-cologne.de Logo"></a>
 
@@ -339,3 +342,11 @@ resources:
     </ul>
   </nav>
 </footer>
+<script>
+  if ('serviceWorker' in navigator){
+  navigator.serviceWorker
+  .register('./serviceWorker.js')
+  .then(function(){console.log("Service Worker registered");});
+
+}
+</script>
