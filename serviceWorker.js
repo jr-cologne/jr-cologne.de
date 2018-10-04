@@ -6,7 +6,7 @@ var cacheName = 'cache-v4';
 //Files to save in cache
 var files = [
   './',
-  'https://prakhar01.pythonanywhere.com', //SW treats query string as new request
+  'https://prkhrv.github.io', //SW treats query string as new request
   'https://fonts.googleapis.com/css?family=Roboto:200,300,400,500,700', //caching 3rd party content
   './CSS/Form.css',
   './image/android-icon-192x192.png',
