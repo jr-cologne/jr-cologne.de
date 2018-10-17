@@ -14,7 +14,7 @@
  * gulpfile.js
  *
  * The gulp configuration file.
- * 
+ *
  * Modified for use in jr-cologne.de.
  *
  */
@@ -95,6 +95,16 @@ gulp.task('js', () => {
     .pipe(browserSync.stream());
 });
 
+gulp.task('service-worker', () => {
+  return gulp.src([ src_folder + 'service-worker.js' ])
+    .pipe(sourcemaps.init())
+      .pipe(plumber())
+      .pipe(uglify())
+    .pipe(sourcemaps.write('.'))
+    .pipe(gulp.dest(dist_folder))
+    .pipe(browserSync.stream());
+});
+
 gulp.task('vendor-assets', () => {
   gulp.src([ src_assets_folder + 'vendor/highlightjs/**/*.css' ], { 'base': src_assets_folder + 'vendor' })
     .pipe(autoprefixer({ browsers: ['last 3 versions', '> 0.5%'] }))
@@ -120,7 +130,7 @@ gulp.task('vendor', () => {
     .pipe(browserSync.stream());
 });
 
-gulp.task('build', gulp.series('jekyll', 'php', 'images', 'sass', 'css', 'js', 'vendor-assets', 'vendor'));
+gulp.task('build', gulp.series('jekyll', 'php', 'images', 'sass', 'css', 'js', 'service-worker', 'vendor-assets', 'vendor'));
 
 gulp.task('serve', () => {
   return browserSync.init({
@@ -149,6 +159,7 @@ gulp.task('watch', () => {
     src_folder + '.htaccess',
     src_folder + 'manifest.json',
     src_folder + 'browserconfig.xml',
+    src_folder + 'service-worker.js',
     src_assets_folder + 'sass/**/*.sass',
     src_assets_folder + 'js/**/*.js',
     '!' + dist_folder + '**/*.*',
