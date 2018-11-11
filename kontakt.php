@@ -57,6 +57,9 @@ canonical: kontakt.php
     <label for="message">Nachricht:</label>
     <textarea name="message" placeholder="Deine Nachricht" rows="20" cols="80"><?php echo !empty($_POST['message']) ? clean($_POST['message']) : ''; ?></textarea>
 
+    <label for="spam_check">Was ist 3 + 5?</label>
+    <input type="text" name="spam_check" id="spam_check">
+
     <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token'] ?>">
 
     <input type="submit" name="submit" value="Nachricht senden">
