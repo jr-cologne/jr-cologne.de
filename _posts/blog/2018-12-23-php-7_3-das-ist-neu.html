@@ -1,0 +1,1022 @@
+---
+layout: post
+title: "PHP 7.3: Das ist neu"
+canonical: blog/2018/12/23/php-7_3-das-ist-neu.html
+date: "2018-12-23 12:00:00 +0100"
+date_string: "Sonntag, 23.12.2018"
+article-image: "https://res.cloudinary.com/jr-cologne-de/image/upload/c_fit,f_auto,fl_lossy,q_auto,w_1920/php-7_3.png"
+article-image-small: "https://res.cloudinary.com/jr-cologne-de/image/upload/c_fit,f_auto,fl_lossy,q_auto,w_1280/php-7_3.png"
+image: { src: "https://res.cloudinary.com/jr-cologne-de/image/upload/ar_1.5,c_scale,f_auto,fl_lossy,q_auto,w_1280/php-7_3.png", srcset: "https://res.cloudinary.com/jr-cologne-de/image/upload/ar_1.5,c_scale,f_auto,fl_lossy,q_auto,w_1280/php-7_3.png 1280w, https://res.cloudinary.com/jr-cologne-de/image/upload/ar_1.5,c_scale,f_auto,fl_lossy,q_auto,w_1920/php-7_3.png 1920w", alt: "PHP 7.3: Das ist neu Vorschaubild" }
+description: "Am 6. Dezember 2018 wurde das dritte Feature-Update für PHP 7 vorgestellt. PHP 7.3 wurde somit, wie geplant, pünktlich zu Nikolaus veröffentlicht. Die serverseitige Skriptsprache PHP, welche hauptsächlich in der Webentwicklung zur Erstellung von dynamischen Websites bzw. Webanwendungen eingesetzt wird, erreicht damit ihre dritte große Iteration der PHP-7-Reihe. Heute schauen wir uns mal die Neuerungen an, die in der Version 7.3 der meistverbreiteten serverseitigen Skriptsprache umgesetzt wurden."
+categories: blog
+
+tags:
+  - { title: "PHP", url: "https://de.wikipedia.org/wiki/PHP", target: "_blank" }
+  - { title: "Webentwicklung", url: "https://de.wikipedia.org/wiki/Webentwicklung", target: "_blank" }
+
+code1: |
+  <?php
+
+  echo <<<EOT
+  Lorem ipsum dolor sit amet ...
+  EOT;
+
+code2: |
+  <?php
+
+  $website = 'jr-cologne.de';
+
+  // Ausgabe: Hello from jr-cologne.de!
+  echo <<<EOT
+  Hello from $website!
+  EOT;
+
+code3: |
+  <?php
+
+  // Ausgabe: Hello from $website!
+  echo <<<'EOT'
+  Hello from $website!
+  EOT;
+
+code4: |
+  <?php
+
+  class Foo {
+    public $bar = <<<EOT
+  bar
+  EOT;
+  }
+
+code5: |
+  <?php
+
+  class Foo {
+    public $bar = <<<EOT
+        bar
+    EOT;
+  }
+
+code6: |
+  <?php
+
+  $values = [
+      'foo' => <<<END
+        a
+        b
+        c
+      END,
+      'd e f'
+  ];
+
+  /*
+  Ausgabe:
+
+  a
+  b
+  c
+  */
+  echo $values['foo'];
+
+code7: |
+  <?php
+
+  $values = [
+    'foo' => $foo,
+    'bar' => $bar,
+  ];
+
+code8: |
+  <?php
+
+  $foo = [ 1, 2, 3 ];
+  $bar = [ 4, 5, 6 ];
+
+  $foobar = array_merge(
+    $foo,
+    $bar,
+    [ 7, 8, 9 ],
+  );
+
+code9: |
+  <?php
+
+  var_dump(
+    $foo,
+    $bar,
+    $foobar,
+  );
+
+code10: |
+  <?php
+
+  try {
+    $data = json_decode('{', true, 512, JSON_THROW_ON_ERROR);
+  } catch (\JsonException $e) {
+    echo $e->getMessage(); // Ausgabe: Syntax error
+  }
+
+code11: |
+  <?php
+
+  $a = 3;
+  $b = &$a;
+
+  var_dump($a, $b); // 3, 3
+
+  $a = 5;
+
+  var_dump($a, $b); // 5, 5
+
+  $b = 3;
+
+  var_dump($a, $b); // 3, 3
+
+code12: |
+  <?php
+
+  $arr = [
+    'foo',
+    'bar',
+    'foobar',
+  ];
+
+  list($foo, $bar, $foobar) = $arr;
+
+  /*
+  Ausgabe:
+
+  array(3) {
+    [0]=>
+    string(3) "foo"
+    [1]=>
+    string(3) "bar"
+    [2]=>
+    string(6) "foobar"
+  }
+  string(3) "foo"
+  string(3) "bar"
+  string(6) "foobar"
+  */
+  var_dump($arr, $foo, $bar, $foobar);
+
+code13: |
+  <?php
+
+  // alt
+  $arr = [
+    'foo',
+    'bar',
+  ];
+
+  $foo = $arr[0];
+  $bar = &$arr[1];
+
+  $bar = 'hello';
+
+  var_dump($arr, $foo, $bar); // $arr[1] und $bar haben beide den Wert 'hello'
+
+  // neu
+  $arr = [
+      'foo',
+      'bar',
+  ];
+
+  list($foo, &$bar) = $arr;
+
+  $bar = 'hello';
+
+  var_dump($arr, $foo, $bar); // $arr[1] und $bar haben beide den Wert 'hello'
+
+code14: |
+  <?php
+
+  if (is_array($foo) || $foo instanceof Countable) {
+    // countable
+  }
+
+code15: |
+  <?php
+
+  if (is_countable($foo)) {
+    // countable
+  }
+
+code16: |
+  <?php
+
+  $arr = [
+    'nheb' => 'foo',
+    'bfhe' => 'bar',
+    'efzg' => 'foobar',
+  ];
+
+  end($arr);
+
+  var_dump(key($arr)); // Ausgabe: efzg
+
+  reset($arr);
+
+code17: |
+  <?php
+
+  $arr = [
+    'nheb' => 'foo',
+    'bfhe' => 'bar',
+    'efzg' => 'foobar',
+  ];
+
+  var_dump(array_key_last($arr)); // Ausgabe: efzg
+
+code18: |
+  <?php
+
+  if (!function_exists('array_value_first')) {
+    function array_value_first(array $arr) {
+      return $arr[array_key_first($arr)];
+    }
+  }
+
+  if (!function_exists('array_value_last')) {
+    function array_value_last(array $arr) {
+      return $arr[array_key_last($arr)];
+    }
+  }
+
+code19: |
+  <?php
+
+  password_hash('password', PASSWORD_ARGON2ID);
+
+---
+
+<header class="header">
+  <a href="/" class="logo" title="jr-cologne.de Logo"></a>
+
+  <nav id="nav" class="nav nav--main">
+    <div class="navbar">
+      <a href="#" id="hamburger-button" title="Navigation">
+        <span class="hamburger-icon_top"></span>
+        <span class="hamburger-icon"></span>
+        <span class="hamburger-icon_bottom"></span>
+      </a>
+    </div>
+
+    <ul>
+      <li><a href="/">Startseite</a></li>
+      <li><a href="/portfolio.html">Portfolio</a></li>
+      <li><a href="/blog.html" class="current">Blog</a></li>
+      <li><a href="/resources.html">Ressourcen</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+  {% include article-top-bar.html %}
+
+  <article class="article">
+    <header class="article-header">
+      <h1 class="article-heading">{{ page.title }}</h1>
+
+      <div id="article-image" class="article-image" style="background-image: url('{{ page.article-image }}')"></div>
+    </header>
+
+    <section class="article-text">
+      <p>
+        Am 6. Dezember 2018 wurde das dritte Feature-Update für PHP 7 vorgestellt.
+        <a href="http://php.net/archive/2018.php#id2018-12-06-1" target="_blank" rel="noopener">PHP 7.3</a>
+        wurde somit, wie geplant, pünktlich zu Nikolaus veröffentlicht.
+        Die serverseitige Skriptsprache <a href="https://de.wikipedia.org/wiki/PHP" target="_blank" rel="noopener">PHP</a>,
+        welche hauptsächlich in der Webentwicklung zur Erstellung von dynamischen Websites
+        bzw. Webanwendungen eingesetzt wird, erreicht damit ihre dritte große Iteration der PHP-7-Reihe.
+      </p>
+
+      <p>
+        Heute schauen wir uns mal die Neuerungen an,
+        die in der <a href="http://php.net/archive/2018.php#id2018-12-06-1" target="_blank" rel="noopener">Version 7.3</a>
+        der meistverbreiteten serverseitigen Skriptsprache umgesetzt wurden.
+      </p>
+
+      <h3>Das sind die wesentlichen Neuerungen</h3>
+
+      <p>
+        Ich beginne erstmal mit einem groben Überblick über die wesentlichen Neuerungen.
+        Im Anschluss schauen wir uns dann die einzelnen Features und Änderungen im Detail an.
+        So lässt sich erst einmal festhalten, dass der Release von
+        <a href="http://php.net/archive/2018.php#id2018-12-06-1" target="_blank" rel="noopener">PHP 7.3</a>
+        wieder einige Features und Verbesserungen,
+        insbesondere auch der Performance, mit sich bringt.
+        Darüber hinaus wurden natürlich wieder zahlreiche Fehler behoben,
+        genauso wie manche Bestandteile als "deprecated" markiert wurden,
+        sodass diese mit der nächsten Hauptversion, respektive PHP 8,
+        aus <a href="https://de.wikipedia.org/wiki/PHP" target="_blank" rel="noopener">PHP</a> entfernt werden.
+      </p>
+
+      <p>
+        Zu den wichtigsten Neuerungen zählen folgende Punkte:
+      </p>
+
+      <ul>
+        <li>
+          <a href="https://wiki.php.net/rfc/flexible_heredoc_nowdoc_syntaxes" target="_blank" rel="noopener">Optimierte Syntax von Heredoc und Nowdoc</a>
+        </li>
+        <li>
+          <a href="https://wiki.php.net/rfc/trailing-comma-function-calls" target="_blank" rel="noopener">Erlaubnis von sogenannten "trailing commas" in Funktionsaufrufen</a>
+        </li>
+        <li>
+          <a href="https://wiki.php.net/rfc/json_throw_on_error" target="_blank" rel="noopener">Neues Flag <code>JSON_THROW_ON_ERROR</code></a>
+        </li>
+        <li>
+          <a href="https://wiki.php.net/rfc/list_reference_assignment" target="_blank" rel="noopener">Referenz-Zuweisung bei <code>list()</code></a>
+        </li>
+        <li>
+          Neue Funktionen <a href="https://wiki.php.net/rfc/is-countable" target="_blank" rel="noopener"><code>is_countable()</code></a>,
+          <a href="https://wiki.php.net/rfc/array_key_first_last" target="_blank" rel="noopener"><code>array_key_first()</code>, <code>array_key_last()</code></a>
+        </li>
+        <li>
+          <a href="https://wiki.php.net/rfc/argon2_password_hash_enhancements" target="_blank" rel="noopener">Optimierungen vom Hashing-Algorithmus Argon2</a>
+        </li>
+      </ul>
+
+      <p>
+        Wer auf der Suche nach einer vollständigen Übersicht mit allen Änderungen ist,
+        findet diese im <a href="http://php.net/ChangeLog-7.php#7.3.0" target="_blank" rel="noopener">Changelog</a>
+        bzw. im <a href="http://php.net/manual/de/migration73.php" target="_blank" rel="noopener">Migration Guide für PHP 7.3</a>.
+        Für Details und Hintergründe zu den einzelnen Neuerungen empfehlen sich ansonsten immer
+        die jeweiligen <a href="https://wiki.php.net/rfc#php_73" target="_blank" rel="noopener">RFCs</a>.
+      </p>
+
+      <h3>
+        Optimierte Syntax für <a href="http://php.net/manual/de/language.types.string.php#language.types.string.syntax.heredoc" target="_blank" rel="noopener">Heredoc</a>
+        und <a href="http://php.net/manual/de/language.types.string.php#language.types.string.syntax.nowdoc" target="_blank" rel="noopener">Nowdoc</a>
+      </h3>
+
+      <p>
+        Die Änderungen in Bezug auf die Syntax von
+        <a href="http://php.net/manual/de/language.types.string.php#language.types.string.syntax.heredoc" target="_blank" rel="noopener">Heredoc</a>
+        und <a href="http://php.net/manual/de/language.types.string.php#language.types.string.syntax.nowdoc" target="_blank" rel="noopener">Nowdoc</a>
+        sind ein wesentlicher Bestandteil von PHP 7.3 und bekommen dadurch aktuell ungewohnt viel Aufmerksamkeit.
+        Ganz ehrlich: Ihr müsst euch nicht schämen, wenn euch die Features rund um
+        <a href="http://php.net/manual/de/language.types.string.php#language.types.string.syntax.heredoc" target="_blank" rel="noopener">Heredoc</a> und
+        <a href="http://php.net/manual/de/language.types.string.php#language.types.string.syntax.nowdoc" target="_blank" rel="noopener">Nowdoc</a>
+        bisher nicht bekannt waren.
+        Ich weiß auch erst seit PHP 7.3 über deren Existenz Bescheid und habe sie dementsprechend noch nie benutzt.
+        Genau aus diesem Grund schauen wir uns also erstmal an, was überhaupt hinter diesen interessanten Begriffen
+        <a href="http://php.net/manual/de/language.types.string.php#language.types.string.syntax.heredoc" target="_blank" rel="noopener">Heredoc</a>
+        und <a href="http://php.net/manual/de/language.types.string.php#language.types.string.syntax.nowdoc" target="_blank" rel="noopener">Nowdoc</a> steckt.
+      </p>
+
+      <h4>
+        <a href="http://php.net/manual/de/language.types.string.php#language.types.string.syntax.heredoc" target="_blank" rel="noopener">Heredoc</a>
+        und <a href="http://php.net/manual/de/language.types.string.php#language.types.string.syntax.nowdoc" target="_blank" rel="noopener">Nowdoc</a>:
+        Eine kurze Einführung
+      </h4>
+
+      <p>
+        Der sogenannte
+        <a href="http://php.net/manual/de/language.types.string.php#language.types.string.syntax.heredoc" target="_blank" rel="noopener">Heredoc</a>
+        bringt die Möglichkeit mit sich, einen längeren Text in den PHP-Code einzufügen,
+        ohne z.B. doppelte Anführungszeichen escapen zu müssen,
+        da man durch den Einsatz von Heredoc schlicht auf diese verzichten kann,
+        um einen String zu definieren.
+        Die Syntax ist dabei so aufgebaut, dass man den Heredoc mit <code>&lt;&lt;&lt;</code> beginnt.
+        Darauf folgt dann ein sogenannter "Marker". Dieser Marker wird schlussendlich genutzt,
+        um den String auch wieder zu schließen bzw. das Ende der Zeichenkette zu markieren.
+        Wie so häufig darf das Semikolon am Ende einer Anweisung natürlich auch nicht fehlen.
+      </p>
+
+      <p>
+        Hier ist ein Beispiel:
+      </p>
+
+      <pre class="code"><code>{{ page.code1 | xml_escape }}</code></pre>
+
+      <p>
+        Im Grunde kann man den
+        <a href="http://php.net/manual/de/language.types.string.php#language.types.string.syntax.heredoc" target="_blank" rel="noopener">Heredoc</a>
+        als alternative Schreibweise
+        von einem String mit doppelten Anführungszeichen ansehen,
+        da der Text zwischen den beiden Markern, welche Anfang und Schluss repräsentieren,
+        von PHP interpretiert wird. Diese Interpretation ist bei doppelten Anführungszeichen ebenso gegeben.
+      </p>
+
+      <p>
+        In diesem Sinne lassen sich beispielsweise Variablen direkt in den Text einfügen:
+      </p>
+
+      <pre class="code"><code>{{ page.code2 | xml_escape }}</code></pre>
+
+      <p>
+        Wenn ein Heredoc eine Alternative zu einem String mit doppelten Anführungszeichen darstellt,
+        was ist dann wohl ein
+        <a href="http://php.net/manual/de/language.types.string.php#language.types.string.syntax.nowdoc" target="_blank" rel="noopener">Nowdoc</a>?
+        Richtig, ein <a href="http://php.net/manual/de/language.types.string.php#language.types.string.syntax.nowdoc" target="_blank" rel="noopener">Nowdoc</a>
+        ist das Gegenstück zu einer Zeichenkette mit einfachen Anführungszeichen!
+      </p>
+
+      <p>
+        Dadurch ergeben sich folgende Änderungen im Vergleich zum Heredoc:
+      </p>
+
+      <ul>
+        <li>Der Marker wird zu Beginn von einfachen Anführungszeichen umschlossen</li>
+        <li>Der Text innerhalb eines Nowdocs wird nicht von PHP geparst</li>
+      </ul>
+
+      <p>
+        Dies wäre ein Beispiel für einen
+        <a href="http://php.net/manual/de/language.types.string.php#language.types.string.syntax.nowdoc" target="_blank" rel="noopener">Nowdoc</a>:
+      </p>
+
+      <pre class="code"><code>{{ page.code3 | xml_escape }}</code></pre>
+      
+      <p>
+        Die wesentlichen Gemeinsamkeiten von
+        <a href="http://php.net/manual/de/language.types.string.php#language.types.string.syntax.heredoc" target="_blank" rel="noopener">Heredoc</a> und
+        <a href="http://php.net/manual/de/language.types.string.php#language.types.string.syntax.nowdoc" target="_blank" rel="noopener">Nowdoc</a>
+        liegen bei den Vorschriften für die Endmarkierungen.
+        So darf der Endmarker nicht eingerückt werden und muss stets unmittelbar am Anfang einer Zeile stehen.
+        Ebenso darf die Schlussmarkierung lediglich ein
+        <a href="https://de.wikipedia.org/wiki/Zeilenumbruch" target="_blank" rel="noopener">Newline-Zeichen</a>
+        hinter sich haben und muss dementsprechend
+        eine eigene Zeile im Code einnehmen. Was die Namensgebung der Marker betrifft,
+        gelten die gleichen Regeln wie auch bei sonstigen Bezeichnern in PHP.
+        So dürfte ein Marker z.B. nicht mit einer Zahl beginnen.
+      </p>
+
+      <p>
+        Wie ihr vielleicht bereits erahnen könnt, sind dies relativ starke Einschränkungen,
+        die dafür sorgen, dass die Syntax von Heredocs und Nowdocs schnell unschöne Formen annimmt:
+      </p>
+
+      <pre class="code"><code>{{ page.code4 | xml_escape }}</code></pre>
+      
+      <h4>Heredoc und Nowdoc: Das sind die Neuerungen</h4>
+
+      <p>
+        Kommen wir nun also wieder zurück zu PHP 7.3 und den Verbesserungen,
+        welche in diesem Release für
+        <a href="https://wiki.php.net/rfc/flexible_heredoc_nowdoc_syntaxes" target="_blank" rel="noopener">Here- und Nowdocs</a>
+        eingeführt wurden.
+      </p>
+
+      <h5>1. Erlaubte Einrückung der Endmarkierung inkl. Entfernung des vorderen Whitespaces</h5>
+
+      <p>
+        Damit man nicht gezwungen ist, den Code so komisch zu formatieren,
+        ist es seit PHP 7.3 jetzt erlaubt, die Endmarkierung einzurücken.
+        Zu beachten gilt dabei, dass die Einrückung des Endmarkers darüber entscheidet,
+        wie viel Whitespace vor dem Text innerhalb des Here- bzw. Nowdocs entfernt wird.
+        Auch darf der Endmarker nicht weiter als der Inhalt eingerückt sein.
+      </p>
+
+      <p>
+        Unser Beispiel sieht mit PHP 7.3 doch schon mal deutlich besser aus:
+      </p>
+
+      <pre class="code"><code>{{ page.code5 | xml_escape }}</code></pre>
+      
+      <h5>2. Endmarkierung muss nicht mehr alleine in einer Zeile stehen</h5>
+
+      <p>
+        Um einen mit Heredoc oder Nowdoc definierten String zu beenden,
+        muss nun kein Newline-Zeichen mehr auf die Endmarkierung folgen.
+        Dies bedeutet, dass diese nicht mehr alleine eine komplette Zeile im Code in Anspruch nimmt.
+      </p>
+
+      <p>
+        Folgendes ist mit PHP 7.3 also beispielsweise möglich:
+      </p>
+
+      <pre class="code"><code>{{ page.code6 | xml_escape }}</code></pre>
+
+      <p>
+        Alles in allem sind das zwei schöne Neuerungen,
+        die den String-Syntax von Heredocs und Nowdocs ein Stück weit attraktiver machen.
+      </p>
+
+      <h3>"Trailing Commas" in Funktionsaufrufen</h3>
+
+      <p>
+        Mit der Erlaubnis sogenannte
+        <a href="https://wiki.php.net/rfc/trailing-comma-function-calls" target="_blank" rel="noopener">"Trailing Commas" in Funktionsaufrufen</a>
+        einzusetzen,
+        sorgt PHP 7.3 u.a. auch für mehr Flexibilität sowie die Verhinderung von typischen Fehlern.
+        Unter "trailing commas" versteht man die Möglichkeit, an eine Liste von Elementen,
+        Parametern oder Eigenschaften ein nachfolgendes Komma anzuhängen.
+        Dies erweist sich als besonders nützlich, wenn z.B. häufig neue Elemente zu einem Array hinzugefügt werden müssen.
+        Hängt man dabei stets ein Komma an das letzte Element an, ist es deutlich unwahrscheinlicher,
+        dass einem ein Syntax-Fehler unterläuft, weil man z.B. ein Komma vergessen hat.
+      </p>
+
+      <p>
+        Bekannt war diese Option bisher vor allen Dingen bei Arrays,
+        wo ein nachgestelltes Komma erlaubt ist und die Nutzung dieser Funktionalität
+        von manchen sogar als Empfehlung herausgegeben wird.
+      </p>
+
+      <p>
+        Das Ganze sieht dann z.B. so aus:
+      </p>
+
+      <pre class="code"><code>{{ page.code7 | xml_escape }}</code></pre>
+
+      <p>
+        Mit PHP 7.3 ist dies auch bei Funktionsaufrufen möglich.
+        Praktisch kann das vor allen Dingen bei Funktionen sein,
+        welche theoretisch unendlich viele Argumente verarbeiten können.
+      </p>
+
+      <p>
+        Ein Beispiel ist die Funktion
+        <a href="http://php.net/manual/de/function.array-merge.php" target="_blank" rel="noopener"><code>array_merge()</code></a>:
+      </p>
+
+      <pre class="code"><code>{{ page.code8 | xml_escape }}</code></pre>
+
+      <p>
+        Ähnliche Anwendungsfälle sind das Debuggen mit der Funktion
+        <a href="http://php.net/manual/de/function.var-dump.php" target="_blank" rel="noopener"><code>var_dump()</code></a>
+        oder auch die beiden Funktionen
+        <a href="http://php.net/manual/de/function.unset.php" target="_blank" rel="noopener"><code>unset()</code></a>
+        sowie <a href="http://php.net/manual/de/function.isset.php" target="_blank" rel="noopener"><code>isset()</code></a>.
+      </p>
+
+      <pre class="code"><code>{{ page.code9 | xml_escape }}</code></pre>
+
+      <p>
+        Wichtig zu erwähnen ist bei diesem Feature noch, dass es ebenfalls für Methodenaufrufe gilt.
+        Genauso sollte allerdings beachtet werden, dass eine Funktions- bzw. Methodendeklaration
+        weiterhin keine "trailing commas" erlaubt, was auch gut so ist.
+        Darüber hinaus sind auch freistehende, mehrere nachfolgende oder führende Kommata nicht zulässig.
+        Sollte eigentlich selbstverständlich sein. Zur Sicherheit erwähne ich es aber trotzdem.
+      </p>
+
+      <p>
+        Dass "trailing commas" jetzt in Funktionsaufrufen erlaubt sind,
+        halte ich auf jeden Fall für eine sinnvolle Neuerung, die ich sicher das eine oder andere Mal nutzen werde.
+      </p>
+
+      <h3>Neues Flag: <code>JSON_THROW_ON_ERROR</code></h3>
+
+      <p>
+        Einer der beliebtesten Änderungen ist sicher die Einführung einer neuen Möglichkeit, JSON-Fehler zu behandeln.
+        Diese <a href="https://wiki.php.net/rfc/json_throw_on_error" target="_blank" rel="noopener">Neuerung an der JSON-Erweiterung</a>
+        ändert nun das Verhalten bei Fehlern der Funktionen
+        <a href="http://php.net/manual/de/function.json-encode.php" target="_blank" rel="noopener"><code>json_encode()</code></a>
+        sowie <a href="http://php.net/manual/de/function.json-decode.php" target="_blank" rel="noopener"><code>json_decode()</code></a>.
+      </p>
+
+      <p>
+        Bisher war das Behandeln von Fehlern immer ein wenig umständlich und verwirrend.
+        So gibt <a href="http://php.net/manual/de/function.json-decode.php" target="_blank" rel="noopener"><code>json_decode()</code></a>
+        bei einem Fehler <code>null</code> zurück.
+        Gleichzeitig kann <code>null</code> aber auch ein valider Rückgabewert sein, wenn kein Fehler aufgetreten ist.
+      </p>
+
+      <p>
+        Folglich war man eigentlich immer gezwungen, mittels der Funktion
+        <a href="http://php.net/manual/de/function.json-last-error.php" target="_blank" rel="noopener"><code>json_last_error()</code></a> zu prüfen,
+        ob ein Fehler aufgetreten ist. Bei der Funktion
+        <a href="http://php.net/manual/de/function.json-encode.php" target="_blank" rel="noopener"><code>json_encode()</code></a>
+        sieht dies hingegen ein Stück weit besser aus,
+        da diese Funktion im Fehlerfall <code>false</code> zurückgibt.
+        Trotzdem ist das Ganze nicht ideal, da beide Funktionen weder den Programmablauf unterbrechen,
+        noch eine Warnung verursachen.
+      </p>
+
+      <p>
+        Mit PHP 7.3 wird dies endlich deutlich verbessert. Durch die
+        <a href="https://wiki.php.net/rfc/json_throw_on_error" target="_blank" rel="noopener">Einführung des neuen Flags <code>JSON_THROW_ON_ERROR</code></a>,
+        der beiden Funktionen übergeben werden kann, kann der Umgang mit Fehlern auf Wunsch verändert werden,
+        sodass die beiden Funktionen <a href="http://php.net/manual/de/function.json-decode.php" target="_blank" rel="noopener"><code>json_decode()</code></a>
+        sowie <a href="http://php.net/manual/de/function.json-encode.php" target="_blank" rel="noopener"><code>json_encode()</code></a>
+        nun eine sogenannte
+        <a href="http://php.net/manual/de/class.jsonexception.php" target="_blank" rel="noopener"><code>JsonException</code></a> werfen,
+        wenn etwas schief gehen sollte.
+        Demnach hat man mit PHP 7.3 die Möglichkeit, Fehler deutlich einfacher durch das Abfangen der
+        <a href="http://php.net/manual/de/class.jsonexception.php" target="_blank" rel="noopener"><code>JsonException</code></a> zu verarbeiten.
+      </p>
+
+      <p>
+        Ein Beispiel:
+      </p>
+
+      <pre class="code"><code>{{ page.code10 | xml_escape }}</code></pre>
+
+      <p>
+        Erwähnenswert ist vielleicht noch, dass <code>JSON_THROW_ON_ERROR</code> wirklich nur dafür sorgt,
+        dass Fehler im übergebenen <a href="https://de.wikipedia.org/wiki/JavaScript_Object_Notation" target="_blank" rel="noopener">JSON</a>-Code
+        entsprechend als <a href="http://php.net/manual/de/class.jsonexception.php" target="_blank" rel="noopener"><code>JsonException</code></a>
+        behandelt werden können. Ruft man die Funktion
+        <a href="http://php.net/manual/de/function.json-decode.php" target="_blank" rel="noopener"><code>json_decode()</code></a>
+        beispielsweise falsch auf, weil man z.B. ein Parameter falsch setzt, verursacht dies weiterhin nur Warnungen
+        oder sonstige PHP-Fehler und die Funktion gibt wie zuvor <code>null</code> zurück.
+      </p>
+
+      <p>
+        Insgesamt eine wirklich schöne Neuerung, auf die sicher viele schon gewartet haben.
+      </p>
+
+      <h3>Referenz-Zuweisung bei <code>list()</code></h3>
+
+      <p>
+        Kommen wir nun zu einer weiteren Neuerung,
+        die tendenziell wahrscheinlich wieder eine geringere Anzahl von PHP-Entwicklern betreffen wird.
+      </p>
+
+      <p>
+        Auch hier schauen wir uns erstmal an, was überhaupt mit einer Referenz-Zuweisung gemeint ist.
+      </p>
+
+      <h4>Was ist eine <a href="http://php.net/manual/de/language.references.php" target="_blank" rel="noopener">Referenz-Zuweisung</a>?</h4>
+
+      <p>
+        Eine <a href="http://php.net/manual/de/language.references.php" target="_blank" rel="noopener">Referenz-Zuweisung</a>
+        kann man im Grunde als eine spezielle Art der Zuweisung bezeichnen,
+        bei der der Wert einer Variable <code>$a</code> nicht einfach in die Variable <code>$b</code> kopiert wird.
+        Stattdessen zeigt die Variable <code>$b</code> anschließend lediglich auf <code>$a</code>
+        und hat somit stets den gleichen Inhalt wie <code>$a</code>.
+        Gekennzeichnet wird eine <a href="http://php.net/manual/de/language.references.php" target="_blank" rel="noopener">Referenz-Zuweisung</a>
+        durch ein <code>&</code>-Zeichen vor der Variable, welche referenziert werden soll.
+      </p>
+
+      <p>
+        Am besten lässt sich dies durch ein Beispiel veranschaulichen:
+      </p>
+
+      <pre class="code"><code>{{ page.code11 | xml_escape }}</code></pre>
+
+      <p>
+        Zu Beginn weisen wir der Variable <code>$a</code> den Integer-Wert <code>3</code> zu.
+        Anschließend nehmen wir eine Referenz-Zuweisung vor, sodass <code>$b</code> anschließend ein Zeiger auf die Variable <code>$a</code> darstellt.
+        Lassen wir uns den Inhalt beider Variablen anzeigen, stimmen beide Werte überein, was nicht weiter überraschend ist.
+      </p>
+
+      <p>
+        Interessant wird es, wenn wir den Wert von <code>$a</code> bzw. <code>$b</code> ändern.
+        Aufgrund der Tatsache, dass wir eine Referenz-Zuweisung vorgenommen haben,
+        werden bei einer Änderung einer Variable gleich beide Variablen geändert.
+        Dies liegt daran, dass beide Variablen auf den gleichen Speicherplatz im Arbeitsspeicher zeigen.
+        Sobald wir beispielsweise der Variable <code>$b</code> einen neuen Wert zuweisen,
+        wird im Hintergrund somit eigentlich nachgeschaut, auf welche Variable und somit auch auf welchen Speicherplatz <code>$b</code> verweist.
+        In unserem Fall ist das der Speicherplatz der Variable <code>$a</code>, welche im Anschluss geändert wird.
+        <code>$b</code> hingegen wird eigentlich nicht geändert, sondern dient lediglich als Referenz für die andere Variable und deren Speicherplatz.
+      </p>
+
+      <p>
+        Wenn ihr dieses Konzept soweit verstanden habt, können wir uns nun das
+        <a href="http://php.net/manual/de/function.list.php" target="_blank" rel="noopener"><code>list()</code>-Sprachkonstrukt</a> anschauen,
+        das in PHP 7.3 auch die
+        <a href="https://wiki.php.net/rfc/list_reference_assignment" target="_blank" rel="noopener">Referenz-Zuweisungen</a> unterstützt.
+      </p>
+
+      <h4>
+        Das Sprachkonstrukt <a href="http://php.net/manual/de/function.list.php" target="_blank" rel="noopener"><code>list()</code></a>
+        und seine <a href="https://wiki.php.net/rfc/list_reference_assignment" target="_blank" rel="noopener">Neuerungen in PHP 7.3</a>
+      </h4>
+
+      <p>
+        Das Sprachkonstrukt <a href="http://php.net/manual/de/function.list.php" target="_blank" rel="noopener"><code>list()</code></a>
+        wird im PHP-Handbuch als eine Funktionalität beschrieben,
+        welche Variablen zuweist, als wären sie ein Array.
+        Wer das auf Anhieb versteht, verdient meine Anerkennung.
+        Ich gehöre eher zu denjenigen, die zugegebenermaßen noch heute nicht wirklich verstehen,
+        was mit dieser kryptischen Definition gemeint ist.
+      </p>
+
+      <p>
+        Aus diesem Grund versuche ich es mal einfacher zu erklären:
+        Im Prinzip macht <a href="http://php.net/manual/de/function.list.php" target="_blank" rel="noopener"><code>list()</code></a>
+        nichts anderes, als die Elemente eines Arrays jeweils auf die übergebenen Variablen zu übertragen.
+      </p>
+
+      <p>
+        Hier ist ein Beispiel:
+      </p>
+
+      <pre class="code"><code>{{ page.code12 | xml_escape }}</code></pre>
+
+      <p>
+        Wie ihr euch sicher bereits denken könnt, war dies jedoch vor PHP 7.3 noch nicht mit Referenz-Zuweisungen möglich.
+        Statt umständlich jede Referenz-Zuweisung einzeln vornehmen zu müssen, ist eine Referenz-Zuweisung bestimmter
+        oder aller Elemente eines Arrays auf Variablen ab PHP 7.3 deutlich einfacher realisierbar.
+      </p>
+
+      <p>
+        Eine Gegenüberstellung der beiden Varianten:
+      </p>
+
+      <pre class="code"><code>{{ page.code13 | xml_escape }}</code></pre>
+
+      <p>
+        Die alte Version erzeugt genau das gleiche Ergebnis, ist allerdings deutlich schlechter lesbar und benötigt mehr Code.
+        Besonders bei langen Arrays würde die alte Variante sehr schnell hässliche Ausmaße annehmen.
+        PHP 7.3 führt damit also wieder eine klare Verbesserung der Syntax ein.
+      </p>
+
+      <h3>Neue Funktionen <code>is_countable()</code>, <code>array_key_first()</code>, <code>array_key_last()</code></h3>
+
+      <p>
+        PHP 7.3 hat zusätzlich auch drei komplett neue Funktionen eingeführt,
+        welche wir uns im Folgenden mal näher anschauen.
+        Die Rede ist von den Funktionen <a href="https://wiki.php.net/rfc/is-countable" target="_blank" rel="noopener"><code>is_countable()</code></a> und
+        <a href="https://wiki.php.net/rfc/array_key_first_last" target="_blank" rel="noopener"><code>array_key_first()</code> sowie <code>array_key_last()</code></a>.
+      </p>
+
+      <h4>Die Funktion <code>is_countable()</code></h4>
+
+      <p>
+        Die erste Funktion, welche in PHP 7.3 neu eingeführt wurde, ist die Funktion
+        <a href="https://wiki.php.net/rfc/is-countable" target="_blank" rel="noopener"><code>is_countable()</code></a>.
+        Wie der Name schon sagt, lässt sich mit dieser Funktion überprüfen, ob eine Variable zählbar ist.
+        Als "countable" wird ein Array oder ein Objekt, dessen Klasse das <code>Countable</code>-Interface implementiert, angesehen.
+      </p>
+
+      <p>
+        Nützlich ist die Funktion <a href="https://wiki.php.net/rfc/is-countable" target="_blank" rel="noopener"><code>is_countable()</code></a>
+        aus dem Grund, dass die Funktion
+        <a href="http://php.net/manual/de/function.count.php" target="_blank" rel="noopener"><code>count()</code></a>
+        seit PHP 7.2 eine Warnung ausspuckt,
+        wenn wir als Argument etwas übergeben, was per Definition nicht zählbar ist,
+        also nicht mit den oben genannten Kriterien korrespondiert.
+        Um diese Warnung zu verhindern, muss man streng genommen somit jede <code>count()</code>-Anweisung
+        mit einer entsprechenden <code>if</code>-Abfrage umschließen,
+        wenn man sich nicht sicher sein kann, dass etwas wirklich als zählbar akzeptiert wird.
+      </p>
+
+      <p>
+        Bisher ergab das ungefähr folgenden Code:
+      </p>
+
+      <pre class="code"><code>{{ page.code14 | xml_escape }}</code></pre>
+
+      <p>
+        Mit PHP 7.3 ist diese umständliche Abfrage jetzt Geschichte.
+        Dank der Funktion <a href="http://php.net/manual/de/function.is-countable.php" target="_blank" rel="noopener"><code>is_countable()</code></a>,
+        welche einen booleschen Wert je nach Zählbarkeit der Variable zurückgibt,
+        können wir das Ganze zumindest deutlich abkürzen.
+      </p>
+
+      <pre class="code"><code>{{ page.code15 | xml_escape }}</code></pre>
+
+      <h4>Die Funktionen <code>array_key_first()</code> sowie <code>array_key_last()</code></h4>
+
+      <p>
+        Die beiden Funktionen
+        <a href="https://wiki.php.net/rfc/array_key_first_last" target="_blank" rel="noopener"><code>array_key_first()</code> sowie <code>array_key_last()</code></a>
+        gehören ebenfalls zu den Neuerungen von PHP 7.3 und wurden als Antwort auf ein bekanntes Problem eingeführt.
+        So ist es bei Arrays, insbesondere assoziativer Art, nicht so einfach möglich, z.B. den letzten Key herauszufinden.
+        Die "beste" Lösung griff bisher meist auf die Funktionen
+        <a href="http://php.net/manual/de/function.reset.php" target="_blank" rel="noopener"><code>reset()</code></a>,
+        <a href="http://php.net/manual/de/function.end.php" target="_blank" rel="noopener"><code>end()</code></a> und
+        <a href="http://php.net/manual/de/function.key.php" target="_blank" rel="noopener"><code>key()</code></a> zurück,
+        um den internen Zeiger eines Arrays zu verschieben und anschließend den Key herauszufinden.
+      </p>
+
+      <p>
+        Das Ganze sieht dann ungefähr so aus:
+      </p>
+
+      <pre class="code"><code>{{ page.code16 | xml_escape }}</code></pre>
+
+      <p>
+        Wirklich schön ist das nicht, da man eben den internen Zeiger manipulieren muss.
+      </p>
+
+      <p>
+        Dank den beiden neuen Funktionen geht das Ganze jetzt deutlich einfacher,
+        ohne den internen Zeiger des Arrays in irgendeiner Form zu manipulieren.
+      </p>
+
+      <pre class="code"><code>{{ page.code17 | xml_escape }}</code></pre>
+
+      <p>
+        Genau nach dem gleichen Prinzip funktioniert natürlich die Funktion <code>array_key_first()</code>,
+        nur das sie eben den Key des ersten Elements eines Arrays zurückgibt.
+      </p>
+
+      <p>
+        Ganz interessant ist an dieser Stelle vielleicht noch zu erwähnen,
+        dass die beiden Funktionen <code>array_key_first()</code> sowie <code>array_key_last()</code>
+        nicht unumstritten sind. Dies zeigt sich allein schon an dem Abstimmungsergebnis von 18:14,
+        mit dem der <a href="https://wiki.php.net/rfc/array_key_first_last" target="_blank" rel="noopener">RFC</a> angenommen wurde.
+        Darüber hinaus hatte der RFC ursprünglich auch noch die Einführung der Funktionen
+        <code>array_value_first()</code> sowie <code>array_value_last()</code> vorgeschlagen.
+        Diese wurden aber leider nicht angenommen und sind somit kein Bestandteil von PHP 7.3 geworden.
+        Natürlich ist es mit den neuen
+        <a href="https://wiki.php.net/rfc/array_key_first_last" target="_blank" rel="noopener"><code>array_key</code>-Funktionen</a>
+        jetzt auch einfacher möglich, die entsprechenden Werte zu bestimmen. Trotzdem hätte ich es zwecks der Lesbarkeit bevorzugt,
+        die Funktionen <code>array_value_first()</code> bzw. <code>array_value_last()</code> zu nutzen.
+      </p>
+
+      <p>
+        Dass die zwei Funktionen kein Bestandteil von PHP sind, ist letztendlich vertretbar.
+        Immerhin besteht ja auch die Möglichkeit, das Ganze über ein kleines "Polyfill" zu lösen.
+      </p>
+
+      <pre class="code"><code>{{ page.code18 | xml_escape }}</code></pre>
+
+      <h3>Optimierungen vom Hashing-Algorithmus Argon2</h3>
+
+      <p>
+        Wenn ihr die <a href="/blog/2017/12/23/php-7_2-das-ist-neu.html">Erscheinung von PHP 7.2 sowie die damit verbundenen Neuerungen</a> verfolgt habt,
+        dürfte euch der <a href="https://de.wikipedia.org/wiki/Argon2" target="_blank" rel="noopener">Hashing-Algorithmus Argon2</a> bereits bekannt sein.
+        Er wurde vor gut einem Jahr als Alternative zu <a href="https://de.wikipedia.org/wiki/Bcrypt" target="_blank" rel="noopener">Bcrypt</a> eingeführt.
+        Mit der Konstante <code>PASSWORD_ARGON2I</code> wurde er letztlich für die <code>password_*</code>-Funktionen
+        der <a href="/blog/2018/08/18/php-password-hashing-passwoerter-richtig-hashen.html">Password Hashing API</a> zur Verfügung gestellt.
+      </p>
+
+      <p>
+        Seit der ersten Implementation in PHP wurde mittlerweile eine weitere Variante des Algorithmus entwickelt,
+        welche nun mit PHP 7.3 hinzugefügt wurde.
+      </p>
+
+      <p>
+        Die neue Konstante lautet <code>PASSWORD_ARGON2ID</code> und kann eigentlich genauso verwendet werden,
+        wie schon zuvor <code>PASSWORD_ARGON2I</code>.
+      </p>
+
+      <pre class="code"><code>{{ page.code19 | xml_escape }}</code></pre>
+
+      <p>
+        Ihr fragt euch, welchen Argon2-Algorithmus ihr jetzt nutzen solltet und wo die Unterschiede liegen?
+        Die kurze Antwort ist, dass der Algorithmus hinter der Konstante <code>PASSWORD_ARGON2ID</code>
+        jetzt als die beste Variante angesehen werden kann und dementsprechend empfohlen wird,
+        solange man sich nicht auskennt und eine qualifizierte andere Meinung pflegen kann.
+      </p>
+
+      <p>
+        Für eine etwas genauere Erläuterung, habe ich mal ein Zitat aus dem
+        <a href="https://wiki.php.net/rfc/argon2_password_hash_enhancements" target="_blank" rel="noopener">RFC</a> herausgesucht,
+        welches die Unterschiede ganz gut darlegt.
+      </p>
+
+      <blockquote cite="https://wiki.php.net/rfc/argon2_password_hash_enhancements#overview_of_argon2_and_argon2id_specific_algorithm">
+        <p lang="en">
+          Argon2 has three variants: Argon2i, Argon2d, and Argon2id.
+          Argon2d is faster and uses data-depending memory access,
+          which makes it highly resistant against GPU cracking attacks
+          and suitable for applications with no threats from side-channel timing attacks (eg. cryptocurrencies).
+          Argon2i instead uses data-independent memory access,
+          which is preferred for password hashing and password-based key derivation,
+          but it is slower as it makes more passes over the memory to protect from tradeoff attacks.
+          Argon2id is a hybrid of Argon2i and Argon2d, using a combination of data-depending
+          and data-independent memory accesses, which gives some of Argon2i's resistance
+          to side-channel cache timing attacks and much of Argon2d's resistance to GPU cracking attacks.
+        </p>
+
+        <cite>Charles R. Portwood II in <a href="https://wiki.php.net/rfc/argon2_password_hash_enhancements#overview_of_argon2_and_argon2id_specific_algorithm" target="_blank" rel="noopener">PHP RFC: Argon2 Password Hash Enhancements</a></cite>
+      </blockquote>
+
+      <h3>Deprecations: Diese Features werden bald entfernt</h3>
+
+      <p>
+        Bevor Bestandteile von PHP komplett entfernt werden und für immer verschwinden,
+        werden diese Features bzw. Funktionalitäten erstmal als veraltet markiert.
+        Mit der nächsten Hauptversion PHP 8 wird es dann spätestens zu einer Entfernung kommen.
+        In diesem Sinne sollten wir uns besser schon jetzt darum bemühen, die nachfolgend erwähnten Bestandteile von PHP nicht mehr zu nutzen.
+      </p>
+
+      <h4>Die Funktion <code>image2wbmp()</code></h4>
+
+      <p>
+        Die Funktion <code>image2wbmp()</code> kann dafür genutzt werden,
+        eine <a href="https://de.wikipedia.org/wiki/Wireless_Application_Protocol_Bitmap_Format" target="_blank" rel="noopener">WBMP</a>-Version
+        eines bestimmten Bildes zu speichern oder im Browser auszugeben.
+        Da die Funktion seit PHP 5.0 identisch mit der Funktion
+        <a href="http://php.net/manual/de/function.imagewbmp.php" target="_blank" rel="noopener"><code>imagewbmp()</code></a> ist,
+        soll letztere Funktion zukünftig als Alternative genutzt werden,
+        sodass die Funktion <code>image2wbmp()</code> dann mit PHP 8 problemlos entfernt werden kann.
+      </p>
+
+      <h4>"Case-insensitive" Konstanten</h4>
+
+      <p>
+        PHP unterstützt bisher sowohl "case-sensitive" als auch "case-insensitive" Konstanten.
+        <a href="https://de.wikipedia.org/wiki/Case_sensitivity" target="_blank" rel="noopener">Case-Sensitivität</a>
+        meint schlicht und ergreifend, ob die Groß- und Kleinschreibung beachtet wird.
+        Im Falle einer vorliegenden Case-Sensitivität würden sich die Bezeichner "FOO" und "Foo" beispielsweise unterscheiden.
+      </p>
+
+      <p>
+        Standardmäßig sind Konstanten in PHP eigentlich "case-sensitive".
+        Zusätzlich existiert die weit verbreitete Konvention,
+        dass Konstanten komplett in Großbuchstaben geschrieben werden.
+        Dennoch ist es möglich, "case-insensitive" Konstanten mit der Funktion
+        <a href="http://php.net/manual/de/function.define.php" target="_blank" rel="noopener"><code>define()</code></a> zu erzeugen,
+        indem man als dritten Parameter den Wert <code>true</code> übergibt, da dieser für die Case-Insensitivität steht.
+      </p>
+
+      <p>
+        Folgende <a href="https://wiki.php.net/rfc/case_insensitive_constant_deprecation" target="_blank" rel="noopener">Änderungen</a>
+        wurden bzw. werden also vorgenommen:
+      </p>
+
+      <ul>
+        <li>
+          Deprecation des Aufrufs der Funktion
+          <a href="http://php.net/manual/de/function.define.php" target="_blank" rel="noopener"><code>define()</code></a>
+          mit dem Wert <code>true</code> als drittes Argument (PHP 7.3)
+        </li>
+        <li>
+          Deprecation des Zugriffs auf "case-insensitive" Konstanten mit einem von der Deklaration unterschiedlichen "Casing",
+          Ausnahmen: <code>true</code>, <code>false</code>, <code>null</code> (PHP 7.3)
+        </li>
+        <li>
+          Entfernung der Möglichkeit, "case-insensitive" Konstanten zu deklarieren (PHP 8.0)
+        </li>
+        <li>
+          Umstellung der speziellen Konstanten <code>true</code>, <code>false</code> und <code>null</code> zu
+          <a href="http://php.net/manual/de/reserved.php" target="_blank" rel="noopener">reservierten Schlüsselwörtern</a> (PHP 8.0)
+        </li>
+      </ul>
+      
+      <h4>Nicht dokumentierte <a href="http://php.net/manual/de/book.mbstring.php" target="_blank" rel="noopener">mbstring</a>-Funktionsaliase</h4>
+
+      <p>
+        Es existieren zahlreiche
+        <a href="http://php.net/manual/de/book.mbstring.php" target="_blank" rel="noopener"><code>mbstring</code></a>-Funktionen,
+        welche nicht dokumentiert sind und lediglich ein Duplikat der äquivalenten Funktionen mit dem Präfix "mb_" darstellen.
+        Ein Beispiel hierfür ist die Funktion <code>mbereg()</code>, welche ein Alias von
+        <a href="http://php.net/manual/de/function.mb-ereg.php" target="_blank" rel="noopener"><code>mb_ereg()</code></a> ist.
+        Alle Funktionen dieser Art werden mit PHP 7.3 als veraltet eingestuft.
+      </p>
+
+      <h3>Migration Guide für PHP 7.3: Alle Neuerungen in der Übersicht</h3>
+
+      <p>
+        Zum Abschluss möchte ich nun noch auf den
+        <a href="http://php.net/manual/de/migration73.php" target="_blank" rel="noopener">Migration Guide für PHP 7.3</a> hinweisen.
+        Dieser beinhaltet eine komplette Übersicht über alle Änderungen,
+        welche mit PHP 7.3 eingeführt wurden.
+        Hierzu gehören <a href="http://php.net/manual/de/migration73.new-features.php" target="_blank" rel="noopener">alle neuen Features</a>,
+        <a href="http://php.net/manual/de/migration73.new-functions.php" target="_blank" rel="noopener">alle neuen Funktionen</a>,
+        <a href="http://php.net/manual/de/migration73.constants.php" target="_blank" rel="noopener">alle neuen globalen Konstanten</a>,
+        <a href="http://php.net/manual/de/migration73.incompatible.php" target="_blank" rel="noopener">die sogenannten "Backward Incompatible Changes"</a>,
+        <a href="http://php.net/manual/de/migration73.deprecated.php" target="_blank" rel="noopener">alle Deprecations</a>,
+        <a href="http://php.net/manual/de/migration73.other-changes.php" target="_blank" rel="noopener">sonstige Änderungen</a>
+        und zuletzt noch
+        <a href="http://php.net/manual/de/migration73.windows-support.php" target="_blank" rel="noopener">Änderungen bzgl. der Windows-Unterstützung</a>.
+        All das wird im Migration Guide behandelt.
+      </p>
+
+      <h3>Fazit</h3>
+
+      <p>
+        Zusammenfassend lässt sich dieses Jahr meiner Meinung nach wieder sagen,
+        dass PHP keinesfalls tot ist.
+        Stattdessen wird die PHP-7-Reihe weiterhin ordentlich weiterentwickelt,
+        sodass <a href="https://de.wikipedia.org/wiki/PHP" target="_blank" rel="noopener">PHP</a>
+        noch nie eine so performante und schöne Skriptsprache war,
+        wie sie jetzt mit dem <a href="http://php.net/archive/2018.php#id2018-12-06-1" target="_blank" rel="noopener">Release von PHP 7.3</a> darstellt.
+      </p>
+
+      <p>
+        Ich bin auf alle Fälle gespannt, was uns diesbezüglich in Zukunft noch erwartet.
+        Mit <a href="http://php.net/archive/2018.php#id2018-12-06-1" target="_blank" rel="noopener">PHP 7.3</a>
+        wurden auf alle Fälle einige Neuerungen eingeführt, die zwar keine sonderlich großen Änderungen darstellen,
+        aber dennoch PHP als Sprache mehr und mehr abrunden. Besonders freue ich mich dieses Jahr über die "trailing commas" in Funktionsaufrufen,
+        <code>JSON_THROW_ON_ERROR</code>, die drei vorgestellten neuen Funktionen sowie die Verbesserungen rund um Argon2.
+      </p>
+
+      <p>
+        Ich hoffe, ihr konntet euch einen Eindruck von PHP 7.3 machen und freut euch,
+        genauso wie ich, auf den Einsatz der neuen Features.
+      </p>
+
+      <h3>Weiterführende Links / Quellen</h3>
+
+      <ul>
+        <li><a href="https://de.wikipedia.org/wiki/PHP" target="_blank" rel="noopener">Wikipedia - PHP</a></li>
+        <li><a href="https://kinsta.com/blog/php-7-3/" target="_blank" rel="noopener">Kinsta Blog - What's New in PHP 7.3</a></li>
+      </ul>
+    </section>
+
+    {% include tags.html %}
+  </article>
+</main>
+
+<footer class="footer footer--white">
+  <div class="footer-logo-nav-container">
+    <a href="/" class="logo" title="jr-cologne.de Logo"></a>
+
+    <nav class="nav nav--footer">
+      <ul>
+        <li><a href="/">Startseite</a></li>
+        <li><a href="/portfolio.html">Portfolio</a></li>
+        <li><a href="/blog.html" class="current">Blog</a></li>
+        <li><a href="/resources.html">Ressourcen</a></li>
+      </ul>
+    </nav>
+  </div>
+
+  <nav class="nav nav--legal">
+    <ul>
+      <li><a href="/impressum.html">Impressum</a></li>
+      <li><a href="/datenschutz.html">Datenschutz</a></li>
+    </ul>
+  </nav>
+</footer>
+
+{% include code-highlighter.html %}

@@ -142,6 +142,12 @@ gulp.task('serve', () => {
   });
 });
 
+gulp.task('reload', () => {
+  return browserSync.reload({
+    stream: true
+  });
+});
+
 gulp.task('watch', () => {
   let watch = [
     src_folder + '_config.yml',
@@ -163,14 +169,15 @@ gulp.task('watch', () => {
     src_assets_folder + 'sass/**/*.sass',
     src_assets_folder + 'js/**/*.js',
     '!' + dist_folder + '**/*.*',
-    '!' + node_modules_folder + '**/*.*'
+    '!' + node_modules_folder + '**/*.*',
+    '!' + src_assets_folder + 'vendor/**/*.*'
   ];
 
   node_dependencies.forEach(dependency => {
     watch.push(node_modules_folder + dependency + '/**/*.*');
   });
 
-  gulp.watch(watch, gulp.series('build')).on('change', browserSync.reload);
+  gulp.watch(watch, gulp.series('build', 'reload'));
 });
 
 gulp.task('default', gulp.series('build', gulp.parallel('serve', 'watch')));
