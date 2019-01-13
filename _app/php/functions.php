@@ -15,7 +15,7 @@
       return ERR_HTML_START . 'Du hast nicht alle Felder ausgefüllt. Bitte versuche es nochmal!' . ERR_HTML_END;
     }
 
-    if ($spam_check != '8') {
+    if ($spam_check != getSpamCheckAnswer()) {
       return ERR_HTML_START . 'Du hast die untenstehende Frage zur Spam-Bekämpfung leider falsch beantwortet. Bitte versuche es nochmal!' . ERR_HTML_END;
     }
 
@@ -44,5 +44,13 @@
     $mail = new Mail(RECEIVER, $email, $subject, $message->getMessage());
 
     return $mail->sent;
+  }
+
+  function getSpamCheckMessage() {
+    return $_SESSION['spam_check']['message'];
+  }
+
+  function getSpamCheckAnswer() {
+    return $_SESSION['spam_check']['answer'];
   }
 ?>

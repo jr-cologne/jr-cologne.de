@@ -4,6 +4,26 @@
   const ERR_HTML_START = '<p><strong class="error">';
   const ERR_HTML_END = '</strong></p>';
 
+  // Settings for Spam Protection //
+  const SPAM_CHECKS = [
+    [
+      'message' => 'Was ist 3 + 5?',
+      'answer' => '8'
+    ],
+    [
+      'message' => 'Was ist die Zahl 3 im Binärsystem?',
+      'answer' => '11'
+    ],
+    [
+      'message' => 'Was ist die deutsche Übersetzung für das englische Wort "Hello"?',
+      'answer' => 'Hallo'
+    ],
+    [
+      'message' => 'Was ist die Domain dieser Website?',
+      'answer' => 'jr-cologne.de'
+    ],
+  ];
+
   // Settings for Error Handling //
   const ERROR_LOG_FILE = '../../../jr-cologne_errors.log';
 
