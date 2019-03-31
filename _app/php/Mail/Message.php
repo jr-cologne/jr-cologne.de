@@ -13,7 +13,7 @@
         return $text . PHP_EOL . PHP_EOL . PHP_EOL . 'Gesendet von: ' . $name;
       } else {
         return $text;
-      }  
+      }
     }
 
     public function getMessage() {

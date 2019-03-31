@@ -38,7 +38,7 @@ code1: |
    * app.php
    *
    * The main application file
-   * 
+   *
    */
 
   require_once 'vendor/autoload.php';
@@ -92,7 +92,7 @@ code3: |
 code4: |
   /**
    * Get the Crypto data
-   * 
+   *
    * @return array
    */
   protected function getDataset() : array {
@@ -102,7 +102,7 @@ code4: |
 code5: |
   /**
    * Format the Crypto data to an array of strings
-   * 
+   *
    * @throws CryptoStatusException if Crypto data is missing
    */
   protected function formatData() {
@@ -111,7 +111,7 @@ code5: |
         $data['name'] = $this->camelCase($data['name']);
         $data['price_usd'] = $this->removeTrailingZeros(number_format($data['price_usd'], 2));
         $data['price_btc'] = $this->removeTrailingZeros(number_format($data['price_btc'], 6));
-        
+
         return "#{$data['rank']} #{$data['symbol']} (#{$data['name']}): {$data['price_usd']} USD | {$data['price_btc']} BTC | {$data['percent_change_1h']}% 1h";
       }
 
@@ -122,7 +122,7 @@ code5: |
 code6: |
   /**
    * Create the Tweets with Crypto data and return them as an array
-   * 
+   *
    * @return array
    */
   protected function createTweets() : array {
@@ -155,7 +155,7 @@ code7: |
 code8: |
   /**
    * Post the specified Tweets
-   * 
+   *
    * @param array $tweets The Tweets to post
    * @return bool
    */
@@ -193,7 +193,7 @@ code8: |
 code9: |
   /**
    * Delete the specified Tweets
-   * 
+   *
    * @param array $tweet_ids The IDs of the Tweets to delete
    * @throws CryptoStatusException if Tweets could not be deleted
    */
@@ -234,7 +234,7 @@ code10: |
    * CryptoClient.php
    *
    * The client for retrieving the Crypto data from an API.
-   * 
+   *
    */
 
   namespace CryptoStatus;
@@ -246,14 +246,14 @@ code10: |
 
     /**
      * The cURL client instance
-     * 
+     *
      * @var CurlClient $curl_client
      */
     protected $curl_client;
 
     /**
      * The Crypto client options
-     * 
+     *
      * @var array $options
      */
     protected $options = [
@@ -264,7 +264,7 @@ code10: |
 
     /**
      * Constructor, initialization
-     * 
+     *
      * @param CurlClient $curl_client
      * @param array $options
      * @throws CryptoClientException if no API and/or API Endpoint is specified in options
@@ -281,7 +281,7 @@ code10: |
 
     /**
      * Get Crypto data
-     * 
+     *
      * @return array
      */
     public function getData() : array {
@@ -290,7 +290,7 @@ code10: |
 
     /**
      * Get request URL for Crypto API call
-     * 
+     *
      * @return string
      * @throws CryptoClientException if no API and/or API Endpoint is specified
      */
@@ -332,14 +332,14 @@ code12: |
 
     /**
      * The cURL handle of the current cURL session
-     * 
+     *
      * @var resource $ch
      */
     protected $ch;
 
     /**
      * The result of a performed cURL request
-     * 
+     *
      * @var mixed $result
      */
     protected $result;
@@ -353,7 +353,7 @@ code12: |
 
     /**
      * Perform a cURL request and retrieve the result
-     * 
+     *
      * @param string $url The URL for the cURL request
      * @return self
      * @throws CurlClientException if cURL request failed
@@ -374,7 +374,7 @@ code12: |
 
     /**
      * Json-decode result/return data of cURL request
-     * 
+     *
      * @param bool $array = true Return json-decoded data as array
      * @return array (default) or object
      * @throws CurlClientException if cURL return data could not be json-decoded
@@ -391,7 +391,7 @@ code12: |
 
     /**
      * Sanitize and validate URL for cURL request
-     * 
+     *
      * @param string $url The URL for the cURL request
      * @return string
      * @throws CurlClientException if an invalid URL is given
@@ -405,7 +405,7 @@ code12: |
 
       return $url;
     }
-    
+
   }
 
 code13: |
@@ -429,7 +429,7 @@ code13: |
    * TwitterClient.php
    *
    * The client for interacting with the Twitter API.
-   * 
+   *
    */
 
   namespace CryptoStatus;
@@ -442,21 +442,21 @@ code13: |
 
     /**
      * A Codebird instance (a Twitter client library for PHP)
-     * 
+     *
      * @var Codebird $client
      */
     protected $client;
 
     /**
      * The Twitter API keys
-     * 
+     *
      * @var array $api_keys
      */
     protected $api_keys;
 
     /**
      * Constructor, initialization and authentication with Twitter API
-     * 
+     *
      * @param Codebird $twitter_client A Cordbird instance
      * @throws TwitterClientException if authentication with Twitter API failed
      */
@@ -472,14 +472,14 @@ code13: |
 
     /**
      * Post a Tweet
-     * 
+     *
      * @param  array $params Parameters for Twitter API method statuses/update
      * @param  array $return Data to return from Twitter API reply
      * @return boolean (default) or array (when $return is specified)
      */
     public function postTweet(array $params, array $return = []) {
       $reply = $this->client->statuses_update($params);
-      
+
       if ($reply->httpstatus == 200) {
         if (!empty($return)) {
           foreach ($return as $value) {
@@ -497,7 +497,7 @@ code13: |
 
     /**
      * Delete a Tweet
-     * 
+     *
      * @param string $id ID of the Tweet to delete
      * @return bool
      */
@@ -513,7 +513,7 @@ code13: |
 
     /**
      * Get API keys from environment variables
-     * 
+     *
      * @return array
      * @throws TwitterClientException if Twitter API keys could not be retrieved
      */
@@ -524,7 +524,7 @@ code13: |
         'access_token' => getenv(TWITTER_API_ACCESS_TOKEN),
         'access_token_secret' => getenv(TWITTER_API_ACCESS_TOKEN_SECRET)
       ];
-      
+
       if ( empty($api_keys['consumer_key']) || empty($api_keys['consumer_secret']) || empty($api_keys['access_token']) || empty($api_keys['access_token_secret']) ) {
         throw new TwitterClientException("Could not get Twitter API Keys", 1);
       }
@@ -534,7 +534,7 @@ code13: |
 
     /**
      * Authenticate with Twitter API
-     * 
+     *
      * @return bool
      */
     protected function authenticate() : bool {
@@ -544,7 +544,7 @@ code13: |
 
       return true;
     }
-    
+
   }
 
 code14: |
@@ -568,7 +568,7 @@ code14: |
    * CryptoStatusException.php
    *
    * The Exception of the CryptoStatus class
-   * 
+   *
    */
 
   namespace CryptoStatus\Exceptions;
@@ -576,7 +576,7 @@ code14: |
   use \Exception;
 
   class CryptoStatusException extends Exception {
-    
+
   }
 
 code15: |
@@ -586,7 +586,7 @@ code15: |
 
 <header class="header">
   <a href="/" class="logo" title="jr-cologne.de Logo"></a>
-  
+
   <nav id="nav" class="nav nav--main">
     <div class="navbar">
       <a href="#" id="hamburger-button" title="Navigation">
@@ -651,7 +651,7 @@ code15: |
 
         <cite><a href="https://de.wikipedia.org/wiki/Bot" target="_blank" rel="noopener">Wikipedia - Bot</a></cite>
       </blockquote>
-        
+
       <p>
         Dies ist natürlich noch sehr allgemein formuliert und lässt sich weiter eingrenzen,
         schließlich handelt es sich bei dem Kurznachrichtendienst <a href="https://de.wikipedia.org/wiki/Twitter" target="_blank" rel="noopener">Twitter</a>
@@ -911,7 +911,7 @@ code15: |
       </p>
 
       <pre class="code"><code>{{ page.code5 | xml_escape }}</code></pre>
-    
+
       <p>
         Das Ergebnis wird einfach direkt in der Property <code>$dataset</code> gespeichert, damit keine unnötigen Parameter und Zuweisungen nötig sind.
         In dem speziellen Fall ist dies völlig in Ordnung, da es sich um eine Methode handelt, die sicher nicht für andere Anwendungsfälle verwendet wird,
@@ -1010,7 +1010,7 @@ code15: |
       </p>
 
       <pre class="code"><code>{{ page.code9 | xml_escape }}</code></pre>
-      
+
       <h4>Die Klasse <code>CryptoClient</code></h4>
 
       <p>
@@ -1245,7 +1245,7 @@ code15: |
         über <a href="https://getcomposer.org/" target="_bank" rel="noopener">Composer</a>
         die Dependencies verwaltet und daran ebenfalls erkennt, dass es sich um eine PHP-Anwendung handelt.
       </p>
-      
+
       <p>
         Als allererstes erstellt man sich also einen kostenlosen Account bei
         <a href="https://www.heroku.com/home" target="_blank" rel="noopener">Heroku</a>
