@@ -2,32 +2,6 @@
 layout: index
 title: Startseite
 
-skills:
-  - {
-      label: "Konzeption & Design",
-      value: 70
-    }
-  - {
-      label: "HTML5",
-      value: 90
-    }
-  - {
-      label: "CSS3",
-      value: 80
-    }
-  - {
-      label: "JavaScript",
-      value: 30
-    }
-  - {
-      label: "PHP7",
-      value: 80
-    }
-  - {
-      label: "SQL & Datenbanken",
-      value: 60
-    }
-
 portfolio-cards:
   - {
       title: "Webdesign JR Übungsprojekt",
@@ -123,66 +97,48 @@ resources:
   <section id="about" class="about-section">
     <h2 class="section-heading">Über mich</h2>
 
-    <div class="about-container">
-      <article class="about-text">
-        <img src="_app/assets/img/logo.svg" alt="Logo">
+    <article class="about-text">
+      <img src="_app/assets/img/logo.svg" alt="Logo">
 
-        <p>
-          Ich bin <strong>Jasper</strong>, <strong>19 Jahre alt</strong> und meine große Leidenschaft ist
-          das <strong>Entwickeln und Designen von Websites</strong>.
-          Des Weiteren würde ich mich allgemein als <strong>Web-Fanatiker</strong> bezeichnen.
-        </p>
+      <p>
+        Ich bin <strong>Jasper</strong>, <strong>19 Jahre alt</strong> und meine große Leidenschaft ist
+        das <strong>Entwickeln und Designen von Websites</strong>.
+        Des Weiteren würde ich mich allgemein als <strong>Web-Fanatiker</strong> bezeichnen.
+      </p>
 
-        <p>
-          Wenn ihr mich fragt, gibt es kaum eine bessere Erfindung als die
-          des World Wide Webs. Klar, ohne das Internet würde es das WWW
-          nicht geben, das Internet wäre nicht entstanden, wenn wir keine
-          Computer hätten und auch Computer brauchen ja leider noch Strom
-          und den ganzen sonstigen Quatsch. Somit könnte man theoretisch
-          immer weiter zurückgehen und alle Erfindungen sowie Ereignisse
-          durchgehen und ihre Wichtigkeit mit der Tatsache begründen,
-          dass ohne sie, die darauf folgenden Erfindungen und Ereignisse nie
-          gewesen wären. Letztendlich dürfte ich also den Urknall vergöttern,
-          aber da habe ich schlicht und ergreifend keine Lust zu.
-          Dementsprechend bleibe ich lieber mal beim WWW und meinetwegen
-          noch dem Computer sowie dem Internet.
-          Denn meine Begeisterung beschränkt sich schließlich auch nicht
-          nur auf das weltweite Netz, sondern ich bin naheliegenderweise
-          genauso an <strong>digitalen Themen</strong>, der <strong>IT</strong> sowie <strong>Computern mitsamt
-          Hard- und Software</strong> interessiert.
-        </p>
+      <p>
+        Wenn ihr mich fragt, gibt es kaum eine bessere Erfindung als die
+        des World Wide Webs. Klar, ohne das Internet würde es das WWW
+        nicht geben, das Internet wäre nicht entstanden, wenn wir keine
+        Computer hätten und auch Computer brauchen ja leider noch Strom
+        und den ganzen sonstigen Quatsch. Somit könnte man theoretisch
+        immer weiter zurückgehen und alle Erfindungen sowie Ereignisse
+        durchgehen und ihre Wichtigkeit mit der Tatsache begründen,
+        dass ohne sie, die darauf folgenden Erfindungen und Ereignisse nie
+        gewesen wären. Letztendlich dürfte ich also den Urknall vergöttern,
+        aber da habe ich schlicht und ergreifend keine Lust zu.
+        Dementsprechend bleibe ich lieber mal beim WWW und meinetwegen
+        noch dem Computer sowie dem Internet.
+        Denn meine Begeisterung beschränkt sich schließlich auch nicht
+        nur auf das weltweite Netz, sondern ich bin naheliegenderweise
+        genauso an <strong>digitalen Themen</strong>, der <strong>IT</strong> sowie <strong>Computern mitsamt
+        Hard- und Software</strong> interessiert.
+      </p>
 
-        <p>
-          Aber kommen wir zum Punkt: Im <strong>Herbst 2014</strong> war es soweit und
-          ich schrieb meine <strong>erste Zeile HTML-Code</strong>. Nach einer langen Reise
-          mit vielen Umwegen, aufgrund von schlechten deutschen Tutorials
-          und einem allgemein eher entspannten Lerntempo, kann ich sagen,
-          dass diese Reise vermutlich nie enden wird. Erst 2017 habe
-          ich damit begonnen, <strong>JavaScript</strong> zu lernen, nachdem ich <strong>HTML,
-          CSS und PHP</strong> hinter mich gebracht und bereits auch die ersten
-          Projekte umgesetzt habe. Ab dem <strong>Herbst 2017</strong> änderte sich
-          allerdings einiges: Von dem Zeitpunkt an, <strong>teile ich meine Fortschritte mit
-          euch</strong> und ihr habt die Möglichkeit, mich <strong>auf dieser Reise
-          zu begleiten</strong> und <strong>selbst davon zu profitieren</strong>!
-        </p>
-      </article>
-
-      <section class="skills">
-        <h3>Skills</h3>
-
-        {% for skill in page.skills %}
-
-          <div class="skill">
-            <p><strong class="skill-label">{{ skill.label }}</strong></p>
-            <div class="skill-bar">
-              <div class="skill-bar-inner skill-value-{{ skill.value }}"></div>
-            </div>
-          </div>
-
-        {% endfor %}
-
-      </section>
-    </div>
+      <p>
+        Aber kommen wir zum Punkt: Im <strong>Herbst 2014</strong> war es soweit und
+        ich schrieb meine <strong>erste Zeile HTML-Code</strong>. Nach einer langen Reise
+        mit vielen Umwegen, aufgrund von schlechten deutschen Tutorials
+        und einem allgemein eher entspannten Lerntempo, kann ich sagen,
+        dass diese Reise vermutlich nie enden wird. Erst 2017 habe
+        ich damit begonnen, <strong>JavaScript</strong> zu lernen, nachdem ich <strong>HTML,
+        CSS und PHP</strong> hinter mich gebracht und bereits auch die ersten
+        Projekte umgesetzt habe. Ab dem <strong>Herbst 2017</strong> änderte sich
+        allerdings einiges: Von dem Zeitpunkt an, <strong>teile ich meine Fortschritte mit
+        euch</strong> und ihr habt die Möglichkeit, mich <strong>auf dieser Reise
+        zu begleiten</strong> und <strong>selbst davon zu profitieren</strong>!
+      </p>
+    </article>
   </section>
 
   <section class="portfolio-section">
