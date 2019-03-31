@@ -20,7 +20,7 @@
       } else {
         $this->headers = $this->getHeaders();
       }
-      
+
       $this->sent = $this->sendMail();
     }
 

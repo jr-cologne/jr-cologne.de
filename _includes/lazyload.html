@@ -4,14 +4,16 @@
     elements[i].classList.remove('loaded');
   }
 </script>
-<!-- lazyload (https://github.com/verlok/lazyload) -->
+<!-- intersection-observer polyfill (https://github.com/w3c/IntersectionObserver/tree/master/polyfill) -->
 <script>
-  (function(w, d){
-  var b = d.getElementsByTagName('body')[0];
-  var s = d.createElement("script"); s.async = true;
-  var v = !("IntersectionObserver" in w) ? "8.17.0" : "10.19.0";
-  s.src = "/_app/assets/vendor/vanilla-lazyload/" + v + "/dist/lazyload.min.js";
-  w.lazyLoadOptions = {};
-  b.appendChild(s);
-  }(window, document));
+  if (!window.IntersectionObserver) {
+    var b = document.getElementsByTagName('body')[0];
+    var s = document.createElement("script");
+    s.async = true;
+    s.src = '/node_modules/intersection-observer/intersection-observer.js';
+    b.appendChild(s);
+  }
 </script>
+<!-- vanilla-lazyload (https://github.com/verlok/lazyload) -->
+<script src="/node_modules/vanilla-lazyload/dist/lazyload.min.js" async></script>
+<script>window.lazyLoadOptions = {};</script>
