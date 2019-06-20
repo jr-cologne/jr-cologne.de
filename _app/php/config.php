@@ -22,6 +22,14 @@
       'message' => 'Was ist die Domain dieser Website?',
       'answer' => 'jr-cologne.de'
     ],
+    [
+      'message' => 'Was ist 1 + 1 * 2?',
+      'answer' => '3'
+    ],
+    [
+      'message' => 'Was ist die Zahl 100 im Hexadezimalsystem?',
+      'answer' => '64'
+    ],
   ];
 
   // Settings for Error Handling //
