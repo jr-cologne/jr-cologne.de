@@ -3,9 +3,9 @@
  *
  * @package @jr-cologne/create-gulp-starter-kit
  * @author JR Cologne <kontakt@jr-cologne.de>
- * @copyright 2018 JR Cologne
+ * @copyright 2019 JR Cologne
  * @license https://github.com/jr-cologne/gulp-starter-kit/blob/master/LICENSE MIT
- * @version v0.4.0-alpha
+ * @version v0.10.7-beta
  * @link https://github.com/jr-cologne/gulp-starter-kit GitHub Repository
  * @link https://www.npmjs.com/package/@jr-cologne/create-gulp-starter-kit npm package site
  *
@@ -15,7 +15,7 @@
  *
  * The gulp configuration file.
  *
- * Modified for use in jr-cologne.de.
+ * Modified for use in @jr-cologne/jr-cologne.de.
  *
  */
 
@@ -24,7 +24,7 @@ const gulp                      = require('gulp'),
       plumber                   = require('gulp-plumber'),
       sass                      = require('gulp-sass'),
       autoprefixer              = require('gulp-autoprefixer'),
-      cssnano                   = require('gulp-cssnano'),
+      minifyCss                 = require('gulp-clean-css'),
       babel                     = require('gulp-babel'),
       webpack                   = require('webpack-stream'),
       uglify                    = require('gulp-uglify'),
@@ -35,7 +35,7 @@ const gulp                      = require('gulp'),
       src_folder                = './',
       src_assets_folder         = src_folder + '_app/assets/',
       dist_folder               = './_site/',
-      dist_assets_folder        = dist_folder + '_app/assets/',
+      dist_assets_folder        = dist_folder + 'assets/',
       node_modules_folder       = './node_modules/',
       dist_node_modules_folder  = dist_folder + 'node_modules/',
 
@@ -57,23 +57,16 @@ gulp.task('php', () => {
     .pipe(gulp.dest(dist_folder + '_app'));
 });
 
-gulp.task('images', () => {
-  return gulp.src([ src_assets_folder + 'img/**/*.+(png|jpg|jpeg|gif|svg|ico)' ])
-    .pipe(plumber())
-    .pipe(imagemin())
-    .pipe(gulp.dest(dist_assets_folder + 'img'))
-    .pipe(browserSync.stream());
-});
-
 gulp.task('sass', () => {
-  return gulp.src([ src_assets_folder + 'sass/pages/*.sass', src_assets_folder + 'sass/all.sass' ])
+  return gulp.src([
+    src_assets_folder + 'sass/pages/*.sass',
+    src_assets_folder + 'sass/all.sass'
+  ], { since: gulp.lastRun('sass') })
     .pipe(sourcemaps.init())
       .pipe(plumber())
       .pipe(sass())
-      .pipe(autoprefixer({
-        browsers: [ 'last 3 versions', '> 0.5%' ]
-      }))
-      .pipe(cssnano())
+      .pipe(autoprefixer())
+      .pipe(minifyCss())
     .pipe(sourcemaps.write('.'))
     .pipe(gulp.dest(dist_assets_folder + 'css'))
     .pipe(browserSync.stream());
@@ -81,31 +74,40 @@ gulp.task('sass', () => {
 
 gulp.task('css', () => {
   return gulp.src([ node_modules_folder + 'normalize.css/normalize.css' ])
-    .pipe(autoprefixer({ browsers: ['last 3 versions', '> 0.5%'] }))
-    .pipe(cssnano())
+    .pipe(autoprefixer())
+    .pipe(minifyCss())
     .pipe(gulp.dest(node_modules_folder + 'normalize.css'))
     .pipe(browserSync.stream());
 });
 
 gulp.task('js', () => {
-  return gulp.src([ src_assets_folder + 'js/**/*.js' ])
+  return gulp.src([ src_assets_folder + 'js/**/*.js' ], { since: gulp.lastRun('js') })
     .pipe(plumber())
     .pipe(webpack({
       mode: 'production'
     }))
     .pipe(sourcemaps.init())
-      .pipe(plumber())
       .pipe(babel({
         presets: [ '@babel/env' ]
       }))
       .pipe(uglify())
+    .pipe(sourcemaps.write('.'))
+    .pipe(gulp.dest(dist_assets_folder + 'js'))
+    .pipe(browserSync.stream());
+});
+
+gulp.task('images', () => {
+  return gulp.src([ src_assets_folder + 'img/**/*.+(png|jpg|jpeg|gif|svg|ico)' ], { since: gulp.lastRun('images') })
+    .pipe(plumber())
+    .pipe(imagemin())
+    .pipe(gulp.dest(dist_assets_folder + 'img'))
     .pipe(browserSync.stream());
 });
 
 gulp.task('vendor-assets', () => {
   gulp.src([ src_assets_folder + 'vendor/highlightjs/**/*.css' ], { 'base': src_assets_folder + 'vendor' })
-    .pipe(autoprefixer({ browsers: ['last 3 versions', '> 0.5%'] }))
-    .pipe(cssnano())
+    .pipe(autoprefixer())
+    .pipe(minifyCss())
     .pipe(gulp.dest(dist_assets_folder + 'vendor'));
   gulp.src([ src_assets_folder + 'vendor/highlightjs/**/*.js' ], { 'base': src_assets_folder + 'vendor' })
     .pipe(uglify())
@@ -122,28 +124,31 @@ gulp.task('vendor', () => {
     });
   }
 
-  return gulp.src(node_dependencies.map(dependency => node_modules_folder + dependency + '/**/*.*'), { base: node_modules_folder })
+  return gulp.src(node_dependencies.map(dependency => node_modules_folder + dependency + '/**/*.*'), {
+    base: node_modules_folder,
+    since: gulp.lastRun('vendor')
+  })
     .pipe(gulp.dest(dist_node_modules_folder))
     .pipe(browserSync.stream());
 });
 
-gulp.task('build', gulp.series('jekyll', 'php', 'images', 'sass', 'css', 'js', 'vendor-assets', 'vendor'));
+gulp.task('build', gulp.series('jekyll', 'php', 'sass', 'js', 'images', 'vendor-assets', 'vendor'));
 
 gulp.task('dev', gulp.series('jekyll', 'php', 'sass', 'js'));
 
 gulp.task('serve', () => {
   return browserSync.init({
     server: {
-      baseDir: [ '_site' ],
-      port: 3000
+      baseDir: [ dist_folder ]
     },
-    open: false
+    port: 3000,
+    open: false,
   });
 });
 
 gulp.task('watch', () => {
   const watchImages = [
-    src_assets_folder + 'img/**/*.+(png|jpg|jpeg|gif|svg|ico)'
+    src_assets_folder + 'images/**/*.+(png|jpg|jpeg|gif|svg|ico)'
   ];
 
   const watch = [
