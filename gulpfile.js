@@ -35,7 +35,7 @@ const gulp                      = require('gulp'),
       src_folder                = './',
       src_assets_folder         = src_folder + '_app/assets/',
       dist_folder               = './_site/',
-      dist_assets_folder        = dist_folder + 'assets/',
+      dist_assets_folder        = dist_folder + '_app/assets/',
       node_modules_folder       = './node_modules/',
       dist_node_modules_folder  = dist_folder + 'node_modules/',
 
@@ -52,16 +52,11 @@ gulp.task('jekyll', () => {
   });
 });
 
-gulp.task('php', () => {
-  return gulp.src([ src_folder + '_app/**/*.php' ])
-    .pipe(gulp.dest(dist_folder + '_app'));
-});
-
 gulp.task('sass', () => {
   return gulp.src([
     src_assets_folder + 'sass/pages/*.sass',
     src_assets_folder + 'sass/all.sass'
-  ], { since: gulp.lastRun('sass') })
+  ])
     .pipe(sourcemaps.init())
       .pipe(plumber())
       .pipe(sass())
@@ -83,13 +78,7 @@ gulp.task('css', () => {
 gulp.task('js', () => {
   return gulp.src([ src_assets_folder + 'js/**/*.js' ], { since: gulp.lastRun('js') })
     .pipe(plumber())
-    .pipe(webpack({
-      mode: 'production'
-    }))
     .pipe(sourcemaps.init())
-      .pipe(babel({
-        presets: [ '@babel/env' ]
-      }))
       .pipe(uglify())
     .pipe(sourcemaps.write('.'))
     .pipe(gulp.dest(dist_assets_folder + 'js'))
@@ -132,9 +121,9 @@ gulp.task('vendor', () => {
     .pipe(browserSync.stream());
 });
 
-gulp.task('build', gulp.series('jekyll', 'php', 'sass', 'js', 'images', 'vendor-assets', 'vendor'));
+gulp.task('build', gulp.series('jekyll', 'sass', 'js', 'images', 'vendor-assets', 'vendor'));
 
-gulp.task('dev', gulp.series('jekyll', 'php', 'sass', 'js'));
+gulp.task('dev', gulp.series('jekyll', 'sass', 'js'));
 
 gulp.task('serve', () => {
   return browserSync.init({
@@ -155,12 +144,8 @@ gulp.task('watch', () => {
     src_folder + '_config.yml',
     src_folder + '_posts/**/*.+(md|markdown|MD)',
     src_folder + '*.html',
-    src_folder + '*.php',
-    src_folder + '_app/php/**/*.php',
     src_folder + '_layouts/*.html',
     src_folder + '_includes/*.html',
-    src_folder + 'portfolio/*.html',
-    src_folder + 'tags/*.html',
     src_folder + '_posts/blog/*.html',
     src_folder + 'resources/*.html',
     src_folder + 'errors/*.html',

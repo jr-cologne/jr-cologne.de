@@ -2,7 +2,7 @@ port: 3000
 encoding: UTF-8
 title: jr-cologne.de
 email: kontakt@jr-cologne.de
-description: Du bist ebenfalls ein kleiner Web-Fanatiker und liebst es, Webseiten zu designen sowie zu entwickeln? Dann bist du bei mir genau richtig!
+description: Du bist ebenfalls ein großer Tech-Enthusiast und liebst es, Webseiten zu designen sowie zu entwickeln? Dann bist du bei mir genau richtig!
 keywords: webentwicklung,webdesign,javascript,cms,mysql,php,php7,sql,css,css3,jquery,html5,ide,content management system,programmieren,sass,js,ux design,ui,ux,ui design,php programmierung,webseiten erstellen,web,editor,internet,css tutorial,css3 tutorial,html tutorial,html5 tutorial,javascript tutorial,js tutorial,php tutorial,sql tutorial,tutorials
 baseurl: ""
 url: "https://jr-cologne.de"
@@ -21,15 +21,11 @@ exclude:
   - node_modules
   - _app
   - README.md
-  - CHANGELOG.md
-  - DESIGN.md
   - LICENSE
-  - design
   - composer.json
   - resources/article-components.html
 keep_files:
   - _app
-  - kontakt.php
   - sitemap.xml
   - node_modules
 

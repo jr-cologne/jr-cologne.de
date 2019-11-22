@@ -2,26 +2,6 @@
 layout: index
 title: Startseite
 
-portfolio-cards:
-  - {
-      title: "Webdesign JR Übungsprojekt",
-      image: { src: "https://res.cloudinary.com/jr-cologne-de/image/upload/ar_1.5,c_scale,f_auto,fl_lossy,q_auto,w_1280/webdesign-jr-uebungsprojekt.png", srcset: "https://res.cloudinary.com/jr-cologne-de/image/upload/ar_1.5,c_scale,f_auto,fl_lossy,q_auto,w_1280/webdesign-jr-uebungsprojekt.png 1280w, https://res.cloudinary.com/jr-cologne-de/image/upload/ar_1.5,c_scale,f_auto,fl_lossy,q_auto,w_1920/webdesign-jr-uebungsprojekt.png 1920w", alt: "Webdesign JR Übungsprojekt Vorschaubild" },
-      url: "portfolio/webdesign-jr-uebungsprojekt.html",
-      text: "Beim Webdesign JR Übungsprojekt geht es um die Website meiner eigenen fiktionalen Webdesign-Agentur Webdesign JR. Die erste richtige stabile Version ist im Herbst 2016 erschienen. Die zweite Version erscheint voraussichtlich Ende 2017 oder Anfang 2018, dann mit einem kompletten Redesign."
-    }
-  - {
-      title: "Login-Script",
-      image: { src: "https://res.cloudinary.com/jr-cologne-de/image/upload/ar_1.5,c_scale,f_auto,fl_lossy,q_auto,w_1280/login-script.png", srcset: "https://res.cloudinary.com/jr-cologne-de/image/upload/ar_1.5,c_scale,f_auto,fl_lossy,q_auto,w_1280/login-script.png 1280w, https://res.cloudinary.com/jr-cologne-de/image/upload/ar_1.5,c_scale,f_auto,fl_lossy,q_auto,w_1920/login-script.png 1920w", alt: "Login-Script Vorschaubild" },
-      url: "portfolio/login-script.html",
-      text: "Dieses Projekt stellt ein relativ einfach gehaltenes objektorientiertes und datenbankbasiertes Login-Script dar, das mit PHP umgesetzt wurde. So ist es ein ideales Beispiel für einen gesperrten Mitgliederbereich auf einer Website und unterstützt sogar die Anmeldung mit Google und Twitter."
-    }
-  - {
-      title: "Tic-Tac-Toe",
-      image: { src: "https://res.cloudinary.com/jr-cologne-de/image/upload/ar_1.5,c_scale,f_auto,fl_lossy,q_auto,w_1280/tic-tac-toe.png", srcset: "https://res.cloudinary.com/jr-cologne-de/image/upload/ar_1.5,c_scale,f_auto,fl_lossy,q_auto,w_1280/tic-tac-toe.png 1280w, https://res.cloudinary.com/jr-cologne-de/image/upload/ar_1.5,c_scale,f_auto,fl_lossy,q_auto,w_1920/tic-tac-toe.png 1920w", alt: "TicTacToe Vorschaubild" },
-      url: "portfolio/tic-tac-toe.html",
-      text: "Eine Runde Tic-Tac-Toe gefälligst? Es handelt sich hierbei um ein einfaches konsolenbasiertes Tic-Tac-Toe-Spiel, das ich in Java verfasst habe."
-    }
-
 article-previews:
   - {
     title: "Meine Facharbeit: Die Digitalisierung in der Arbeitswelt",
@@ -75,7 +55,6 @@ resources:
 
     <ul>
       <li><a href="/" class="current">Startseite</a></li>
-      <li><a href="portfolio.html">Portfolio</a></li>
       <li><a href="blog.html">Blog</a></li>
       <li><a href="resources.html">Ressourcen</a></li>
     </ul>
@@ -120,33 +99,6 @@ resources:
         Powered by Technology.
       </p>
     </article>
-  </section>
-
-  <section class="portfolio-section">
-    <h2 class="section-heading">Portfolio</h2>
-
-    <div class="showcase">
-
-      {% for portfolio-card in page.portfolio-cards %}
-
-        <a href="{{ portfolio-card.url }}" class="card">
-          <noscript class="loaded"><img src="{{ portfolio-card.image.src }}" srcset="{{ portfolio-card.image.srcset }}" alt="{{ portfolio-card.image.alt }}"></noscript>
-          <img data-src="{{ portfolio-card.image.src }}" data-srcset="{{ portfolio-card.image.srcset }}" alt="{{ portfolio-card.image.alt }}">
-
-          <div class="card-overlay">
-            <h3 class="card-heading">{{ portfolio-card.title }}</h3>
-
-            <p class="card-text">
-              {{ portfolio-card.text | truncatewords: 30 }}
-            </p>
-          </div>
-        </a>
-
-      {% endfor %}
-
-    </div>
-
-    <a href="portfolio.html" class="cta cta--large">Gesamtes Portfolio</a>
   </section>
 
   <section class="blog-section">
@@ -262,7 +214,6 @@ resources:
     <nav class="nav nav--footer">
       <ul>
         <li><a href="/" class="current">Startseite</a></li>
-        <li><a href="portfolio.html">Portfolio</a></li>
         <li><a href="blog.html">Blog</a></li>
         <li><a href="resources.html">Ressourcen</a></li>
       </ul>
