@@ -4,12 +4,6 @@ The source code of my [personal website](https://jr-cologne.de/).
 
 ## Requirements
 
-Production:
-
-- [PHP 7](https://www.php.net/)
-
-Development:
-
 - [Node.js](https://nodejs.org/en/)
 - [Gulp 4](https://gulpjs.com/)
 - [Ruby](https://www.ruby-lang.org/en/)
